@@ -8,12 +8,10 @@ namespace UnityPyPort
 {
     /// <summary>
     /// Generates JSON snapshots from Unity bundle files
-    /// Currently uses Python UnityPy as backend while native C# implementation is completed
+    /// Pure .NET implementation based on AssetStudio architecture
     /// </summary>
     public class SnapshotGenerator
     {
-        private static bool _usePythonBridge = true; // Toggle to use Python or native C# (when ready)
-
         public static void GenerateSnapshots(string inputPath, string outputPath)
         {
             Console.WriteLine($"📂 Input: {inputPath}");
@@ -24,33 +22,20 @@ namespace UnityPyPort
                 Directory.CreateDirectory(outputPath);
             }
 
-            if (_usePythonBridge)
+            if (File.Exists(inputPath) && inputPath.EndsWith(".hhh"))
             {
-                // Use Python UnityPy bridge for now
-                Console.WriteLine("Using Python UnityPy backend...\n");
-                var bridge = new PythonUnityPyBridge();
-                bridge.GenerateSnapshots(inputPath, outputPath);
+                ProcessBundleNative(inputPath, outputPath);
+            }
+            else if (Directory.Exists(inputPath))
+            {
+                foreach (var file in Directory.GetFiles(inputPath, "*.hhh", SearchOption.AllDirectories))
+                {
+                    ProcessBundleNative(file, outputPath);
+                }
             }
             else
             {
-                // Use native C# implementation (work in progress)
-                Console.WriteLine("Using native C# implementation...\n");
-                
-                if (File.Exists(inputPath) && inputPath.EndsWith(".hhh"))
-                {
-                    ProcessBundleNative(inputPath, outputPath);
-                }
-                else if (Directory.Exists(inputPath))
-                {
-                    foreach (var file in Directory.GetFiles(inputPath, "*.hhh", SearchOption.AllDirectories))
-                    {
-                        ProcessBundleNative(file, outputPath);
-                    }
-                }
-                else
-                {
-                    throw new ArgumentException($"Invalid input path: {inputPath}");
-                }
+                throw new ArgumentException($"Invalid input path: {inputPath}");
             }
         }
 
@@ -66,7 +51,7 @@ namespace UnityPyPort
                 Directory.CreateDirectory(outputDir);
                 Directory.CreateDirectory(Path.Combine(outputDir, "objects"));
 
-                // Load the bundle (native C# - work in progress)
+                // Load the bundle using native C#
                 var bundle = BundleFile.Load(bundlePath);
 
                 // Create manifest
@@ -79,7 +64,7 @@ namespace UnityPyPort
                     ["platform"] = "StandaloneWindows64",
                     ["header_version"] = bundle.Version,
                     ["endianness"] = "big",
-                    ["object_count"] = 0
+                    ["object_count"] = bundle.Objects.Count
                 };
 
                 var manifestPath = Path.Combine(outputDir, "manifest.json");
@@ -92,11 +77,29 @@ namespace UnityPyPort
                 Console.WriteLine($"  ✓ manifest.json");
 
                 // Create summary
+                var objectsByType = new Dictionary<string, int>();
+                var objectList = new List<object>();
+
+                foreach (var obj in bundle.Objects)
+                {
+                    var typeName = obj.TypeName;
+                    objectsByType[typeName] = objectsByType.GetValueOrDefault(typeName) + 1;
+                    
+                    objectList.Add(new Dictionary<string, object>
+                    {
+                        ["path_id"] = obj.PathId.ToString(),
+                        ["class_id"] = obj.ClassId,
+                        ["type"] = typeName,
+                        ["byte_start"] = obj.ByteStart,
+                        ["byte_size"] = obj.ByteSize
+                    });
+                }
+
                 var summary = new Dictionary<string, object>
                 {
-                    ["total_objects"] = 0,
-                    ["objects_by_type"] = new Dictionary<string, int>(),
-                    ["object_list"] = new List<object>()
+                    ["total_objects"] = bundle.Objects.Count,
+                    ["objects_by_type"] = objectsByType,
+                    ["object_list"] = objectList
                 };
 
                 var summaryPath = Path.Combine(outputDir, "summary.json");
@@ -106,11 +109,39 @@ namespace UnityPyPort
                 }));
 
                 Console.WriteLine($"  ✓ summary.json");
-                Console.WriteLine($"  ⚠️  Native implementation incomplete - no objects extracted");
+
+                // Generate individual object files
+                for (int i = 0; i < bundle.Objects.Count; i++)
+                {
+                    var obj = bundle.Objects[i];
+                    var filename = $"{i:D3}_{obj.TypeName}_{obj.PathId}.json";
+                    var filepath = Path.Combine(outputDir, "objects", filename);
+
+                    var objectData = new Dictionary<string, object>
+                    {
+                        ["metadata"] = new Dictionary<string, object>
+                        {
+                            ["path_id"] = obj.PathId.ToString(),
+                            ["class_id"] = obj.ClassId,
+                            ["type"] = obj.TypeName,
+                            ["byte_start"] = obj.ByteStart,
+                            ["byte_size"] = obj.ByteSize
+                        },
+                        ["data"] = obj.ParsedData ?? new Dictionary<string, object>()
+                    };
+
+                    File.WriteAllText(filepath, JsonSerializer.Serialize(objectData, new JsonSerializerOptions 
+                    { 
+                        WriteIndented = true 
+                    }));
+                }
+
+                Console.WriteLine($"  ✓ {bundle.Objects.Count} object snapshots");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"  ✗ Error: {ex.Message}");
+                Console.WriteLine($"     {ex.StackTrace}");
                 throw;
             }
         }
