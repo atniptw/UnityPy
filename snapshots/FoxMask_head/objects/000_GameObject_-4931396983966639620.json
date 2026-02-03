@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "path_id": -4931396983966639620,
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 92640,
+    "byte_size": 71
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": 6663196830674255858
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": 870422712498230004
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": -3547338368441217611
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "FoxMask\u72d0\u72f8\u9762\u5177",
+    "m_Tag": 0,
+    "m_IsActive": true
+  }
+}

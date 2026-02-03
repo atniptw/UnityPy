@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "path_id": 6944998368420808344,
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 141728,
+    "byte_size": 75
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": 2917884100027927450
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": -441635574716869548
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": -7670676592721914890
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "ClownNose\u5c0f\u4e11\u9f3b\u5b50",
+    "m_Tag": 0,
+    "m_IsActive": true
+  }
+}

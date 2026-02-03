@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "path_id": 1,
+    "class_id": 142,
+    "type": "AssetBundle",
+    "byte_start": 141328,
+    "byte_size": 288
+  },
+  "data": {
+    "m_Name": "clownnose_head",
+    "m_PreloadTable": [
+      {
+        "m_FileID": 1,
+        "m_PathID": 6
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -7670676592721914890
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -4850512016903265157
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -2967646223788860184
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -1301659394590126254
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -701359053784928599
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -441635574716869548
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": 2917884100027927450
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": 5670064528649717099
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": 6944998368420808344
+      }
+    ],
+    "m_Container": [
+      [
+        "assets/headdecorations/\u91cd\u547d\u540d\u54af/clownnose.prefab",
+        {
+          "preloadIndex": 0,
+          "preloadSize": 10,
+          "asset": {
+            "m_FileID": 0,
+            "m_PathID": 5670064528649717099
+          }
+        }
+      ]
+    ],
+    "m_MainAsset": {
+      "preloadIndex": 0,
+      "preloadSize": 0,
+      "asset": {
+        "m_FileID": 0,
+        "m_PathID": 0
+      }
+    },
+    "m_RuntimeCompatibility": 1,
+    "m_AssetBundleName": "clownnose_head",
+    "m_Dependencies": [],
+    "m_IsStreamedSceneAssetBundle": false,
+    "m_ExplicitDataLayout": 0,
+    "m_PathFlags": 7,
+    "m_SceneHashes": []
+  }
+}

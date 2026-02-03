@@ -1,0 +1,86 @@
+{
+  "metadata": {
+    "path_id": 1,
+    "class_id": 142,
+    "type": "AssetBundle",
+    "byte_start": 153744,
+    "byte_size": 284
+  },
+  "data": {
+    "m_Name": "froghatsmile_head",
+    "m_PreloadTable": [
+      {
+        "m_FileID": 1,
+        "m_PathID": 6
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -5840468780249516999
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -5306717682405033860
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -4850512016903265157
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -3420003013189007823
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -1311503277552510831
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -1152167145628610868
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": -866731545376216259
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": 90460348163561507
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": 3094231891151738411
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": 4105740066731656885
+      }
+    ],
+    "m_Container": [
+      [
+        "assets/fbx/froghat.prefab",
+        {
+          "preloadIndex": 0,
+          "preloadSize": 11,
+          "asset": {
+            "m_FileID": 0,
+            "m_PathID": -5306717682405033860
+          }
+        }
+      ]
+    ],
+    "m_MainAsset": {
+      "preloadIndex": 0,
+      "preloadSize": 0,
+      "asset": {
+        "m_FileID": 0,
+        "m_PathID": 0
+      }
+    },
+    "m_RuntimeCompatibility": 1,
+    "m_AssetBundleName": "froghatsmile_head",
+    "m_Dependencies": [],
+    "m_IsStreamedSceneAssetBundle": false,
+    "m_ExplicitDataLayout": 0,
+    "m_PathFlags": 7,
+    "m_SceneHashes": []
+  }
+}

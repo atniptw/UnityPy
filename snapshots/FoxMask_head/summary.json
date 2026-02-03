@@ -1,0 +1,93 @@
+{
+  "total_objects": 11,
+  "objects_by_type": {
+    "GameObject": 2,
+    "Shader": 1,
+    "MeshRenderer": 1,
+    "Material": 1,
+    "Texture2D": 1,
+    "AssetBundle": 1,
+    "MeshFilter": 1,
+    "Transform": 2,
+    "Mesh": 1
+  },
+  "object_list": [
+    {
+      "path_id": -4931396983966639620,
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 92640,
+      "byte_size": 71
+    },
+    {
+      "path_id": -4850512016903265157,
+      "class_id": 48,
+      "type": "Shader",
+      "byte_start": 92712,
+      "byte_size": 47864
+    },
+    {
+      "path_id": -4688977968484409375,
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 140576,
+      "byte_size": 35
+    },
+    {
+      "path_id": -3547338368441217611,
+      "class_id": 23,
+      "type": "MeshRenderer",
+      "byte_start": 140616,
+      "byte_size": 156
+    },
+    {
+      "path_id": -3085704780069096134,
+      "class_id": 21,
+      "type": "Material",
+      "byte_start": 140776,
+      "byte_size": 896
+    },
+    {
+      "path_id": -705741672604908484,
+      "class_id": 28,
+      "type": "Texture2D",
+      "byte_start": 141672,
+      "byte_size": 204
+    },
+    {
+      "path_id": 1,
+      "class_id": 142,
+      "type": "AssetBundle",
+      "byte_start": 141880,
+      "byte_size": 292
+    },
+    {
+      "path_id": 870422712498230004,
+      "class_id": 33,
+      "type": "MeshFilter",
+      "byte_start": 142176,
+      "byte_size": 24
+    },
+    {
+      "path_id": 6663196830674255858,
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 142200,
+      "byte_size": 68
+    },
+    {
+      "path_id": 8405418511920727910,
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 142272,
+      "byte_size": 80
+    },
+    {
+      "path_id": 9182780060665447969,
+      "class_id": 43,
+      "type": "Mesh",
+      "byte_start": 142352,
+      "byte_size": 1392
+    }
+  ]
+}

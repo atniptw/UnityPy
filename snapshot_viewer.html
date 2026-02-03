@@ -363,10 +363,12 @@
 
         // ==================== State ====================
         let bundles = {};
-        let currentBundle = null;
+        let currentBundle = { name: null };
         let selectedObject = null;
         let currentMeshes = [];
         let materialRegistry = {};  // pathId -> material color
+        let textureRegistry = {};  // pathId -> texture file path
+        let textureLoader = new THREE.TextureLoader();
         let stats = {
             objCount: 0,
             vertCount: 0,
@@ -427,13 +429,25 @@
                 return;
             }
 
-            currentBundle = bundleName;
+            currentBundle = { name: bundleName };
             await loadAndRenderBundle(bundleName);
         });
 
         async function loadAndRenderBundle(bundleName) {
             try {
                 console.log(`Loading bundle: ${bundleName}`);
+                                // Load texture index if available
+                                textureRegistry = {};
+                                try {
+                                    const texIndexResponse = await fetch(`snapshots/${bundleName}/textures_index.json`);
+                                    if (texIndexResponse.ok) {
+                                        textureRegistry = await texIndexResponse.json();
+                                        console.log(`  Loaded texture index: ${Object.keys(textureRegistry).length} textures`);
+                                    }
+                                } catch (e) {
+                                    // No texture index, that's fine
+                                }
+                
                 clearScene();
                 
                 const bundle = bundles[bundleName];
@@ -521,9 +535,15 @@
             // Build material registry from color data
             materialRegistry = {};
             for (const [pathId, matObj] of Object.entries(materials)) {
+                const matData = {};
                 if (matObj._color) {
-                    materialRegistry[pathId] = matObj._color;
-                    console.log(`  Registered material ${pathId}: RGBA(${matObj._color.r}, ${matObj._color.g}, ${matObj._color.b}, ${matObj._color.a})`);
+                    matData.color = matObj._color;
+                }
+                if (matObj._textures) {
+                    matData.textures = matObj._textures;  // {_MainTex: texture_path_id}
+                }
+                if (Object.keys(matData).length > 0) {
+                    materialRegistry[pathId] = matData;
                 }
             }
             
@@ -616,8 +636,8 @@
                 // Compute normals for better lighting
                 geometry.computeVertexNormals();
                 
-                // Determine material color
-                let materialColor = null;
+                // Determine material color and texture
+                let materialData = null;
                 
                 // Try to find material from MeshRenderer in allObjects
                 if (allObjects) {
@@ -626,12 +646,12 @@
                             // Check if this renderer uses our mesh
                             const renderer = obj.data;
                             if (renderer.m_Mesh && renderer.m_Mesh.m_PathID) {
-                                // Try to get material color
+                                // Try to get material data
                                 if (renderer.m_Materials && renderer.m_Materials.length > 0) {
                                     const matPathId = renderer.m_Materials[0].m_PathID;
                                     if (materialRegistry[matPathId]) {
-                                        materialColor = materialRegistry[matPathId];
-                                        console.log(`  Found material color for mesh: ${materialColor}`);
+                                        materialData = materialRegistry[matPathId];
+                                        console.log(`  Found material data for mesh:`, materialData);
                                         break;
                                     }
                                 }
@@ -642,22 +662,37 @@
                 
                 // Create material with color from asset or fallback to random
                 let color;
-                if (materialColor) {
-                    color = new THREE.Color(materialColor.r, materialColor.g, materialColor.b);
+                if (materialData && materialData.color) {
+                    color = new THREE.Color(materialData.color.r, materialData.color.g, materialData.color.b);
                 } else {
                     // Fallback to color-based random (use mesh name for consistency)
                     const hash = meshData.data.m_Name ? meshData.data.m_Name.charCodeAt(0) % 360 : Math.random() * 360;
                     color = new THREE.Color().setHSL(hash / 360, 0.7, 0.5);
                 }
                 
-                const material = new THREE.MeshPhongMaterial({
+                // Create material options
+                const materialOptions = {
                     color: color,
                     shininess: 100,
                     emissive: new THREE.Color(color).multiplyScalar(0.2),
                     side: THREE.DoubleSide,
                     wireframe: false,
-                    flatShading: false  // Smooth shading for better detail visibility
-                });
+                    flatShading: false
+                };
+                
+                // Try to load texture if available
+                if (materialData && materialData.textures && materialData.textures._MainTex && textureRegistry[materialData.textures._MainTex]) {
+                    const texturePath = currentBundle.name + '/' + textureRegistry[materialData.textures._MainTex];
+                    console.log(`  Loading texture: ${texturePath}`);
+                    const texture = textureLoader.load('snapshots/' + texturePath, 
+                        () => console.log(`    ✓ Texture loaded`),
+                        undefined,
+                        (err) => console.warn(`    ✗ Texture failed:`, err)
+                    );
+                    materialOptions.map = texture;
+                }
+                
+                const material = new THREE.MeshPhongMaterial(materialOptions);
                 
                 const mesh = new THREE.Mesh(geometry, material);
                 mesh.castShadow = true;

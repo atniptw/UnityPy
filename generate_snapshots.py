@@ -114,31 +114,14 @@ def extract_texture_to_png(texture_obj, output_dir: str, name: str, version: tup
         
         width = getattr(texture_data, 'm_Width', 0)
         height = getattr(texture_data, 'm_Height', 0)
-        format_val = getattr(texture_data, 'm_TextureFormat', 0)
         
         # Skip if no dimensions
         if not width or not height:
             return None
         
-        # Try to extract image data - use image_data property
-        image_data = None
-        if hasattr(texture_data, 'image_data'):
-            image_data = texture_data.image_data
-        
-        if not image_data:
-            return None
-        
-        # Parse the image using Texture2DConverter
+        # Use the built-in image property which handles .resS files automatically
         try:
-            pil_image = parse_image_data(
-                image_data,
-                width,
-                height,
-                format_val,
-                version,
-                0,  # BuildTarget
-                flip=True
-            )
+            pil_image = texture_data.image
             
             if pil_image and pil_image.size != (0, 0):
                 # Save as PNG
@@ -146,10 +129,11 @@ def extract_texture_to_png(texture_obj, output_dir: str, name: str, version: tup
                 filepath = os.path.join(output_dir, "textures", filename)
                 os.makedirs(os.path.dirname(filepath), exist_ok=True)
                 pil_image.save(filepath, "PNG")
-                print(f"      ✓ Saved texture: {filename} ({width}x{height})")
+                print(f"      ✓ {filename} ({width}x{height})")
                 return f"textures/{filename}"
         except Exception as e:
-            pass  # Silent fail for unsupported formats
+            # Silent fail for unsupported formats
+            pass
             
     except Exception as e:
         pass  # Silent fail
@@ -351,6 +335,9 @@ def generate_file_snapshots(file_path: str, output_dir: str) -> Optional[Dict[st
                 texture_map = collect_textures_from_bundle(env, output_dir, version_tuple)
             if texture_map:
                 print(f"  ✓ Extracted {len(texture_map)} textures")
+                # Write texture index
+                with open(os.path.join(output_dir, "textures_index.json"), "w") as f:
+                    json.dump(texture_map, f, indent=2)
         except Exception as e:
             print(f"  ⚠️  Could not extract textures: {e}")
         
