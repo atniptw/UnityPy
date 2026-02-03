@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnityPy Snapshot Viewer - 3D Asset Inspector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: #e0e0e0;
+            overflow: hidden;
+        }
+
+        #canvas {
+            display: block;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .controls-panel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(30, 30, 30, 0.95);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            max-width: 350px;
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #00d4ff;
+        }
+
+        .section {
+            margin-bottom: 15px;
+        }
+
+        .section-header {
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            background: #2d2d2d;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        select:hover, button:hover {
+            background: #3d3d3d;
+            border-color: #00d4ff;
+        }
+
+        button {
+            background: #0066cc;
+            border-color: #0088ff;
+            color: #fff;
+        }
+
+        button:active {
+            background: #004499;
+        }
+
+        .object-list {
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 4px;
+            max-height: 250px;
+            overflow-y: auto;
+            font-size: 12px;
+        }
+
+        .object-item {
+            padding: 6px 10px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .object-item:hover {
+            background: #333;
+        }
+
+        .object-item.selected {
+            background: #0066cc;
+            color: #fff;
+        }
+
+        .object-item-name {
+            font-weight: 500;
+        }
+
+        .object-item-type {
+            color: #888;
+            font-size: 11px;
+        }
+
+        .stats {
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: #888;
+        }
+
+        .stat-value {
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .info-message {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 3px solid #00d4ff;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            line-height: 1.4;
+            margin: 8px 0;
+        }
+
+        .viewport-info {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .viewport-info div {
+            margin: 2px 0;
+            color: #888;
+        }
+
+        .viewport-info span {
+            color: #00d4ff;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #252525;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .loading {
+            color: #ffaa00;
+        }
+
+        .error {
+            color: #ff3333;
+        }
+
+        .success {
+            color: #00dd00;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div class="controls-panel">
+        <div class="panel-title">📦 Snapshot Viewer</div>
+
+        <div class="section">
+            <div class="section-header">Bundle</div>
+            <select id="bundleSelect">
+                <option value="">-- Select Bundle --</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Objects in Bundle</div>
+            <div id="objectList" class="object-list"></div>
+        </div>
+
+        <div class="section">
+            <button id="clearBtn">Clear Scene</button>
+            <button id="fitCameraBtn">Fit to View</button>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Visualization</div>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px;">
+                <input type="checkbox" id="wireframeToggle" style="cursor: pointer; width: 16px; height: 16px;">
+                Wireframe
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px; margin-top: 8px;">
+                <input type="checkbox" id="normalsToggle" style="cursor: pointer; width: 16px; height: 16px;">
+                Show Normals
+            </label>
+        </div>
+
+        <div class="section" id="statsSection" style="display: none;">
+            <div class="section-header">Selected Object Stats</div>
+            <div class="stats" id="stats"></div>
+        </div>
+
+        <div class="section">
+            <div class="info-message">
+                💡 Select a bundle, then click objects to view. Use mouse to orbit/pan the camera.
+            </div>
+        </div>
+    </div>
+
+    <div class="viewport-info">
+        <div>Objects: <span id="objCount">0</span></div>
+        <div>Vertices: <span id="vertCount">0</span></div>
+        <div>Triangles: <span id="triCount">0</span></div>
+        <div>FPS: <span id="fps">--</span></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/helpers/VertexNormalsHelper.js"></script>
+
+    <script>
+        // ==================== Scene Setup ====================
+        const canvas = document.getElementById('canvas');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1a1a);
+        scene.fog = new THREE.Fog(0x1a1a1a, 100, 1000);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 1, 3);
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true;
+
+        // Create basic orbit controls (fallback if CDN fails)
+        let controls;
+        if (typeof THREE.OrbitControls === 'undefined') {
+            // Simple fallback camera controller
+            controls = {
+                enableDamping: true,
+                dampingFactor: 0.05,
+                autoRotate: false,
+                target: new THREE.Vector3(0, 0, 0),
+                update: function() {
+                    const direction = new THREE.Vector3().subVectors(camera.position, this.target);
+                    direction.normalize();
+                }
+            };
+            
+            let mouseDown = false, mouseX = 0, mouseY = 0;
+            canvas.addEventListener('mousedown', (e) => { mouseDown = true; mouseX = e.clientX; mouseY = e.clientY; });
+            canvas.addEventListener('mouseup', () => { mouseDown = false; });
+            canvas.addEventListener('mousemove', (e) => {
+                if (mouseDown) {
+                    const deltaX = e.clientX - mouseX;
+                    const deltaY = e.clientY - mouseY;
+                    
+                    const distance = camera.position.distanceTo(controls.target);
+                    const theta = Math.atan2(camera.position.x - controls.target.x, camera.position.z - controls.target.z);
+                    const phi = Math.acos((camera.position.y - controls.target.y) / distance);
+                    
+                    const newTheta = theta - deltaX * 0.005;
+                    const newPhi = Math.max(0.1, Math.min(Math.PI - 0.1, phi + deltaY * 0.005));
+                    
+                    camera.position.x = controls.target.x + distance * Math.sin(newPhi) * Math.sin(newTheta);
+                    camera.position.y = controls.target.y + distance * Math.cos(newPhi);
+                    camera.position.z = controls.target.z + distance * Math.sin(newPhi) * Math.cos(newTheta);
+                    camera.lookAt(controls.target);
+                    
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                }
+            });
+            
+            canvas.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const direction = new THREE.Vector3().subVectors(camera.position, controls.target);
+                const currentDistance = direction.length();
+                const zoomSpeed = Math.max(0.1, currentDistance * 0.1);
+                const newDistance = Math.max(0.5, Math.min(500, currentDistance + e.deltaY * zoomSpeed * 0.01));
+                direction.normalize();
+                direction.multiplyScalar(newDistance);
+                camera.position.copy(controls.target).add(direction);
+                camera.lookAt(controls.target);
+            }, false);
+        } else {
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+        }
+
+        // ==================== Lighting ====================
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(10, 20, 10);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 2048;
+        directionalLight.shadow.mapSize.height = 2048;
+        scene.add(directionalLight);
+
+        // ==================== Grid ====================
+        const gridHelper = new THREE.GridHelper(50, 50, 0x444444, 0x222222);
+        scene.add(gridHelper);
+        
+        // ==================== Axes Helper ====================
+        const axesHelper = new THREE.AxesHelper(1);
+        scene.add(axesHelper);
+
+        // ==================== State ====================
+        let bundles = {};
+        let currentBundle = null;
+        let selectedObject = null;
+        let currentMeshes = [];
+        let materialRegistry = {};  // pathId -> material color
+        let stats = {
+            objCount: 0,
+            vertCount: 0,
+            triCount: 0
+        };
+
+        // ==================== Load Snapshots ====================
+        async function loadBundles() {
+            try {
+                // Load bundle index
+                const indexRes = await fetch('snapshots_index.json');
+                const bundlesData = await indexRes.json();
+
+                for (const [bundleName, bundleInfo] of Object.entries(bundlesData)) {
+                    try {
+                        const manifestRes = await fetch(`snapshots/${bundleName}/manifest.json`);
+                        const manifest = await manifestRes.json();
+                        bundles[bundleName] = { manifest, objects: {} };
+
+                        // Use objects from index
+                        for (const objFile of bundleInfo.objects) {
+                            bundles[bundleName].objects[objFile] = null;
+                        }
+                    } catch (e) {
+                        console.warn(`Failed to load bundle ${bundleName}:`, e);
+                    }
+                }
+
+                populateBundleSelect();
+            } catch (e) {
+                console.error('Failed to load bundles:', e);
+                showStatus('Error loading snapshots', 'error');
+            }
+        }
+
+        function populateBundleSelect() {
+            const select = document.getElementById('bundleSelect');
+            const currentOptions = select.querySelectorAll('option').length;
+            
+            console.log('populateBundleSelect called, bundles count:', Object.keys(bundles).length);
+            
+            Object.keys(bundles).sort().forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+                console.log('Added option:', name);
+            });
+            
+            console.log('Dropdown now has', select.options.length, 'options');
+        }
+
+        // ==================== UI Updates ====================
+        document.getElementById('bundleSelect').addEventListener('change', async (e) => {
+            const bundleName = e.target.value;
+            if (!bundleName) {
+                clearScene();
+                return;
+            }
+
+            currentBundle = bundleName;
+            await loadAndRenderBundle(bundleName);
+        });
+
+        async function loadAndRenderBundle(bundleName) {
+            try {
+                console.log(`Loading bundle: ${bundleName}`);
+                clearScene();
+                
+                const bundle = bundles[bundleName];
+                const objectFiles = Object.keys(bundle.objects);
+                
+                // Load all objects in the bundle
+                const allObjects = {};
+                for (const objFile of objectFiles) {
+                    try {
+                        const response = await fetch(`snapshots/${bundleName}/objects/${objFile}`);
+                        const data = await response.json();
+                        allObjects[data.metadata.path_id] = { file: objFile, ...data };
+                    } catch (e) {
+                        console.warn(`Failed to load ${objFile}:`, e);
+                    }
+                }
+                
+                console.log(`Loaded ${Object.keys(allObjects).length} objects`);
+                
+                // Build scene from objects
+                renderBundle(allObjects);
+                fitCameraToScene();
+                updateBundleStats(allObjects);
+                
+                // Populate object list for reference
+                populateObjectListFromData(allObjects);
+            } catch (e) {
+                console.error('Failed to load bundle:', e);
+                showStatus(`Error loading bundle ${bundleName}`, 'error');
+            }
+        }
+
+        function populateObjectListFromData(allObjects) {
+            const listDiv = document.getElementById('objectList');
+            listDiv.innerHTML = '';
+            
+            Object.values(allObjects).sort((a, b) => {
+                const aFile = a.file.split('_')[0];
+                const bFile = b.file.split('_')[0];
+                return parseInt(aFile) - parseInt(bFile);
+            }).forEach(obj => {
+                const div = document.createElement('div');
+                div.className = 'object-item';
+                
+                const file = obj.file.replace('.json', '');
+                const [index, ...parts] = file.split('_');
+                const objType = obj.metadata.type;
+                const objName = obj.data.m_Name || obj.metadata.path_id;
+
+                div.innerHTML = `
+                    <div class="object-item-name">${index}. ${objType}</div>
+                    <div class="object-item-type">${objName}</div>
+                `;
+                
+                listDiv.appendChild(div);
+            });
+        }
+
+        function renderBundle(allObjects) {
+            console.log('Rendering bundle with', Object.keys(allObjects).length, 'objects');
+            
+            // Group objects by type
+            const meshes = {};
+            const gameObjects = {};
+            const materials = {};
+            const transforms = {};
+            
+            for (const [pathId, obj] of Object.entries(allObjects)) {
+                switch (obj.metadata.type) {
+                    case 'Mesh':
+                        meshes[pathId] = obj;
+                        break;
+                    case 'GameObject':
+                        gameObjects[pathId] = obj;
+                        break;
+                    case 'Material':
+                        materials[pathId] = obj;
+                        break;
+                    case 'Transform':
+                        transforms[pathId] = obj;
+                        break;
+                }
+            }
+            
+            // Build material registry from color data
+            materialRegistry = {};
+            for (const [pathId, matObj] of Object.entries(materials)) {
+                if (matObj._color) {
+                    materialRegistry[pathId] = matObj._color;
+                    console.log(`  Registered material ${pathId}: RGBA(${matObj._color.r}, ${matObj._color.g}, ${matObj._color.b}, ${matObj._color.a})`);
+                }
+            }
+            
+            console.log(`Found: ${Object.keys(meshes).length} meshes, ${Object.keys(gameObjects).length} gameobjects, ${Object.keys(materialRegistry).length} materials`);
+            
+            // Render all meshes
+            for (const [pathId, meshData] of Object.entries(meshes)) {
+                try {
+                    renderMesh(meshData, allObjects);
+                } catch (e) {
+                    console.warn(`Failed to render mesh ${pathId}:`, e);
+                }
+            }
+            
+            // If no meshes, render gameobjects
+            if (Object.keys(meshes).length === 0) {
+                for (const [pathId, goData] of Object.entries(gameObjects)) {
+                    try {
+                        renderGameObject(goData);
+                    } catch (e) {
+                        console.warn(`Failed to render gameobject ${pathId}:`, e);
+                    }
+                }
+            }
+            
+            stats.objCount = currentMeshes.length;
+            updateStatsDisplay();
+        }
+
+        // ==================== Rendering ====================
+
+        function renderMesh(meshData, allObjects) {
+            // Try to use decompressed mesh data first
+            const meshGeometry = meshData._mesh_data;
+            
+            if (!meshGeometry || !meshGeometry.vertices || meshGeometry.vertices.length === 0) {
+                console.warn('No decompressed mesh data available for:', meshData.metadata.path_id);
+                return;
+            }
+
+            const vertices = meshGeometry.vertices;  // Array of [x, y, z] coords
+            const indices = meshGeometry.indices;     // Array of triangle indices
+            
+            console.log(`Rendering mesh: ${meshData.data.m_Name}, vertices=${meshGeometry.vertex_count}, indices=${meshGeometry.index_count}`);
+
+            try {
+                // Create THREE.js geometry from decompressed data
+                const geometry = new THREE.BufferGeometry();
+                
+                // Flatten vertex array for three.js - NO SCALING, keep original data
+                const vertexArray = [];
+                for (const v of vertices) {
+                    let x, y, z;
+                    if (Array.isArray(v)) {
+                        [x, y, z] = v;
+                    } else if (typeof v === 'object' && v.x !== undefined) {
+                        x = v.x; y = v.y; z = v.z;
+                    } else {
+                        continue;
+                    }
+                    vertexArray.push(x, y, z);
+                }
+                
+                geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(vertexArray), 3));
+                
+                // Add UV coordinates if available
+                if (meshGeometry.uv0 && meshGeometry.uv0.length > 0) {
+                    const uvArray = [];
+                    for (const uv of meshGeometry.uv0) {
+                        if (Array.isArray(uv)) {
+                            uvArray.push(uv[0], uv[1]);
+                        } else if (typeof uv === 'object' && uv.x !== undefined) {
+                            uvArray.push(uv.x, uv.y);
+                        }
+                    }
+                    if (uvArray.length > 0) {
+                        geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(uvArray), 2));
+                        console.log(`  ✓ Added ${uvArray.length / 2} UV coordinates`);
+                    }
+                }
+                
+                // Set indices
+                if (indices && indices.length > 0) {
+                    geometry.setIndex(new THREE.BufferAttribute(new Uint32Array(indices), 1));
+                }
+                
+                // CRITICAL: Compute bounding box so camera fit works correctly
+                geometry.computeBoundingBox();
+                
+                // Compute normals for better lighting
+                geometry.computeVertexNormals();
+                
+                // Determine material color
+                let materialColor = null;
+                
+                // Try to find material from MeshRenderer in allObjects
+                if (allObjects) {
+                    for (const [pathId, obj] of Object.entries(allObjects)) {
+                        if (obj.metadata.type === 'MeshRenderer') {
+                            // Check if this renderer uses our mesh
+                            const renderer = obj.data;
+                            if (renderer.m_Mesh && renderer.m_Mesh.m_PathID) {
+                                // Try to get material color
+                                if (renderer.m_Materials && renderer.m_Materials.length > 0) {
+                                    const matPathId = renderer.m_Materials[0].m_PathID;
+                                    if (materialRegistry[matPathId]) {
+                                        materialColor = materialRegistry[matPathId];
+                                        console.log(`  Found material color for mesh: ${materialColor}`);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // Create material with color from asset or fallback to random
+                let color;
+                if (materialColor) {
+                    color = new THREE.Color(materialColor.r, materialColor.g, materialColor.b);
+                } else {
+                    // Fallback to color-based random (use mesh name for consistency)
+                    const hash = meshData.data.m_Name ? meshData.data.m_Name.charCodeAt(0) % 360 : Math.random() * 360;
+                    color = new THREE.Color().setHSL(hash / 360, 0.7, 0.5);
+                }
+                
+                const material = new THREE.MeshPhongMaterial({
+                    color: color,
+                    shininess: 100,
+                    emissive: new THREE.Color(color).multiplyScalar(0.2),
+                    side: THREE.DoubleSide,
+                    wireframe: false,
+                    flatShading: false  // Smooth shading for better detail visibility
+                });
+                
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                
+                // Add an edge geometry to highlight mesh structure
+                const edges = new THREE.EdgesGeometry(geometry);
+                const lineSegments = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x333333, linewidth: 0.5 }));
+                mesh.add(lineSegments);
+                
+                mesh.userData = {
+                    name: meshData.data.m_Name || `Mesh_${meshData.metadata.path_id}`,
+                    vertexCount: meshGeometry.vertex_count,
+                    indexCount: meshGeometry.index_count,
+                    triangleCount: Math.floor(meshGeometry.index_count / 3),
+                    hasUVs: !!(meshGeometry.uv0 && meshGeometry.uv0.length > 0),
+                    hasNormals: meshGeometry.has_normals,
+                    type: 'Mesh'
+                };
+                
+                console.log(`  ✓ Mesh created: ${mesh.userData.name}`);
+                console.log(`    Geometry: ${geometry.attributes.position.count} positions, ${geometry.index ? geometry.index.count : 0} indices`);
+                console.log(`    UVs: ${mesh.userData.hasUVs ? 'Yes' : 'No'}, Normals: ${mesh.userData.hasNormals ? 'Yes' : 'No'}`);
+                console.log(`    Material color: ${material.color.getHexString()}`);
+                
+                scene.add(mesh);
+                currentMeshes.push(mesh);
+                
+                console.log(`  ✓ Added to scene. Scene now has ${scene.children.length} children`);
+                console.log(`    currentMeshes array: ${currentMeshes.length} items`);
+                
+            } catch (e) {
+                console.error(`Failed to create geometry for ${meshData.data.m_Name}:`, e);
+                
+                // Fallback to bounding box visualization
+                const data = meshData.data;
+                const sm = data.m_SubMeshes ? data.m_SubMeshes[0] : {};
+                const bounds = sm.localAABB || {};
+                const center = bounds.m_Center || { x: 0, y: 0, z: 0 };
+                let extent = bounds.m_Extent || { x: 0.01, y: 0.01, z: 0.01 };
+                
+                const boxGeom = new THREE.BoxGeometry(
+                    Math.max(0.01, Math.abs(extent.x || 0) * 2),
+                    Math.max(0.01, Math.abs(extent.y || 0) * 2),
+                    Math.max(0.01, Math.abs(extent.z || 0) * 2)
+                );
+                
+                const hue = Math.random();
+                const boxMat = new THREE.MeshPhongMaterial({
+                    color: new THREE.Color().setHSL(hue, 0.7, 0.5),
+                    wireframe: true
+                });
+                
+                const fallbackMesh = new THREE.Mesh(boxGeom, boxMat);
+                fallbackMesh.position.set(center.x || 0, center.y || 0, center.z || 0);
+                scene.add(fallbackMesh);
+                currentMeshes.push(fallbackMesh);
+            }
+        }
+
+        function renderGameObject(objData) {
+            const data = objData.data;
+            const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+            const material = new THREE.MeshPhongMaterial({ 
+                color: 0xff8800,
+                emissive: 0xaa4400
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            currentMeshes.push(mesh);
+            console.log(`Rendered GameObject: ${data.m_Name || objData.metadata.path_id}`);
+        }
+
+        function renderTransform(objData) {
+            const data = objData.data;
+            const pos = data.m_LocalPosition || { x: 0, y: 0, z: 0 };
+            
+            const geometry = new THREE.SphereGeometry(0.1, 8, 8);
+            const material = new THREE.MeshPhongMaterial({ color: 0x00ffff });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(pos.x, pos.y, pos.z);
+            scene.add(mesh);
+            currentMeshes.push(mesh);
+        }
+
+        function clearScene() {
+            currentMeshes.forEach(mesh => scene.remove(mesh));
+            currentMeshes = [];
+            stats = { objCount: 0, vertCount: 0, triCount: 0 };
+            updateStatsDisplay();
+        }
+
+        function fitCameraToScene() {
+            if (currentMeshes.length === 0) {
+                // Default view
+                camera.position.set(0, 2, 5);
+                camera.near = 0.01;
+                camera.far = 1000;
+                camera.updateProjectionMatrix();
+                controls.target.set(0, 0, 0);
+                controls.update?.();
+                return;
+            }
+
+            const box = new THREE.Box3();
+            let meshCount = 0;
+            
+            for (const mesh of currentMeshes) {
+                // Ensure bounding box is computed
+                if (mesh.geometry) {
+                    if (!mesh.geometry.boundingBox) {
+                        mesh.geometry.computeBoundingBox();
+                    }
+                    box.expandByObject(mesh);
+                    meshCount++;
+                }
+            }
+
+            // If no valid meshes, use default view
+            if (meshCount === 0 || !box.min.x) {
+                console.log("No valid meshes found, using default camera");
+                camera.position.set(0, 2, 5);
+                camera.near = 0.01;
+                camera.far = 1000;
+                camera.updateProjectionMatrix();
+                controls.target.set(0, 0, 0);
+                controls.update?.();
+                return;
+            }
+
+            const size = box.getSize(new THREE.Vector3());
+            const center = box.getCenter(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            
+            // Use proper Three.js camera framing formula from the docs:
+            // Instead of scaling vertices, just adjust camera position and near/far planes
+            const halfFovY = THREE.MathUtils.degToRad(camera.fov * 0.5);
+            const distance = (maxDim / 2) / Math.tan(halfFovY);
+            
+            // Position camera with some extra padding
+            camera.position.set(
+                center.x,
+                center.y + maxDim * 0.3,
+                center.z + distance * 1.5  // 1.5x padding
+            );
+
+            // Set near/far planes proportionally to the bounding box size
+            // This allows viewing tiny objects without clipping them
+            camera.near = maxDim / 100;   // 1/100th of bounding box
+            camera.far = maxDim * 100;    // 100x the bounding box
+            
+            camera.lookAt(center);
+            camera.updateProjectionMatrix();
+            
+            controls.target = new THREE.Vector3().copy(center);
+            if (controls.update) controls.update();
+            if (controls.autoRotate !== undefined) controls.autoRotate = false;
+            
+            console.log(`Camera fit: meshes=${meshCount}, size=${maxDim.toFixed(6)}, near=${camera.near.toFixed(6)}, far=${camera.far.toFixed(2)}, cameraZ=${camera.position.z.toFixed(4)}`);
+        }
+
+        function updateStats(objData) {
+            const type = objData.metadata.type;
+            const data = objData.data;
+
+            stats.objCount = currentMeshes.length;
+
+            if (type === 'Mesh' && data.m_SubMeshes && data.m_SubMeshes.length > 0) {
+                const sm = data.m_SubMeshes[0];
+                stats.vertCount = sm.vertexCount || 0;
+                stats.triCount = Math.floor((sm.indexCount || 0) / 3);
+            }
+
+            updateStatsDisplay();
+        }
+
+        function updateBundleStats(allObjects) {
+            let totalVerts = 0;
+            let totalTris = 0;
+            let meshCount = 0;
+            
+            for (const obj of Object.values(allObjects)) {
+                if (obj.metadata.type === 'Mesh' && obj.data.m_SubMeshes) {
+                    meshCount++;
+                    for (const sm of obj.data.m_SubMeshes) {
+                        totalVerts += sm.vertexCount || 0;
+                        totalTris += Math.floor((sm.indexCount || 0) / 3);
+                    }
+                }
+            }
+            
+            stats.vertCount = totalVerts;
+            stats.triCount = totalTris;
+            updateStatsDisplay();
+            
+            // Show bundle summary
+            const statsDiv = document.getElementById('stats');
+            statsDiv.innerHTML = `
+                <div class="stat-row">
+                    <span class="stat-label">Total Objects:</span>
+                    <span class="stat-value">${Object.keys(allObjects).length}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Meshes:</span>
+                    <span class="stat-value">${meshCount}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Total Vertices:</span>
+                    <span class="stat-value">${totalVerts.toLocaleString()}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Total Triangles:</span>
+                    <span class="stat-value">${totalTris.toLocaleString()}</span>
+                </div>
+                <div style="border-top: 1px solid #444; margin-top: 8px; padding-top: 8px; margin-bottom: 0; color: #888; font-size: 11px;">
+                    💡 Meshes centered at origin. Semi-transparent to show overlap.
+                </div>
+            `;
+            
+            document.getElementById('statsSection').style.display = 'block';
+        }
+
+        function updateStatsDisplay() {
+            // Calculate live statistics from the scene
+            let objCount = 0;
+            let vertCount = 0;
+            let triCount = 0;
+            
+            currentMeshes.forEach(mesh => {
+                objCount++;
+                if (mesh.geometry && mesh.geometry.attributes.position) {
+                    vertCount += mesh.geometry.attributes.position.count;
+                }
+                if (mesh.geometry && mesh.geometry.index) {
+                    triCount += mesh.geometry.index.count / 3;
+                }
+            });
+            
+            stats.objCount = objCount;
+            stats.vertCount = vertCount;
+            stats.triCount = triCount;
+            
+            document.getElementById('objCount').textContent = stats.objCount;
+            document.getElementById('vertCount').textContent = stats.vertCount.toLocaleString();
+            document.getElementById('triCount').textContent = stats.triCount.toLocaleString();
+        }
+
+        // ==================== UI Events ====================
+        document.getElementById('clearBtn').addEventListener('click', clearScene);
+        document.getElementById('fitCameraBtn').addEventListener('click', fitCameraToScene);
+        
+        // Wireframe toggle
+        document.getElementById('wireframeToggle').addEventListener('change', (e) => {
+            const wireframe = e.target.checked;
+            currentMeshes.forEach(mesh => {
+                if (mesh.material && typeof mesh.material.wireframe !== 'undefined') {
+                    mesh.material.wireframe = wireframe;
+                }
+            });
+            console.log(`Wireframe: ${wireframe}`);
+        });
+        
+        // Normals visualization toggle
+        document.getElementById('normalsToggle').addEventListener('change', (e) => {
+            const showNormals = e.target.checked;
+            currentMeshes.forEach(mesh => {
+                if (showNormals && mesh.geometry) {
+                    // Remove existing normal helper if present
+                    if (mesh.userData.normalHelper) {
+                        scene.remove(mesh.userData.normalHelper);
+                    }
+                    
+                    // Create normal visualization
+                    const normalsHelper = new THREE.VertexNormalsHelper(mesh, 0.02);
+                    scene.add(normalsHelper);
+                    mesh.userData.normalHelper = normalsHelper;
+                } else if (mesh.userData.normalHelper) {
+                    // Remove normal helper
+                    scene.remove(mesh.userData.normalHelper);
+                    mesh.userData.normalHelper = null;
+                }
+            });
+            console.log(`Show normals: ${showNormals}`);
+        });
+
+        // ==================== Animation Loop ====================
+        let frameCount = 0;
+        let lastTime = Date.now();
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            controls.update();
+            
+            // Debug: log scene state occasionally
+            if (frameCount % 60 === 0) {
+                console.log(`[Render] Scene has ${scene.children.length} objects, camera at [${camera.position.x.toFixed(2)},${camera.position.y.toFixed(2)},${camera.position.z.toFixed(2)}]`);
+            }
+            
+            renderer.render(scene, camera);
+
+            // FPS counter
+            frameCount++;
+            const now = Date.now();
+            if (now - lastTime > 1000) {
+                document.getElementById('fps').textContent = frameCount;
+                frameCount = 0;
+                lastTime = now;
+            }
+        }
+
+        // ==================== Window Events ====================
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ==================== Helper Functions ====================
+        function showStatus(msg, type) {
+            console.log(`[${type}] ${msg}`);
+        }
+
+        // ==================== Initialization ====================
+        async function initializeApp() {
+            console.log('Starting initialization...');
+            try {
+                await loadBundles();
+                console.log('Bundles loaded successfully');
+            } catch (e) {
+                console.error('Failed to load bundles:', e);
+            }
+        }
+
+        // Ensure DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('DOM loaded, initializing...');
+                initializeApp();
+            });
+        } else {
+            console.log('DOM already ready, initializing...');
+            initializeApp();
+        }
+
+        animate();
+    </script>
+</body>
+</html>

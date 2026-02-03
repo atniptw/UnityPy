@@ -1,0 +1,92 @@
+{
+  "BambooCopter_head": {
+    "objects": [
+      "000_MeshFilter_-8403107082501273168.json",
+      "001_Animator_-8194234979324779347.json",
+      "002_GameObject_-7175832566522114417.json",
+      "003_Shader_-4850512016903265157.json",
+      "004_Mesh_-3164586831722678914.json",
+      "005_AnimatorController_-2634883155746090489.json",
+      "006_MeshRenderer_-797510951273198726.json",
+      "007_AssetBundle_1.json",
+      "008_Material_547260694816892257.json",
+      "009_Transform_2959835936093411156.json",
+      "010_AnimationClip_3036998545299196508.json",
+      "011_Transform_7061383004192045992.json",
+      "012_GameObject_7648173231481533602.json"
+    ]
+  },
+  "ClownNose_head": {
+    "objects": [
+      "000_MeshRenderer_-7670676592721914890.json",
+      "001_Shader_-4850512016903265157.json",
+      "002_Transform_-2967646223788860184.json",
+      "003_Mesh_-1301659394590126254.json",
+      "004_Material_-701359053784928599.json",
+      "005_MeshFilter_-441635574716869548.json",
+      "006_AssetBundle_1.json",
+      "007_Transform_2917884100027927450.json",
+      "008_GameObject_5670064528649717099.json",
+      "009_GameObject_6944998368420808344.json"
+    ]
+  },
+  "FoxMask_head": {
+    "objects": [
+      "000_GameObject_-4931396983966639620.json",
+      "001_Shader_-4850512016903265157.json",
+      "002_GameObject_-4688977968484409375.json",
+      "003_MeshRenderer_-3547338368441217611.json",
+      "004_Material_-3085704780069096134.json",
+      "005_Texture2D_-705741672604908484.json",
+      "006_AssetBundle_1.json",
+      "007_MeshFilter_870422712498230004.json",
+      "008_Transform_6663196830674255858.json",
+      "009_Transform_8405418511920727910.json",
+      "010_Mesh_9182780060665447969.json"
+    ]
+  },
+  "FrogHatSmile_head": {
+    "objects": [
+      "000_MeshRenderer_-5840468780249516999.json",
+      "001_GameObject_-5306717682405033860.json",
+      "002_Shader_-4850512016903265157.json",
+      "003_Transform_-3420003013189007823.json",
+      "004_MeshFilter_-1311503277552510831.json",
+      "005_Material_-1152167145628610868.json",
+      "006_Mesh_-866731545376216259.json",
+      "007_AssetBundle_1.json",
+      "008_Transform_90460348163561507.json",
+      "009_GameObject_3094231891151738411.json",
+      "010_Texture2D_4105740066731656885.json"
+    ]
+  },
+  "SamusPlushie_body": {
+    "objects": [
+      "000_GameObject_-8911878726397676121.json",
+      "001_Transform_-8369783043922299965.json",
+      "002_GameObject_-7970672078814411478.json",
+      "003_Mesh_-7319222643571898024.json",
+      "004_MeshFilter_-6555978695576037283.json",
+      "005_Texture2D_-6433940474581326577.json",
+      "006_Mesh_-6322985407796693485.json",
+      "007_MeshFilter_-5052274709044603892.json",
+      "008_Shader_-4850512016903265157.json",
+      "009_Transform_-4094191819920303616.json",
+      "010_MeshFilter_-3438676119596319185.json",
+      "011_Texture2D_-1174915201465947100.json",
+      "012_Material_-251792688462236596.json",
+      "013_AssetBundle_1.json",
+      "014_Transform_931698863719161109.json",
+      "015_GameObject_2789326070757299787.json",
+      "016_GameObject_3516231137031858875.json",
+      "017_GameObject_3731567193911154284.json",
+      "018_Transform_3733241239533050911.json",
+      "019_MeshRenderer_4528494630641327741.json",
+      "020_Transform_6034696777502009410.json",
+      "021_Material_6804256798009949189.json",
+      "022_Mesh_6863820369524365055.json",
+      "023_MeshRenderer_7086550271169815420.json",
+      "024_MeshRenderer_8819020654878444572.json"
+    ]
+  }
+}
