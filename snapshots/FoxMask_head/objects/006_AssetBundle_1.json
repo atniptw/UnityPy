@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": 1,
+    "path_id": "1",
     "class_id": 142,
     "type": "AssetBundle",
     "byte_start": 141880,
@@ -11,47 +11,47 @@
     "m_PreloadTable": [
       {
         "m_FileID": 1,
-        "m_PathID": 6
+        "m_PathID": "6"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -4931396983966639620
+        "m_PathID": "-4931396983966639620"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -4850512016903265157
+        "m_PathID": "-4850512016903265157"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -4688977968484409375
+        "m_PathID": "-4688977968484409375"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -3547338368441217611
+        "m_PathID": "-3547338368441217611"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -3085704780069096134
+        "m_PathID": "-3085704780069096134"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -705741672604908484
+        "m_PathID": "-705741672604908484"
       },
       {
         "m_FileID": 0,
-        "m_PathID": 870422712498230004
+        "m_PathID": "870422712498230004"
       },
       {
         "m_FileID": 0,
-        "m_PathID": 6663196830674255858
+        "m_PathID": "6663196830674255858"
       },
       {
         "m_FileID": 0,
-        "m_PathID": 8405418511920727910
+        "m_PathID": "8405418511920727910"
       },
       {
         "m_FileID": 0,
-        "m_PathID": 9182780060665447969
+        "m_PathID": "9182780060665447969"
       }
     ],
     "m_Container": [
@@ -62,7 +62,7 @@
           "preloadSize": 11,
           "asset": {
             "m_FileID": 0,
-            "m_PathID": -4688977968484409375
+            "m_PathID": "-4688977968484409375"
           }
         }
       ]
@@ -72,13 +72,13 @@
       "preloadSize": 0,
       "asset": {
         "m_FileID": 0,
-        "m_PathID": 0
+        "m_PathID": "0"
       }
     },
     "m_RuntimeCompatibility": 1,
     "m_AssetBundleName": "foxmask_head",
     "m_Dependencies": [],
-    "m_IsStreamedSceneAssetBundle": false,
+    "m_IsStreamedSceneAssetBundle": 0,
     "m_ExplicitDataLayout": 0,
     "m_PathFlags": 7,
     "m_SceneHashes": []

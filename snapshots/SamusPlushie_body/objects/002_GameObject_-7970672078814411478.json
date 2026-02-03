@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": -7970672078814411478,
+    "path_id": "-7970672078814411478",
     "class_id": 1,
     "type": "GameObject",
     "byte_start": 98808,
@@ -11,25 +11,25 @@
       {
         "component": {
           "m_FileID": 0,
-          "m_PathID": 3733241239533050911
+          "m_PathID": "3733241239533050911"
         }
       },
       {
         "component": {
           "m_FileID": 0,
-          "m_PathID": -5052274709044603892
+          "m_PathID": "-5052274709044603892"
         }
       },
       {
         "component": {
           "m_FileID": 0,
-          "m_PathID": 7086550271169815420
+          "m_PathID": "7086550271169815420"
         }
       }
     ],
     "m_Layer": 0,
     "m_Name": "NurbsPath.008",
     "m_Tag": 0,
-    "m_IsActive": true
+    "m_IsActive": 1
   }
 }

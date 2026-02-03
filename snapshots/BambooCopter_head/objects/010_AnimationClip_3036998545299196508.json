@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": 3036998545299196508,
+    "path_id": "3036998545299196508",
     "class_id": 74,
     "type": "AnimationClip",
     "byte_start": 173784,
@@ -8,9 +8,9 @@
   },
   "data": {
     "m_Name": "\u7af9\u873b\u8713\u52a8\u753b",
-    "m_Legacy": false,
-    "m_Compressed": false,
-    "m_UseHighQualityCurve": true,
+    "m_Legacy": 0,
+    "m_Compressed": 0,
+    "m_UseHighQualityCurve": 1,
     "m_RotationCurves": [],
     "m_CompressedRotationCurves": [],
     "m_EulerCurves": [],
@@ -807,17 +807,17 @@
         }
       ],
       "m_ValueArrayReferencePose": [],
-      "m_Mirror": false,
-      "m_LoopTime": true,
-      "m_LoopBlend": false,
-      "m_LoopBlendOrientation": false,
-      "m_LoopBlendPositionY": false,
-      "m_LoopBlendPositionXZ": false,
-      "m_StartAtOrigin": true,
-      "m_KeepOriginalOrientation": false,
-      "m_KeepOriginalPositionY": true,
-      "m_KeepOriginalPositionXZ": false,
-      "m_HeightFromFeet": false
+      "m_Mirror": 0,
+      "m_LoopTime": 1,
+      "m_LoopBlend": 0,
+      "m_LoopBlendOrientation": 0,
+      "m_LoopBlendPositionY": 0,
+      "m_LoopBlendPositionXZ": 0,
+      "m_StartAtOrigin": 1,
+      "m_KeepOriginalOrientation": 0,
+      "m_KeepOriginalPositionY": 1,
+      "m_KeepOriginalPositionXZ": 0,
+      "m_HeightFromFeet": 0
     },
     "m_ClipBindingConstant": {
       "genericBindings": [
@@ -826,7 +826,7 @@
           "attribute": 4,
           "script": {
             "m_FileID": 0,
-            "m_PathID": 0
+            "m_PathID": "0"
           },
           "typeID": 4,
           "customType": 4,
@@ -835,8 +835,8 @@
       ],
       "pptrCurveMapping": []
     },
-    "m_HasGenericRootTransform": true,
-    "m_HasMotionFloatCurves": false,
+    "m_HasGenericRootTransform": 1,
+    "m_HasMotionFloatCurves": 0,
     "m_Events": []
   }
 }

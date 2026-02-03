@@ -13,77 +13,77 @@
   },
   "object_list": [
     {
-      "path_id": -5840468780249516999,
+      "path_id": "-5840468780249516999",
       "class_id": 23,
       "type": "MeshRenderer",
       "byte_start": 98336,
       "byte_size": 156
     },
     {
-      "path_id": -5306717682405033860,
+      "path_id": "-5306717682405033860",
       "class_id": 1,
       "type": "GameObject",
       "byte_start": 98496,
       "byte_size": 35
     },
     {
-      "path_id": -4850512016903265157,
+      "path_id": "-4850512016903265157",
       "class_id": 48,
       "type": "Shader",
       "byte_start": 98536,
       "byte_size": 49372
     },
     {
-      "path_id": -3420003013189007823,
+      "path_id": "-3420003013189007823",
       "class_id": 4,
       "type": "Transform",
       "byte_start": 147912,
       "byte_size": 80
     },
     {
-      "path_id": -1311503277552510831,
+      "path_id": "-1311503277552510831",
       "class_id": 33,
       "type": "MeshFilter",
       "byte_start": 147992,
       "byte_size": 24
     },
     {
-      "path_id": -1152167145628610868,
+      "path_id": "-1152167145628610868",
       "class_id": 21,
       "type": "Material",
       "byte_start": 148016,
       "byte_size": 916
     },
     {
-      "path_id": -866731545376216259,
+      "path_id": "-866731545376216259",
       "class_id": 43,
       "type": "Mesh",
       "byte_start": 148936,
       "byte_size": 4808
     },
     {
-      "path_id": 1,
+      "path_id": "1",
       "class_id": 142,
       "type": "AssetBundle",
       "byte_start": 153744,
       "byte_size": 284
     },
     {
-      "path_id": 90460348163561507,
+      "path_id": "90460348163561507",
       "class_id": 4,
       "type": "Transform",
       "byte_start": 154032,
       "byte_size": 68
     },
     {
-      "path_id": 3094231891151738411,
+      "path_id": "3094231891151738411",
       "class_id": 1,
       "type": "GameObject",
       "byte_start": 154104,
       "byte_size": 59
     },
     {
-      "path_id": 4105740066731656885,
+      "path_id": "4105740066731656885",
       "class_id": 28,
       "type": "Texture2D",
       "byte_start": 154168,

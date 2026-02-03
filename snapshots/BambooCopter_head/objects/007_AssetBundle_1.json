@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": 1,
+    "path_id": "1",
     "class_id": 142,
     "type": "AssetBundle",
     "byte_start": 172464,
@@ -11,55 +11,55 @@
     "m_PreloadTable": [
       {
         "m_FileID": 1,
-        "m_PathID": 6
+        "m_PathID": "6"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -8403107082501273168
+        "m_PathID": "-8403107082501273168"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -8194234979324779347
+        "m_PathID": "-8194234979324779347"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -7175832566522114417
+        "m_PathID": "-7175832566522114417"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -4850512016903265157
+        "m_PathID": "-4850512016903265157"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -3164586831722678914
+        "m_PathID": "-3164586831722678914"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -2634883155746090489
+        "m_PathID": "-2634883155746090489"
       },
       {
         "m_FileID": 0,
-        "m_PathID": -797510951273198726
+        "m_PathID": "-797510951273198726"
       },
       {
         "m_FileID": 0,
-        "m_PathID": 547260694816892257
+        "m_PathID": "547260694816892257"
       },
       {
         "m_FileID": 0,
-        "m_PathID": 2959835936093411156
+        "m_PathID": "2959835936093411156"
       },
       {
         "m_FileID": 0,
-        "m_PathID": 3036998545299196508
+        "m_PathID": "3036998545299196508"
       },
       {
         "m_FileID": 0,
-        "m_PathID": 7061383004192045992
+        "m_PathID": "7061383004192045992"
       },
       {
         "m_FileID": 0,
-        "m_PathID": 7648173231481533602
+        "m_PathID": "7648173231481533602"
       }
     ],
     "m_Container": [
@@ -70,7 +70,7 @@
           "preloadSize": 13,
           "asset": {
             "m_FileID": 0,
-            "m_PathID": 7648173231481533602
+            "m_PathID": "7648173231481533602"
           }
         }
       ]
@@ -80,13 +80,13 @@
       "preloadSize": 0,
       "asset": {
         "m_FileID": 0,
-        "m_PathID": 0
+        "m_PathID": "0"
       }
     },
     "m_RuntimeCompatibility": 1,
     "m_AssetBundleName": "bamboocopter_head",
     "m_Dependencies": [],
-    "m_IsStreamedSceneAssetBundle": false,
+    "m_IsStreamedSceneAssetBundle": 0,
     "m_ExplicitDataLayout": 0,
     "m_PathFlags": 7,
     "m_SceneHashes": []

@@ -12,70 +12,70 @@
   },
   "object_list": [
     {
-      "path_id": -7670676592721914890,
+      "path_id": "-7670676592721914890",
       "class_id": 23,
       "type": "MeshRenderer",
       "byte_start": 90704,
       "byte_size": 156
     },
     {
-      "path_id": -4850512016903265157,
+      "path_id": "-4850512016903265157",
       "class_id": 48,
       "type": "Shader",
       "byte_start": 90864,
       "byte_size": 47864
     },
     {
-      "path_id": -2967646223788860184,
+      "path_id": "-2967646223788860184",
       "class_id": 4,
       "type": "Transform",
       "byte_start": 138728,
       "byte_size": 80
     },
     {
-      "path_id": -1301659394590126254,
+      "path_id": "-1301659394590126254",
       "class_id": 43,
       "type": "Mesh",
       "byte_start": 138808,
       "byte_size": 1588
     },
     {
-      "path_id": -701359053784928599,
+      "path_id": "-701359053784928599",
       "class_id": 21,
       "type": "Material",
       "byte_start": 140400,
       "byte_size": 900
     },
     {
-      "path_id": -441635574716869548,
+      "path_id": "-441635574716869548",
       "class_id": 33,
       "type": "MeshFilter",
       "byte_start": 141304,
       "byte_size": 24
     },
     {
-      "path_id": 1,
+      "path_id": "1",
       "class_id": 142,
       "type": "AssetBundle",
       "byte_start": 141328,
       "byte_size": 288
     },
     {
-      "path_id": 2917884100027927450,
+      "path_id": "2917884100027927450",
       "class_id": 4,
       "type": "Transform",
       "byte_start": 141616,
       "byte_size": 68
     },
     {
-      "path_id": 5670064528649717099,
+      "path_id": "5670064528649717099",
       "class_id": 1,
       "type": "GameObject",
       "byte_start": 141688,
       "byte_size": 39
     },
     {
-      "path_id": 6944998368420808344,
+      "path_id": "6944998368420808344",
       "class_id": 1,
       "type": "GameObject",
       "byte_start": 141728,

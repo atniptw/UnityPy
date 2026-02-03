@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": -5306717682405033860,
+    "path_id": "-5306717682405033860",
     "class_id": 1,
     "type": "GameObject",
     "byte_start": 98496,
@@ -11,13 +11,13 @@
       {
         "component": {
           "m_FileID": 0,
-          "m_PathID": -3420003013189007823
+          "m_PathID": "-3420003013189007823"
         }
       }
     ],
     "m_Layer": 0,
     "m_Name": "FrogHat",
     "m_Tag": 0,
-    "m_IsActive": true
+    "m_IsActive": 1
   }
 }

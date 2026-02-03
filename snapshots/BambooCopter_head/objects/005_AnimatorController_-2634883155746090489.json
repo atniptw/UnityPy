@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": -2634883155746090489,
+    "path_id": "-2634883155746090489",
     "class_id": 91,
     "type": "AnimatorController",
     "byte_start": 171864,
@@ -28,8 +28,8 @@
             "m_Binding": 756556552,
             "(int&)m_LayerBlendingMode": 0,
             "m_DefaultWeight": 0.0,
-            "m_IKPass": false,
-            "m_SyncedLayerAffectsTiming": false
+            "m_IKPass": 0,
+            "m_SyncedLayerAffectsTiming": 0
           }
         }
       ],
@@ -70,13 +70,13 @@
                               "m_BlendDirectData": {
                                 "data": {
                                   "m_ChildBlendEventIDArray": [],
-                                  "m_NormalizedBlendValues": false
+                                  "m_NormalizedBlendValues": 0
                                 }
                               },
                               "m_ClipID": 0,
                               "m_Duration": 1.0,
                               "m_CycleOffset": 0.0,
-                              "m_Mirror": false
+                              "m_Mirror": 0
                             }
                           }
                         ]
@@ -84,7 +84,7 @@
                     }
                   ],
                   "m_NameID": 2106765266,
-                  "m_PathID": 978692303,
+                  "m_PathID": "978692303",
                   "m_FullPathID": 978692303,
                   "m_TagID": 0,
                   "m_SpeedParamID": 0,
@@ -93,10 +93,10 @@
                   "m_TimeParamID": 0,
                   "m_Speed": 1.0,
                   "m_CycleOffset": 0.0,
-                  "m_IKOnFeet": false,
-                  "m_WriteDefaultValues": true,
-                  "m_Loop": true,
-                  "m_Mirror": false
+                  "m_IKOnFeet": 0,
+                  "m_WriteDefaultValues": 1,
+                  "m_Loop": 1,
+                  "m_Mirror": 0
                 }
               }
             ],
@@ -113,7 +113,7 @@
                     }
                   ],
                   "m_FullPathID": 756556552,
-                  "m_IsEntry": true
+                  "m_IsEntry": 1
                 }
               },
               {
@@ -127,7 +127,7 @@
                     }
                   ],
                   "m_FullPathID": 756556552,
-                  "m_IsEntry": false
+                  "m_IsEntry": 0
                 }
               }
             ],
@@ -177,7 +177,7 @@
     "m_AnimationClips": [
       {
         "m_FileID": 0,
-        "m_PathID": 3036998545299196508
+        "m_PathID": "3036998545299196508"
       }
     ],
     "m_StateMachineBehaviourVectorDescription": {
@@ -185,6 +185,6 @@
       "m_StateMachineBehaviourIndices": []
     },
     "m_StateMachineBehaviours": [],
-    "m_MultiThreadedStateMachine": true
+    "m_MultiThreadedStateMachine": 1
   }
 }

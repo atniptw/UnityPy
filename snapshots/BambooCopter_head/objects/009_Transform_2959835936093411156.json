@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": 2959835936093411156,
+    "path_id": "2959835936093411156",
     "class_id": 4,
     "type": "Transform",
     "byte_start": 173712,
@@ -9,7 +9,7 @@
   "data": {
     "m_GameObject": {
       "m_FileID": 0,
-      "m_PathID": -7175832566522114417
+      "m_PathID": "-7175832566522114417"
     },
     "m_LocalRotation": {
       "x": -0.7067319750785828,
@@ -30,7 +30,7 @@
     "m_Children": [],
     "m_Father": {
       "m_FileID": 0,
-      "m_PathID": 7061383004192045992
+      "m_PathID": "7061383004192045992"
     }
   }
 }

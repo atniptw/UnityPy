@@ -26,6 +26,23 @@ from UnityPy.helpers.MeshHelper import MeshHandler
 from UnityPy.export.Texture2DConverter import parse_image_data
 
 
+def convert_pathids_to_strings(obj: Any) -> Any:
+    """Recursively convert all m_PathID/path_id values to strings to preserve JS precision."""
+    if isinstance(obj, dict):
+        result = {}
+        for key, value in obj.items():
+            # Convert PathID-like keys to strings
+            if key in {"path_id", "m_PathID", "m_PathId", "pathID", "PathID"} and isinstance(value, int):
+                result[key] = str(value)
+            else:
+                result[key] = convert_pathids_to_strings(value)
+        return result
+    elif isinstance(obj, list):
+        return [convert_pathids_to_strings(item) for item in obj]
+    else:
+        return obj
+
+
 @dataclass
 class SnapshotMetadata:
     """Metadata about a snapshot file."""
@@ -40,8 +57,10 @@ class SnapshotMetadata:
     timestamp: str
     
 
-def serialize_value(value: Any) -> Any:
+def serialize_value(value: Any, key: Optional[str] = None) -> Any:
     """Convert values to JSON-serializable format."""
+    import numpy as np
+    
     if isinstance(value, bytes):
         return {
             "_binary": True,
@@ -49,10 +68,24 @@ def serialize_value(value: Any) -> Any:
             "size": len(value),
             "data": base64.b64encode(value).decode('ascii')
         }
-    elif isinstance(value, list):
-        return [serialize_value(v) for v in value]
+    elif isinstance(value, (np.ndarray, np.generic)):
+        # Handle numpy arrays - convert to list
+        return serialize_value(value.tolist())
+    elif isinstance(value, (float, np.floating)):
+        # Ensure floats are valid JSON (not NaN, inf)
+        f = float(value)
+        if np.isnan(f) or np.isinf(f):
+            return 0.0
+        return f
+    elif isinstance(value, (int, np.integer)):
+        if key in {"path_id", "m_PathID", "m_PathId", "pathID", "PathID"}:
+            return str(int(value))
+        return int(value)
+    elif isinstance(value, (list, tuple)):
+        # Handle both lists and tuples - convert tuples to lists for JSON
+        return [serialize_value(v, key) for v in value]
     elif isinstance(value, dict):
-        return {k: serialize_value(v) for k, v in value.items()}
+        return {k: serialize_value(v, k) for k, v in value.items()}
     elif hasattr(value, '__dict__'):
         # Handle custom objects
         return serialize_value(value.__dict__)
@@ -77,7 +110,9 @@ def extract_mesh_geometry(mesh_obj, version: tuple) -> Dict[str, Any]:
         # Extract vertex colors if available
         colors = []
         if hasattr(handler, 'm_Colors') and handler.m_Colors:
-            colors = list(handler.m_Colors)
+            # Don't include vertex colors in snapshot - they create massive JSON
+            # and we're not using them effectively anyway
+            pass  # colors = list(handler.m_Colors)
         
         return {
             "vertices": handler.m_Vertices if handler.m_Vertices else [],  # Include ALL vertices
@@ -150,7 +185,7 @@ def collect_textures_from_bundle(asset_bundle, output_dir: str, version: tuple) 
                 try:
                     tex_path = extract_texture_to_png(obj, output_dir, f"tex_{obj.path_id}", version)
                     if tex_path:
-                        textures[obj.path_id] = tex_path
+                        textures[str(obj.path_id)] = tex_path
                 except Exception as e:
                     pass  # Skip textures that fail
     except Exception as e:
@@ -195,36 +230,62 @@ def create_object_snapshot(obj_reader, path_id: int, version: tuple) -> Dict[str
             # Extract decompressed geometry
             extra_info["_mesh_data"] = extract_mesh_geometry(mesh_obj, version)
         
-        # Extract material color and textures for Material objects
+        # Extract material properties and textures for Material objects
         if obj_type == "Material" and isinstance(data, dict):
             saved_props = data.get('m_SavedProperties', {})
             
-            # Extract color
+            # Extract all colors
             colors = saved_props.get('m_Colors', [])
+            material_colors = {}
             for color_name, color_data in colors:
-                if color_name == "_Color":
-                    extra_info["_color"] = {
+                if isinstance(color_data, dict):
+                    material_colors[color_name] = {
                         "r": color_data.get('r', 1.0),
                         "g": color_data.get('g', 1.0),
                         "b": color_data.get('b', 1.0),
                         "a": color_data.get('a', 1.0),
                     }
-                    break
+            if material_colors:
+                extra_info["_colors"] = material_colors
+                if "_Color" in material_colors:
+                    extra_info["_color"] = material_colors["_Color"]
+
+            # Extract all floats
+            floats = saved_props.get('m_Floats', [])
+            material_floats = {}
+            for float_name, float_value in floats:
+                if isinstance(float_value, (int, float)):
+                    material_floats[float_name] = float(float_value)
+            if material_floats:
+                extra_info["_floats"] = material_floats
             
-            # Extract texture references
+            # Extract texture references and transforms
             tex_envs = saved_props.get('m_TexEnvs', [])
             textures = {}
             for tex_name, tex_data in tex_envs:
                 if tex_data and isinstance(tex_data, dict):
                     tex_ref = tex_data.get('m_Texture', {})
-                    if tex_ref and tex_ref.get('m_PathID'):
-                        textures[tex_name] = tex_ref.get('m_PathID')
+                    tex_path_id = tex_ref.get('m_PathID') if isinstance(tex_ref, dict) else None
+                    if tex_path_id:
+                        scale = tex_data.get('m_Scale', {}) if isinstance(tex_data, dict) else {}
+                        offset = tex_data.get('m_Offset', {}) if isinstance(tex_data, dict) else {}
+                        textures[tex_name] = {
+                            "path_id": str(tex_path_id),
+                            "scale": {
+                                "x": scale.get('x', 1.0),
+                                "y": scale.get('y', 1.0)
+                            },
+                            "offset": {
+                                "x": offset.get('x', 0.0),
+                                "y": offset.get('y', 0.0)
+                            }
+                        }
             if textures:
                 extra_info["_textures"] = textures  # {_MainTex: path_id, ...}
         
         snapshot = {
             "metadata": {
-                "path_id": path_id,
+                "path_id": str(path_id),  # Store as string to preserve precision (JS int limit: 2^53)
                 "class_id": obj_reader.class_id,
                 "type": obj_type,
                 "byte_start": obj_reader.byte_start,
@@ -240,7 +301,7 @@ def create_object_snapshot(obj_reader, path_id: int, version: tuple) -> Dict[str
     except Exception as e:
         return {
             "metadata": {
-                "path_id": path_id,
+                "path_id": str(path_id),
                 "error": str(e)
             },
             "data": None
@@ -308,7 +369,7 @@ def generate_file_snapshots(file_path: str, output_dir: str) -> Optional[Dict[st
             type_counts[type_name] = type_counts.get(type_name, 0) + 1
             
             object_list.append({
-                "path_id": obj.path_id,
+                "path_id": str(obj.path_id),
                 "class_id": obj.class_id,
                 "type": type_name,
                 "byte_start": obj.byte_start,
@@ -337,18 +398,18 @@ def generate_file_snapshots(file_path: str, output_dir: str) -> Optional[Dict[st
                 print(f"  ✓ Extracted {len(texture_map)} textures")
                 # Write texture index
                 with open(os.path.join(output_dir, "textures_index.json"), "w") as f:
-                    json.dump(texture_map, f, indent=2)
+                    json.dump(convert_pathids_to_strings(texture_map), f, indent=2)
         except Exception as e:
             print(f"  ⚠️  Could not extract textures: {e}")
         
         # Write manifest
         with open(os.path.join(output_dir, "manifest.json"), "w") as f:
-            json.dump(metadata, f, indent=2)
+            json.dump(convert_pathids_to_strings(metadata), f, indent=2)
         print(f"  ✓ manifest.json")
         
         # Write summary
         with open(os.path.join(output_dir, "summary.json"), "w") as f:
-            json.dump(summary, f, indent=2)
+            json.dump(convert_pathids_to_strings(summary), f, indent=2)
         print(f"  ✓ summary.json")
         
         # Write individual objects
@@ -364,8 +425,11 @@ def generate_file_snapshots(file_path: str, output_dir: str) -> Optional[Dict[st
                 filename = f"{i:03d}_{type_name}_{obj.path_id}.json"
                 filepath = os.path.join(objects_dir, filename)
                 
+                # Convert pathids to strings before JSON serialization
+                snapshot_converted = convert_pathids_to_strings(snapshot)
+                
                 with open(filepath, "w") as f:
-                    json.dump(snapshot, f, indent=2)
+                    json.dump(snapshot_converted, f, indent=2)
                 
             except Exception as e:
                 print(f"  ⚠️  Error processing object {obj.path_id}: {e}")

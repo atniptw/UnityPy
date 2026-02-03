@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": 7086550271169815420,
+    "path_id": "7086550271169815420",
     "class_id": 23,
     "type": "MeshRenderer",
     "byte_start": 692264,
@@ -9,9 +9,9 @@
   "data": {
     "m_GameObject": {
       "m_FileID": 0,
-      "m_PathID": -7970672078814411478
+      "m_PathID": "-7970672078814411478"
     },
-    "m_Enabled": true,
+    "m_Enabled": 1,
     "m_CastShadows": 1,
     "m_ReceiveShadows": 1,
     "m_DynamicOccludee": 1,
@@ -40,7 +40,7 @@
     "m_Materials": [
       {
         "m_FileID": 0,
-        "m_PathID": -251792688462236596
+        "m_PathID": "-251792688462236596"
       }
     ],
     "m_StaticBatchInfo": {
@@ -49,26 +49,26 @@
     },
     "m_StaticBatchRoot": {
       "m_FileID": 0,
-      "m_PathID": 0
+      "m_PathID": "0"
     },
     "m_ProbeAnchor": {
       "m_FileID": 0,
-      "m_PathID": 0
+      "m_PathID": "0"
     },
     "m_LightProbeVolumeOverride": {
       "m_FileID": 0,
-      "m_PathID": 0
+      "m_PathID": "0"
     },
     "m_SortingLayerID": 0,
     "m_SortingLayer": 0,
     "m_SortingOrder": 0,
     "m_AdditionalVertexStreams": {
       "m_FileID": 0,
-      "m_PathID": 0
+      "m_PathID": "0"
     },
     "m_EnlightenVertexStream": {
       "m_FileID": 0,
-      "m_PathID": 0
+      "m_PathID": "0"
     }
   }
 }

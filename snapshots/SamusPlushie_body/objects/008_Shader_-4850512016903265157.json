@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": -4850512016903265157,
+    "path_id": "-4850512016903265157",
     "class_id": 48,
     "type": "Shader",
     "byte_start": 629360,
@@ -834,7 +834,7 @@
                     "name": "<noninit>"
                   }
                 },
-                "rtSeparateBlend": false,
+                "rtSeparateBlend": 0,
                 "zClip": {
                   "val": 1.0,
                   "name": "<noninit>"
@@ -987,7 +987,7 @@
                   ]
                 },
                 "m_LOD": 300,
-                "lighting": false
+                "lighting": 0
               },
               "m_ProgramMask": 6,
               "progVertex": {
@@ -1124,7 +1124,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 1,
@@ -1140,7 +1140,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 144,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 2,
@@ -1163,7 +1163,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 3,
@@ -1179,7 +1179,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 368,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -1287,7 +1287,7 @@
                       "m_NameIndex": 11,
                       "m_Index": 0,
                       "m_SamplerIndex": 2,
-                      "m_MultiSampled": false,
+                      "m_MultiSampled": 0,
                       "m_Dim": 2
                     }
                   ],
@@ -1335,7 +1335,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 12,
@@ -1358,7 +1358,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 768,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 13,
@@ -1423,7 +1423,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 128,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 14,
@@ -1461,7 +1461,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 112,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -1568,8 +1568,8 @@
                 },
                 "m_SerializedKeywordStateMask": []
               },
-              "m_HasInstancingVariant": true,
-              "m_HasProceduralInstancingVariant": false,
+              "m_HasInstancingVariant": 1,
+              "m_HasProceduralInstancingVariant": 0,
               "m_UseName": "",
               "m_Name": "",
               "m_TextureName": "",
@@ -1914,7 +1914,7 @@
                     "name": "<noninit>"
                   }
                 },
-                "rtSeparateBlend": false,
+                "rtSeparateBlend": 0,
                 "zClip": {
                   "val": 1.0,
                   "name": "<noninit>"
@@ -2067,7 +2067,7 @@
                   ]
                 },
                 "m_LOD": 300,
-                "lighting": false
+                "lighting": 0
               },
               "m_ProgramMask": 6,
               "progVertex": {
@@ -2234,7 +2234,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 144,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 1,
@@ -2250,7 +2250,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 768,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 2,
@@ -2273,7 +2273,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 3,
@@ -2289,7 +2289,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 368,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -2513,7 +2513,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 240,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 1,
@@ -2529,7 +2529,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 768,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 10,
@@ -2567,7 +2567,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 112,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -2674,8 +2674,8 @@
                 },
                 "m_SerializedKeywordStateMask": []
               },
-              "m_HasInstancingVariant": false,
-              "m_HasProceduralInstancingVariant": false,
+              "m_HasInstancingVariant": 0,
+              "m_HasProceduralInstancingVariant": 0,
               "m_UseName": "",
               "m_Name": "",
               "m_TextureName": "",
@@ -2988,7 +2988,7 @@
                     "name": "<noninit>"
                   }
                 },
-                "rtSeparateBlend": false,
+                "rtSeparateBlend": 0,
                 "zClip": {
                   "val": 1.0,
                   "name": "<noninit>"
@@ -3141,7 +3141,7 @@
                   ]
                 },
                 "m_LOD": 300,
-                "lighting": false
+                "lighting": 0
               },
               "m_ProgramMask": 6,
               "progVertex": {
@@ -3198,7 +3198,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 768,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 1,
@@ -3214,7 +3214,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 416,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 2,
@@ -3237,7 +3237,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 3,
@@ -3253,7 +3253,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 368,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -3420,8 +3420,8 @@
                 },
                 "m_SerializedKeywordStateMask": []
               },
-              "m_HasInstancingVariant": true,
-              "m_HasProceduralInstancingVariant": false,
+              "m_HasInstancingVariant": 1,
+              "m_HasProceduralInstancingVariant": 0,
               "m_UseName": "",
               "m_Name": "",
               "m_TextureName": "",
@@ -3758,7 +3758,7 @@
                     "name": "<noninit>"
                   }
                 },
-                "rtSeparateBlend": false,
+                "rtSeparateBlend": 0,
                 "zClip": {
                   "val": 1.0,
                   "name": "<noninit>"
@@ -3907,7 +3907,7 @@
                   ]
                 },
                 "m_LOD": 300,
-                "lighting": false
+                "lighting": 0
               },
               "m_ProgramMask": 6,
               "progVertex": {
@@ -3995,7 +3995,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 1,
@@ -4011,7 +4011,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 144,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 2,
@@ -4034,7 +4034,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 3,
@@ -4050,7 +4050,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 368,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -4180,7 +4180,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -4281,8 +4281,8 @@
                 },
                 "m_SerializedKeywordStateMask": []
               },
-              "m_HasInstancingVariant": true,
-              "m_HasProceduralInstancingVariant": false,
+              "m_HasInstancingVariant": 1,
+              "m_HasProceduralInstancingVariant": 0,
               "m_UseName": "",
               "m_Name": "",
               "m_TextureName": "",
@@ -4680,7 +4680,7 @@
                     "name": "<noninit>"
                   }
                 },
-                "rtSeparateBlend": false,
+                "rtSeparateBlend": 0,
                 "zClip": {
                   "val": 1.0,
                   "name": "<noninit>"
@@ -4833,7 +4833,7 @@
                   ]
                 },
                 "m_LOD": 150,
-                "lighting": false
+                "lighting": 0
               },
               "m_ProgramMask": 6,
               "progVertex": {
@@ -4970,7 +4970,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 1,
@@ -4986,7 +4986,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 144,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 2,
@@ -5009,7 +5009,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 3,
@@ -5025,7 +5025,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 368,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -5130,7 +5130,7 @@
                       "m_NameIndex": 11,
                       "m_Index": 3,
                       "m_SamplerIndex": 0,
-                      "m_MultiSampled": false,
+                      "m_MultiSampled": 0,
                       "m_Dim": 4
                     }
                   ],
@@ -5171,7 +5171,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 12,
@@ -5194,7 +5194,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 768,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 13,
@@ -5210,7 +5210,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 128,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 14,
@@ -5248,7 +5248,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 112,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -5351,8 +5351,8 @@
                 },
                 "m_SerializedKeywordStateMask": []
               },
-              "m_HasInstancingVariant": false,
-              "m_HasProceduralInstancingVariant": false,
+              "m_HasInstancingVariant": 0,
+              "m_HasProceduralInstancingVariant": 0,
               "m_UseName": "",
               "m_Name": "",
               "m_TextureName": "",
@@ -5697,7 +5697,7 @@
                     "name": "<noninit>"
                   }
                 },
-                "rtSeparateBlend": false,
+                "rtSeparateBlend": 0,
                 "zClip": {
                   "val": 1.0,
                   "name": "<noninit>"
@@ -5850,7 +5850,7 @@
                   ]
                 },
                 "m_LOD": 150,
-                "lighting": false
+                "lighting": 0
               },
               "m_ProgramMask": 6,
               "progVertex": {
@@ -5998,7 +5998,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 240,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 1,
@@ -6014,7 +6014,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 144,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 2,
@@ -6030,7 +6030,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 768,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 3,
@@ -6053,7 +6053,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 4,
@@ -6069,7 +6069,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 368,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -6279,7 +6279,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 240,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -6384,8 +6384,8 @@
                 },
                 "m_SerializedKeywordStateMask": []
               },
-              "m_HasInstancingVariant": false,
-              "m_HasProceduralInstancingVariant": false,
+              "m_HasInstancingVariant": 0,
+              "m_HasProceduralInstancingVariant": 0,
               "m_UseName": "",
               "m_Name": "",
               "m_TextureName": "",
@@ -6698,7 +6698,7 @@
                     "name": "<noninit>"
                   }
                 },
-                "rtSeparateBlend": false,
+                "rtSeparateBlend": 0,
                 "zClip": {
                   "val": 1.0,
                   "name": "<noninit>"
@@ -6851,7 +6851,7 @@
                   ]
                 },
                 "m_LOD": 150,
-                "lighting": false
+                "lighting": 0
               },
               "m_ProgramMask": 6,
               "progVertex": {
@@ -6908,7 +6908,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 768,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 1,
@@ -6924,7 +6924,7 @@
                       ],
                       "m_StructParams": [],
                       "m_Size": 416,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 2,
@@ -6947,7 +6947,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 176,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     },
                     {
                       "m_NameIndex": 3,
@@ -6963,7 +6963,7 @@
                       "m_VectorParams": [],
                       "m_StructParams": [],
                       "m_Size": 368,
-                      "m_IsPartialCB": true
+                      "m_IsPartialCB": 1
                     }
                   ],
                   "m_ConstantBufferBindings": [
@@ -7126,8 +7126,8 @@
                 },
                 "m_SerializedKeywordStateMask": []
               },
-              "m_HasInstancingVariant": false,
-              "m_HasProceduralInstancingVariant": false,
+              "m_HasInstancingVariant": 0,
+              "m_HasProceduralInstancingVariant": 0,
               "m_UseName": "",
               "m_Name": "",
               "m_TextureName": "",
@@ -7234,7 +7234,7 @@
       "m_FallbackName": "VertexLit",
       "m_Dependencies": [],
       "m_CustomEditorForRenderPipelines": [],
-      "m_DisableNoSubshadersMessage": false
+      "m_DisableNoSubshadersMessage": 0
     },
     "platforms": [
       4
@@ -28209,10 +28209,10 @@
     "m_Dependencies": [
       {
         "m_FileID": 1,
-        "m_PathID": 6
+        "m_PathID": "6"
       }
     ],
     "m_NonModifiableTextures": [],
-    "m_ShaderIsBaked": true
+    "m_ShaderIsBaked": 1
   }
 }

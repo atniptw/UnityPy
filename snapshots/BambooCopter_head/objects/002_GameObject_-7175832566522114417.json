@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": -7175832566522114417,
+    "path_id": "-7175832566522114417",
     "class_id": 1,
     "type": "GameObject",
     "byte_start": 121456,
@@ -11,31 +11,31 @@
       {
         "component": {
           "m_FileID": 0,
-          "m_PathID": 2959835936093411156
+          "m_PathID": "2959835936093411156"
         }
       },
       {
         "component": {
           "m_FileID": 0,
-          "m_PathID": -8403107082501273168
+          "m_PathID": "-8403107082501273168"
         }
       },
       {
         "component": {
           "m_FileID": 0,
-          "m_PathID": -797510951273198726
+          "m_PathID": "-797510951273198726"
         }
       },
       {
         "component": {
           "m_FileID": 0,
-          "m_PathID": -8194234979324779347
+          "m_PathID": "-8194234979324779347"
         }
       }
     ],
     "m_Layer": 0,
     "m_Name": "BambooCopter\u7af9\u873b\u8713",
     "m_Tag": 0,
-    "m_IsActive": true
+    "m_IsActive": 1
   }
 }

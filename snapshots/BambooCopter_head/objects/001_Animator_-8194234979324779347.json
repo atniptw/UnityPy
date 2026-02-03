@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": -8194234979324779347,
+    "path_id": "-8194234979324779347",
     "class_id": 95,
     "type": "Animator",
     "byte_start": 121400,
@@ -9,23 +9,23 @@
   "data": {
     "m_GameObject": {
       "m_FileID": 0,
-      "m_PathID": -7175832566522114417
+      "m_PathID": "-7175832566522114417"
     },
     "m_Enabled": 1,
     "m_Avatar": {
       "m_FileID": 0,
-      "m_PathID": 0
+      "m_PathID": "0"
     },
     "m_Controller": {
       "m_FileID": 0,
-      "m_PathID": -2634883155746090489
+      "m_PathID": "-2634883155746090489"
     },
     "m_CullingMode": 0,
     "m_UpdateMode": 0,
-    "m_ApplyRootMotion": false,
-    "m_LinearVelocityBlending": false,
-    "m_HasTransformHierarchy": true,
-    "m_AllowConstantClipSamplingOptimization": true,
-    "m_KeepAnimatorControllerStateOnDisable": false
+    "m_ApplyRootMotion": 0,
+    "m_LinearVelocityBlending": 0,
+    "m_HasTransformHierarchy": 1,
+    "m_AllowConstantClipSamplingOptimization": 1,
+    "m_KeepAnimatorControllerStateOnDisable": 0
   }
 }

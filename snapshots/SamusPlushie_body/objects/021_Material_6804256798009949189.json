@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "path_id": 6804256798009949189,
+    "path_id": "6804256798009949189",
     "class_id": 21,
     "type": "Material",
     "byte_start": 680976,
@@ -10,13 +10,13 @@
     "m_Name": "-Color",
     "m_Shader": {
       "m_FileID": 0,
-      "m_PathID": -4850512016903265157
+      "m_PathID": "-4850512016903265157"
     },
     "m_ValidKeywords": [],
     "m_InvalidKeywords": [],
     "m_LightmapFlags": 4,
-    "m_EnableInstancingVariants": false,
-    "m_DoubleSidedGI": false,
+    "m_EnableInstancingVariants": 0,
+    "m_DoubleSidedGI": 0,
     "m_CustomRenderQueue": -1,
     "stringTagMap": [],
     "disabledShaderPasses": [],
@@ -27,7 +27,7 @@
           {
             "m_Texture": {
               "m_FileID": 0,
-              "m_PathID": 0
+              "m_PathID": "0"
             },
             "m_Scale": {
               "x": 1.0,
@@ -44,7 +44,7 @@
           {
             "m_Texture": {
               "m_FileID": 0,
-              "m_PathID": 0
+              "m_PathID": "0"
             },
             "m_Scale": {
               "x": 1.0,
@@ -61,7 +61,7 @@
           {
             "m_Texture": {
               "m_FileID": 0,
-              "m_PathID": 0
+              "m_PathID": "0"
             },
             "m_Scale": {
               "x": 1.0,
@@ -78,7 +78,7 @@
           {
             "m_Texture": {
               "m_FileID": 0,
-              "m_PathID": 0
+              "m_PathID": "0"
             },
             "m_Scale": {
               "x": 1.0,
@@ -95,7 +95,7 @@
           {
             "m_Texture": {
               "m_FileID": 0,
-              "m_PathID": 0
+              "m_PathID": "0"
             },
             "m_Scale": {
               "x": 1.0,
@@ -112,7 +112,7 @@
           {
             "m_Texture": {
               "m_FileID": 0,
-              "m_PathID": -1174915201465947100
+              "m_PathID": "-1174915201465947100"
             },
             "m_Scale": {
               "x": 1.0,
@@ -129,7 +129,7 @@
           {
             "m_Texture": {
               "m_FileID": 0,
-              "m_PathID": 0
+              "m_PathID": "0"
             },
             "m_Scale": {
               "x": 1.0,
@@ -146,7 +146,7 @@
           {
             "m_Texture": {
               "m_FileID": 0,
-              "m_PathID": 0
+              "m_PathID": "0"
             },
             "m_Scale": {
               "x": 1.0,
@@ -163,7 +163,7 @@
           {
             "m_Texture": {
               "m_FileID": 0,
-              "m_PathID": 0
+              "m_PathID": "0"
             },
             "m_Scale": {
               "x": 1.0,
@@ -266,13 +266,55 @@
     },
     "m_BuildTextureStacks": []
   },
+  "_colors": {
+    "_Color": {
+      "r": 1.0,
+      "g": 1.0,
+      "b": 1.0,
+      "a": 1.0
+    },
+    "_EmissionColor": {
+      "r": 0.0,
+      "g": 0.0,
+      "b": 0.0,
+      "a": 0.0
+    }
+  },
   "_color": {
     "r": 1.0,
     "g": 1.0,
     "b": 1.0,
     "a": 1.0
   },
+  "_floats": {
+    "_BumpScale": 1.0,
+    "_Cutoff": 0.5,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_Metallic": 0.0,
+    "_Mode": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.019999999552965164,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_UVSec": 0.0,
+    "_ZWrite": 1.0
+  },
   "_textures": {
-    "_MainTex": -1174915201465947100
+    "_MainTex": {
+      "path_id": "-1174915201465947100",
+      "scale": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "offset": {
+        "x": 0.0,
+        "y": 0.0
+      }
+    }
   }
 }
