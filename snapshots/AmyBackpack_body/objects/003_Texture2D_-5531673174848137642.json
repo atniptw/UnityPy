@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "path_id": "-5531673174848137642",
+    "class_id": 28,
+    "type": "Texture2D",
+    "byte_start": 98616,
+    "byte_size": 220
+  },
+  "data": {
+    "m_Name": "Handle1_diff 2",
+    "m_ForcedFallbackFormat": 4,
+    "m_DownscaleFallback": 0,
+    "m_IsAlphaChannelOptional": 1,
+    "m_Width": 256,
+    "m_Height": 256,
+    "m_CompleteImageSize": 43704,
+    "m_MipsStripped": 0,
+    "m_TextureFormat": 10,
+    "m_MipCount": 9,
+    "m_IsReadable": 0,
+    "m_IsPreProcessed": 0,
+    "m_IgnoreMipmapLimit": 0,
+    "m_MipmapLimitGroupName": "",
+    "m_StreamingMipmaps": 0,
+    "m_StreamingMipmapsPriority": 0,
+    "m_ImageCount": 1,
+    "m_TextureDimension": 2,
+    "m_TextureSettings": {
+      "m_FilterMode": 1,
+      "m_Aniso": 1,
+      "m_MipBias": 0.0,
+      "m_WrapU": 0,
+      "m_WrapV": 0,
+      "m_WrapW": 0
+    },
+    "m_LightmapFormat": 0,
+    "m_ColorSpace": 1,
+    "m_PlatformBlob": [],
+    "image data": {
+      "_binary": true,
+      "_format": "base64",
+      "size": 0,
+      "data": ""
+    },
+    "m_StreamData": {
+      "offset": 0,
+      "size": 43704,
+      "path": "archive:/CAB-3649e7e9c6cf99f2a8b28386a53806d4/CAB-3649e7e9c6cf99f2a8b28386a53806d4.resS"
+    }
+  }
+}

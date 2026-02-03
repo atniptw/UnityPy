@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "path_id": "652844961416850656",
+    "class_id": 111,
+    "type": "Animation",
+    "byte_start": 233112,
+    "byte_size": 56
+  },
+  "data": {
+    "m_GameObject": {
+      "m_FileID": 0,
+      "m_PathID": "-8597693703838938543"
+    },
+    "m_Enabled": 1,
+    "m_Animation": {
+      "m_FileID": 0,
+      "m_PathID": "-8458209403546219954"
+    },
+    "m_Animations": [
+      {
+        "m_FileID": 0,
+        "m_PathID": "-8458209403546219954"
+      }
+    ],
+    "m_WrapMode": 0,
+    "m_PlayAutomatically": 1,
+    "m_AnimatePhysics": 0,
+    "m_CullingType": 0
+  }
+}

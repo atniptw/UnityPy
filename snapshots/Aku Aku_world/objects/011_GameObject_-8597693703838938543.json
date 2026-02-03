@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "path_id": "-8597693703838938543",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 124312,
+    "byte_size": 47
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "8559739176680988171"
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "652844961416850656"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "akuaku",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

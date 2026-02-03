@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "7254376313083060787",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 290552,
+    "byte_size": 39
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "8733745235035854927"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "lip_d_l_end",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

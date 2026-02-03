@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "-3750516120206838163",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 148240,
+    "byte_size": 39
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "-7479886170387608535"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "AmyBackpack",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

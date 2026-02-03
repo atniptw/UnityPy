@@ -350,7 +350,9 @@ def generate_file_snapshots(file_path: str, output_dir: str) -> Optional[Dict[st
             endian_str = "big" if assets_file.reader.endian else "little"
         
         # Build file metadata
+        bundle_name = Path(file_path).stem
         metadata = {
+            "bundle_name": bundle_name,
             "file_name": os.path.basename(file_path),
             "file_size": os.path.getsize(file_path),
             "unity_version": str(assets_file.version) if hasattr(assets_file, 'version') else "Unknown",
@@ -483,6 +485,25 @@ def main():
     
     print(f"\n✅ Generated {len(results)}/{len(files)} successful snapshots")
     print(f"📁 Output: {os.path.abspath(output_base)}")
+    
+    # Generate snapshots index for the viewer
+    print("\n🔄 Generating snapshots index...")
+    index = {}
+    for result in results:
+        bundle_name = result.get('bundle_name')
+        if bundle_name:
+            # List all object files in this bundle's objects directory
+            objects_dir = os.path.join(output_base, bundle_name, 'objects')
+            if os.path.isdir(objects_dir):
+                object_files = sorted([f for f in os.listdir(objects_dir) if f.endswith('.json')])
+                index[bundle_name] = {'objects': object_files}
+    
+    # Write index file
+    index_path = os.path.join(output_base, '..', 'snapshots_index.json')
+    os.makedirs(os.path.dirname(index_path), exist_ok=True)
+    with open(index_path, 'w') as f:
+        json.dump(index, f, indent=2)
+    print(f"📋 Index written: {os.path.abspath(index_path)}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "path_id": "1",
+    "class_id": 142,
+    "type": "AssetBundle",
+    "byte_start": 175944,
+    "byte_size": 404
+  },
+  "data": {
+    "m_Name": "volleyball_world",
+    "m_PreloadTable": [
+      {
+        "m_FileID": 1,
+        "m_PathID": "6"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-9048541845831609975"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-8473610197445859443"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-7605556246049336031"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-4850512016903265157"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-4211610014692026161"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-3731819099311319388"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-2974772311511997834"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-2869347621527929931"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-1635470961363690085"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-898497100799945148"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-460935585970705624"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "226522415883230769"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "1364096618639268629"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "1525841245626307194"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "1846048533629475749"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "2858991999284424604"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "3740529370732932234"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "4060420964367571049"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "4142907770607281474"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "5956336097773130719"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "8543363237122641757"
+      }
+    ],
+    "m_Container": [
+      [
+        "assets/volleyball.prefab",
+        {
+          "preloadIndex": 0,
+          "preloadSize": 22,
+          "asset": {
+            "m_FileID": 0,
+            "m_PathID": "-2974772311511997834"
+          }
+        }
+      ]
+    ],
+    "m_MainAsset": {
+      "preloadIndex": 0,
+      "preloadSize": 0,
+      "asset": {
+        "m_FileID": 0,
+        "m_PathID": "0"
+      }
+    },
+    "m_RuntimeCompatibility": 1,
+    "m_AssetBundleName": "volleyball_world",
+    "m_Dependencies": [],
+    "m_IsStreamedSceneAssetBundle": 0,
+    "m_ExplicitDataLayout": 0,
+    "m_PathFlags": 7,
+    "m_SceneHashes": []
+  }
+}

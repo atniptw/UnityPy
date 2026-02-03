@@ -402,6 +402,24 @@
         scene.add(modelRoot);
 
         let textureFlip = { u: true, v: false, rotate: 180 };
+        
+        const modelTexturePresets = {
+            'SamusPlushie_body': { u: true, v: false, rotate: 180 },
+            'BambooCopter_head': { u: false, v: false, rotate: 0 },
+            'ClownNose_head': { u: false, v: false, rotate: 0 },
+            'FoxMask_head': { u: false, v: true, rotate: 0 },
+            'FrogHatSmile_head': { u: false, v: true, rotate: 0 },
+            'AmyBackpack_body': { u: false, v: true, rotate: 0 }
+        };
+        
+        function applyModelPreset(bundleName) {
+            const preset = modelTexturePresets[bundleName] || { u: false, v: false, rotate: 0 };
+            textureFlip = { ...preset };
+            document.getElementById('flipTextureU').checked = preset.u;
+            document.getElementById('flipTextureV').checked = preset.v;
+            document.getElementById('textureRotate').value = preset.rotate;
+            updateSceneTextureFlips();
+        }
 
         const orientationPresets = {
             none: { x: 0, y: 0, z: 0 },
@@ -437,33 +455,59 @@
         // ==================== Load Snapshots ====================
         async function loadBundles() {
             try {
-                // Load bundle index
-                const indexRes = await fetch('snapshots_index.json');
+                // Load bundle index with cache buster
+                const indexRes = await fetch('snapshots_index.json?t=' + Date.now());
                 const bundlesData = await indexRes.json();
+                console.log('Loaded index with bundles:', Object.keys(bundlesData));
 
                 for (const [bundleName, bundleInfo] of Object.entries(bundlesData)) {
                     try {
-                        // Try new nested path first, then fall back to old path
-                        let manifestRes = await fetch(`snapshots/${bundleName}/${bundleName}/manifest.json`);
-                        let basePath = `snapshots/${bundleName}/${bundleName}`;
+                        let manifest = null;
+                        let basePath = null;
                         
-                        if (!manifestRes.ok) {
-                            manifestRes = await fetch(`snapshots/${bundleName}/manifest.json`);
-                            basePath = `snapshots/${bundleName}`;
+                        // Try new nested path first
+                        let nestedPath = `snapshots/${bundleName}/${bundleName}/manifest.json`;
+                        let flatPath = `snapshots/${bundleName}/manifest.json`;
+                        
+                        try {
+                            let manifestRes = await fetch(nestedPath);
+                            if (manifestRes.ok) {
+                                manifest = await manifestRes.json();
+                                basePath = `snapshots/${bundleName}/${bundleName}`;
+                                console.log(`✓ Loaded ${bundleName} from nested path`);
+                            }
+                        } catch (e) {
+                            // Nested path failed, try flat path
                         }
                         
-                        const manifest = await manifestRes.json();
-                        bundles[bundleName] = { manifest, objects: {}, basePath };
+                        // If nested path didn't work, try flat path
+                        if (!manifest) {
+                            let manifestRes = await fetch(flatPath);
+                            if (manifestRes.ok) {
+                                manifest = await manifestRes.json();
+                                basePath = `snapshots/${bundleName}`;
+                                console.log(`✓ Loaded ${bundleName} from flat path`);
+                            } else {
+                                console.warn(`✗ Failed to load ${bundleName} from flat path: ${manifestRes.status}`);
+                            }
+                        }
+                        
+                        if (manifest && basePath) {
+                            bundles[bundleName] = { manifest, objects: {}, basePath };
 
-                        // Use objects from index
-                        for (const objFile of bundleInfo.objects) {
-                            bundles[bundleName].objects[objFile] = null;
+                            // Use objects from index
+                            for (const objFile of bundleInfo.objects) {
+                                bundles[bundleName].objects[objFile] = null;
+                            }
+                        } else {
+                            console.warn(`Failed to load bundle ${bundleName}: manifest not found`);
                         }
                     } catch (e) {
                         console.warn(`Failed to load bundle ${bundleName}:`, e);
                     }
                 }
 
+                console.log('Total bundles loaded:', Object.keys(bundles).length);
                 populateBundleSelect();
             } catch (e) {
                 console.error('Failed to load bundles:', e);
@@ -496,7 +540,9 @@
                 return;
             }
 
+            clearScene();
             currentBundle = { name: bundleName };
+            applyModelPreset(bundleName);
             await loadAndRenderBundle(bundleName);
         });
 
@@ -538,7 +584,7 @@
                 console.log(`Loaded ${Object.keys(allObjects).length} objects`);
                 
                 // Build scene from objects
-                renderBundle(allObjects);
+                renderBundle(allObjects, bundleName);
                 fitCameraToScene();
                 updateBundleStats(allObjects);
                 
@@ -576,7 +622,7 @@
             });
         }
 
-        function renderBundle(allObjects) {
+        function renderBundle(allObjects, bundleName) {
             console.log('Rendering bundle with', Object.keys(allObjects).length, 'objects');
             
             // Group objects by type
@@ -635,7 +681,40 @@
                     matData.floats = matObj._floats;
                 }
                 if (matObj._textures) {
-                    matData.textures = matObj._textures;  // {_MainTex: texture_path_id}
+                    if (Array.isArray(matObj._textures)) {
+                        const textures = {};
+                        for (const entry of matObj._textures) {
+                            const key = entry?.[0];
+                            const value = entry?.[1];
+                            if (key && value) {
+                                textures[key] = value;
+                            }
+                        }
+                        if (Object.keys(textures).length > 0) {
+                            matData.textures = textures;  // {_MainTex: texture_path_id}
+                        }
+                    } else if (Object.keys(matObj._textures).length > 0) {
+                        matData.textures = matObj._textures;  // {_MainTex: texture_path_id}
+                    }
+                }
+                if (matObj.data?.m_SavedProperties?.m_TexEnvs) {
+                    const texEnvs = matObj.data.m_SavedProperties.m_TexEnvs;
+                    const textures = matData.textures ? { ...matData.textures } : {};
+                    for (const entry of texEnvs) {
+                        const key = entry?.[0];
+                        const payload = entry?.[1];
+                        const texPathId = payload?.m_Texture?.m_PathID;
+                        if (key && texPathId && texPathId !== 0) {
+                            textures[key] = {
+                                path_id: texPathId,
+                                scale: payload?.m_Scale || { x: 1, y: 1 },
+                                offset: payload?.m_Offset || { x: 0, y: 0 }
+                            };
+                        }
+                    }
+                    if (Object.keys(textures).length > 0) {
+                        matData.textures = textures;
+                    }
                 }
                 if (Object.keys(matData).length > 0) {
                     materialRegistry[actualPathId] = matData;
@@ -644,37 +723,6 @@
             }
 
             // Build mesh -> gameobject mapping from MeshFilter
-            // CRITICAL: Mesh m_PathID values ALSO lose precision when parsed as JavaScript numbers
-            // First collect actual mesh IDs from metadata (now stored as strings)
-            const actualMeshIds = {};  // actual ID string -> mesh object
-            for (const [pathId, meshObj] of Object.entries(meshes)) {
-                const actualId = meshObj.metadata?.path_id || String(pathId);
-                actualMeshIds[actualId] = meshObj;
-            }
-            
-            // Build lookup from truncated mesh IDs to actual IDs
-            const meshIdLookup = {};  // truncated ID -> actual ID
-            for (const obj of Object.values(meshFilters)) {
-                const filterData = obj.data;
-                const meshRef = filterData?.m_Mesh;
-                if (meshRef?.m_PathID) {
-                    const refId = String(meshRef.m_PathID);  // This might be truncated
-                    // Find matching actual ID
-                    for (const actualId of Object.keys(actualMeshIds)) {
-                        if (refId !== actualId) {
-                            const actualPrefix = actualId.replace('-', '').substring(0, 10);
-                            const refPrefix = refId.replace('-', '').substring(0, 10);
-                            if (actualPrefix === refPrefix) {
-                                meshIdLookup[refId] = actualId;
-                                console.log(`Mesh ID precision fix: ${refId} -> ${actualId}`);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            // Now build the mesh -> gameobject mapping using corrected IDs
             meshToGameObject = {};
             for (const obj of Object.values(meshFilters)) {
                 const filterData = obj.data;
@@ -682,48 +730,18 @@
                 const goRef = filterData?.m_GameObject;
                 if (meshRef?.m_PathID && goRef?.m_PathID) {
                     const meshId = String(meshRef.m_PathID);
-                    const actualMeshId = meshIdLookup[meshId] || meshId;
-                    meshToGameObject[actualMeshId] = goRef.m_PathID;
+                    meshToGameObject[meshId] = String(goRef.m_PathID);
                 }
             }
             console.log(`meshToGameObject:`, meshToGameObject);
 
             // Apply texture transforms with default settings (Flip U + Rotate 180)
             setTimeout(() => updateSceneTextureFlips(), 100);
+            
+            // Store current bundle name for model-specific presets
+            currentBundle.name = bundleName;
 
             // Build gameobject -> materials mapping from MeshRenderer
-            // CRITICAL: Material m_PathID values lose precision when parsed as JavaScript numbers (>53 bits)
-            // Build a lookup from truncated IDs to actual IDs by comparing with materialRegistry
-            const materialIdLookup = {};  // truncated ID -> actual ID (both strings)
-            
-            // First, collect all material IDs that might be referenced
-            const allMaterialRefs = new Set();
-            for (const rendererObj of Object.values(meshRenderers)) {
-                const mats = rendererObj.data?.m_Materials || [];
-                for (const mat of mats) {
-                    const refId = mat?.m_PathID;
-                    if (refId !== undefined && refId !== null && refId !== 0) {
-                        allMaterialRefs.add(String(refId));
-                    }
-                }
-            }
-            
-            // Now map truncated refs to actual material IDs from registry
-            for (const actualId of Object.keys(materialRegistry)) {
-                for (const refId of allMaterialRefs) {
-                    if (refId !== actualId) {
-                        // Check if refId is a truncated version of actualId
-                        // Compare first 10 digits to avoid false matches
-                        const actualPrefix = actualId.replace('-', '').substring(0, 10);
-                        const refPrefix = refId.replace('-', '').substring(0, 10);
-                        if (actualPrefix === refPrefix) {
-                            materialIdLookup[refId] = actualId;
-                            console.log(`Material ID precision fix: ${refId} -> ${actualId}`);
-                        }
-                    }
-                }
-            }
-            
             gameObjectToMaterials = {};
             for (const obj of Object.values(meshRenderers)) {
                 const rendererData = obj.data;
@@ -733,16 +751,11 @@
                     const matIds = mats
                         .map((mat) => {
                             const id = mat?.m_PathID;
-                            if (id !== undefined && id !== null && id !== 0) {
-                                const strId = String(id);
-                                // Map truncated ID to actual ID if needed
-                                return materialIdLookup[strId] || strId;
-                            }
-                            return null;
+                            return (id !== undefined && id !== null && id !== 0) ? String(id) : null;
                         })
                         .filter((id) => id !== null);
                     if (matIds.length > 0) {
-                        gameObjectToMaterials[goRef.m_PathID] = matIds;
+                        gameObjectToMaterials[String(goRef.m_PathID)] = matIds;
                     }
                 }
             }
@@ -774,18 +787,7 @@
                     if (fatherRef && fatherRef.m_PathID && fatherRef.m_PathID !== 0) {
                         const fatherPathId = String(fatherRef.m_PathID);
                         current = transformsByPathId[fatherPathId];
-                        if (!current) {
-                            // Try to find with precision loss fix
-                            for (const [id, t] of Object.entries(transformsByPathId)) {
-                                const idPrefix = id.replace('-', '').substring(0, 10);
-                                const refPrefix = fatherPathId.replace('-', '').substring(0, 10);
-                                if (idPrefix === refPrefix) {
-                                    current = t;
-                                    break;
-                                }
-                            }
-                            if (!current) break;
-                        }
+                        if (!current) break;
                     } else {
                         break;
                     }
@@ -816,24 +818,28 @@
             const renderedMeshes = new Set();
             for (const mf of Object.values(meshFilters)) {
                 const meshRef = mf.data?.m_Mesh;
-                if (meshRef?.m_PathID && meshes[meshRef.m_PathID] && !renderedMeshes.has(meshRef.m_PathID)) {
+                const meshRefId = meshRef?.m_PathID !== undefined && meshRef?.m_PathID !== null
+                    ? String(meshRef.m_PathID)
+                    : null;
+                if (meshRefId && meshes[meshRefId] && !renderedMeshes.has(meshRefId)) {
                     try {
-                        renderMesh(meshes[meshRef.m_PathID], allObjects, gameObjectToTransform, transformsByPathId, getWorldTransform);
-                        renderedMeshes.add(meshRef.m_PathID);
+                        renderMesh(meshes[meshRefId], allObjects, gameObjectToTransform, transformsByPathId, getWorldTransform);
+                        renderedMeshes.add(meshRefId);
                     } catch (e) {
-                        console.warn(`Failed to render mesh ${meshRef.m_PathID}:`, e);
+                        console.warn(`Failed to render mesh ${meshRefId}:`, e);
                     }
                 }
             }
             
             // Render any remaining meshes not referenced by MeshFilter
             for (const [pathId, meshData] of Object.entries(meshes)) {
-                if (!renderedMeshes.has(pathId)) {
+                const meshId = String(pathId);
+                if (!renderedMeshes.has(meshId)) {
                     try {
                         renderMesh(meshData, allObjects, gameObjectToTransform, transformsByPathId, getWorldTransform);
-                        renderedMeshes.add(pathId);
+                        renderedMeshes.add(meshId);
                     } catch (e) {
-                        console.warn(`Failed to render mesh ${pathId}:`, e);
+                        console.warn(`Failed to render mesh ${meshId}:`, e);
                     }
                 }
             }
@@ -902,7 +908,6 @@
 
             const materialOptions = {
                 color: color,
-                shininess: 100,
                 emissive: new THREE.Color(color).multiplyScalar(0.2),
                 side: THREE.DoubleSide,
                 wireframe: false,
@@ -975,13 +980,23 @@
             ];
 
             if (materialData && materialData.textures) {
+                const textureKeys = Object.keys(materialData.textures);
+                if (textureKeys.length > 0) {
+                    console.log('  Material textures:', textureKeys);
+                }
                 for (const slot of textureSlots) {
                     const texEntry = materialData.textures[slot.key];
-                    const texPathId = (texEntry && typeof texEntry === 'object') ? texEntry.path_id : texEntry;
-                    if (texPathId && textureRegistry[texPathId]) {
+                    let texPathId = null;
+                    if (texEntry && typeof texEntry === 'object') {
+                        texPathId = texEntry.path_id ?? texEntry.m_PathID ?? texEntry.m_Texture?.m_PathID ?? null;
+                    } else {
+                        texPathId = texEntry;
+                    }
+                    const texKey = (texPathId !== undefined && texPathId !== null) ? String(texPathId) : null;
+                    if (texKey && textureRegistry[texKey]) {
                         const basePath = bundles[currentBundle.name]?.basePath || `snapshots/${currentBundle.name}`;
                         // textureRegistry already includes 'textures/' prefix, so just concatenate
-                        const texturePath = basePath + '/' + textureRegistry[texPathId];
+                        const texturePath = basePath + '/' + textureRegistry[texKey];
                         console.log(`  Loading texture (${slot.key}): ${texturePath}`);
                         const texture = textureLoader.load(texturePath,
                             () => console.log(`    ✓ Texture loaded (${slot.key})`),
