@@ -248,27 +248,6 @@
         </div>
 
         <div class="section">
-            <div class="section-header">Texture Flip</div>
-            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px;">
-                <input type="checkbox" id="flipTextureU" style="cursor: pointer; width: 16px; height: 16px;" checked>
-                Flip U (Horizontal)
-            </label>
-            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px; margin-top: 8px;">
-                <input type="checkbox" id="flipTextureV" style="cursor: pointer; width: 16px; height: 16px;">
-                Flip V (Vertical)
-            </label>
-            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px; margin-top: 8px;">
-                Rotate
-                <select id="textureRotate" style="width: auto; flex: 1;">
-                    <option value="0">0°</option>
-                    <option value="90">90°</option>
-                    <option value="180" selected>180°</option>
-                    <option value="270">270°</option>
-                </select>
-            </label>
-        </div>
-
-        <div class="section">
             <div class="section-header">Orientation</div>
             <select id="orientationPreset">
                 <option value="none">No Rotation</option>
@@ -401,25 +380,9 @@
         const modelRoot = new THREE.Group();
         scene.add(modelRoot);
 
-        let textureFlip = { u: true, v: false, rotate: 180 };
-        
-        const modelTexturePresets = {
-            'SamusPlushie_body': { u: true, v: false, rotate: 180 },
-            'BambooCopter_head': { u: false, v: false, rotate: 0 },
-            'ClownNose_head': { u: false, v: false, rotate: 0 },
-            'FoxMask_head': { u: false, v: true, rotate: 0 },
-            'FrogHatSmile_head': { u: false, v: true, rotate: 0 },
-            'AmyBackpack_body': { u: false, v: true, rotate: 0 }
-        };
-        
-        function applyModelPreset(bundleName) {
-            const preset = modelTexturePresets[bundleName] || { u: false, v: false, rotate: 0 };
-            textureFlip = { ...preset };
-            document.getElementById('flipTextureU').checked = preset.u;
-            document.getElementById('flipTextureV').checked = preset.v;
-            document.getElementById('textureRotate').value = preset.rotate;
-            updateSceneTextureFlips();
-        }
+        // Unity uses DirectX convention (V=0 at bottom), Three.js uses OpenGL (V=0 at top)
+        // Always flip V to match Unity's coordinate system
+        const UNITY_TEXTURE_FLIP_V = true;
 
         const orientationPresets = {
             none: { x: 0, y: 0, z: 0 },
@@ -542,7 +505,6 @@
 
             clearScene();
             currentBundle = { name: bundleName };
-            applyModelPreset(bundleName);
             await loadAndRenderBundle(bundleName);
         });
 
@@ -735,8 +697,7 @@
             }
             console.log(`meshToGameObject:`, meshToGameObject);
 
-            // Apply texture transforms with default settings (Flip U + Rotate 180)
-            setTimeout(() => updateSceneTextureFlips(), 100);
+            // Textures already have Flip V applied via applyTextureTransform
             
             // Store current bundle name for model-specific presets
             currentBundle.name = bundleName;
@@ -864,25 +825,16 @@
         
 
         function applyTextureTransform(texture, texEntry) {
-            if (!texture.userData) {
-                texture.userData = {};
-            }
             const scale = texEntry?.scale || { x: 1, y: 1 };
             const offset = texEntry?.offset || { x: 0, y: 0 };
 
-            texture.userData.baseScale = { x: scale.x ?? 1, y: scale.y ?? 1 };
-            texture.userData.baseOffset = { x: offset.x ?? 0, y: offset.y ?? 0 };
+            let repX = scale.x ?? 1;
+            let repY = scale.y ?? 1;
+            let offX = offset.x ?? 0;
+            let offY = offset.y ?? 0;
 
-            let repX = texture.userData.baseScale.x;
-            let repY = texture.userData.baseScale.y;
-            let offX = texture.userData.baseOffset.x;
-            let offY = texture.userData.baseOffset.y;
-
-            if (textureFlip.u) {
-                repX = -repX;
-                offX = 1 - offX;
-            }
-            if (textureFlip.v) {
+            // Always flip V for Unity assets (coordinate system difference)
+            if (UNITY_TEXTURE_FLIP_V) {
                 repY = -repY;
                 offY = 1 - offY;
             }
@@ -890,7 +842,7 @@
             texture.repeat.set(repX, repY);
             texture.offset.set(offX, offY);
             texture.center.set(0.5, 0.5);
-            texture.rotation = (textureFlip.rotate || 0) * Math.PI / 180;
+            texture.rotation = 0;
             texture.needsUpdate = true;
         }
 
@@ -1310,27 +1262,7 @@
             updateStatsDisplay();
         }
 
-        function updateSceneTextureFlips() {
-            for (const mesh of currentMeshes) {
-                const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-                for (const mat of mats) {
-                    if (!mat) continue;
-                    const textureProps = ['map', 'normalMap', 'metalnessMap', 'specularMap', 'aoMap', 'emissiveMap'];
-                    for (const prop of textureProps) {
-                        const tex = mat[prop];
-                        if (tex) {
-                            const baseScale = tex.userData?.baseScale;
-                            const baseOffset = tex.userData?.baseOffset;
-                            applyTextureTransform(tex, {
-                                scale: baseScale || { x: 1, y: 1 },
-                                offset: baseOffset || { x: 0, y: 0 }
-                            });
-                        }
-                    }
-                    mat.needsUpdate = true;
-                }
-            }
-        }
+
 
         function fitCameraToScene() {
             if (currentMeshes.length === 0) {
@@ -1498,22 +1430,6 @@
             orientationSelect.value = 'y180';
             applyOrientationPreset('y180');
         });
-        const flipTextureU = document.getElementById('flipTextureU');
-        const flipTextureV = document.getElementById('flipTextureV');
-        const textureRotate = document.getElementById('textureRotate');
-        flipTextureU.addEventListener('change', (e) => {
-            textureFlip.u = e.target.checked;
-            updateSceneTextureFlips();
-        });
-        flipTextureV.addEventListener('change', (e) => {
-            textureFlip.v = e.target.checked;
-            updateSceneTextureFlips();
-        });
-        textureRotate.addEventListener('change', (e) => {
-            textureFlip.rotate = Number(e.target.value) || 0;
-            updateSceneTextureFlips();
-        });
-        
         // Wireframe toggle
         document.getElementById('wireframeToggle').addEventListener('change', (e) => {
             const wireframe = e.target.checked;
