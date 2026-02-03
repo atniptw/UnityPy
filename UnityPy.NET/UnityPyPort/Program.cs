@@ -1,4 +1,5 @@
 ﻿using UnityPyPort;
+using System.Diagnostics;
 
 if (args.Length < 2)
 {
@@ -11,7 +12,22 @@ if (args.Length < 2)
 var inputPath = args[0];
 var outputPath = args[1];
 
-SnapshotGenerator.GenerateSnapshots(inputPath, outputPath);
+Console.WriteLine("UnityPy .NET Port - Snapshot Generator");
+Console.WriteLine("======================================\n");
 
-Console.WriteLine("\n✅ Snapshot generation complete");
-return 0;
+try
+{
+    SnapshotGenerator.GenerateSnapshots(inputPath, outputPath);
+    Console.WriteLine("\n✅ Snapshot generation complete");
+    return 0;
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"\n❌ Error: {ex.Message}");
+    if (ex.InnerException != null)
+    {
+        Console.WriteLine($"   Inner: {ex.InnerException.Message}");
+    }
+    Console.WriteLine($"\n{ex.StackTrace}");
+    return 1;
+}

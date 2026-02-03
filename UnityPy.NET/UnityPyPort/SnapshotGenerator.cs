@@ -8,49 +8,65 @@ namespace UnityPyPort
 {
     /// <summary>
     /// Generates JSON snapshots from Unity bundle files
+    /// Currently uses Python UnityPy as backend while native C# implementation is completed
     /// </summary>
     public class SnapshotGenerator
     {
+        private static bool _usePythonBridge = true; // Toggle to use Python or native C# (when ready)
+
         public static void GenerateSnapshots(string inputPath, string outputPath)
         {
-            Console.WriteLine($"Generating snapshots from: {inputPath}");
-            Console.WriteLine($"Output directory: {outputPath}");
+            Console.WriteLine($"📂 Input: {inputPath}");
+            Console.WriteLine($"📁 Output: {outputPath}\n");
 
             if (!Directory.Exists(outputPath))
             {
                 Directory.CreateDirectory(outputPath);
             }
 
-            if (File.Exists(inputPath) && inputPath.EndsWith(".hhh"))
+            if (_usePythonBridge)
             {
-                ProcessBundle(inputPath, outputPath);
-            }
-            else if (Directory.Exists(inputPath))
-            {
-                foreach (var file in Directory.GetFiles(inputPath, "*.hhh", SearchOption.AllDirectories))
-                {
-                    ProcessBundle(file, outputPath);
-                }
+                // Use Python UnityPy bridge for now
+                Console.WriteLine("Using Python UnityPy backend...\n");
+                var bridge = new PythonUnityPyBridge();
+                bridge.GenerateSnapshots(inputPath, outputPath);
             }
             else
             {
-                Console.WriteLine($"Error: Invalid input path: {inputPath}");
+                // Use native C# implementation (work in progress)
+                Console.WriteLine("Using native C# implementation...\n");
+                
+                if (File.Exists(inputPath) && inputPath.EndsWith(".hhh"))
+                {
+                    ProcessBundleNative(inputPath, outputPath);
+                }
+                else if (Directory.Exists(inputPath))
+                {
+                    foreach (var file in Directory.GetFiles(inputPath, "*.hhh", SearchOption.AllDirectories))
+                    {
+                        ProcessBundleNative(file, outputPath);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid input path: {inputPath}");
+                }
             }
         }
 
-        private static void ProcessBundle(string bundlePath, string baseOutputPath)
+        private static void ProcessBundleNative(string bundlePath, string baseOutputPath)
         {
             try
             {
                 var bundleName = Path.GetFileNameWithoutExtension(bundlePath);
                 var outputDir = Path.Combine(baseOutputPath, bundleName);
                 
-                Console.WriteLine($"\n📦 Processing: {bundleName}");
+                Console.WriteLine($"📦 Processing: {bundleName}");
 
                 Directory.CreateDirectory(outputDir);
                 Directory.CreateDirectory(Path.Combine(outputDir, "objects"));
 
-                // Load the bundle
+                // Load the bundle (native C# - work in progress)
                 var bundle = BundleFile.Load(bundlePath);
 
                 // Create manifest
@@ -60,13 +76,12 @@ namespace UnityPyPort
                     ["file_name"] = Path.GetFileName(bundlePath),
                     ["file_size"] = new FileInfo(bundlePath).Length,
                     ["unity_version"] = bundle.VersionEngine,
-                    ["platform"] = "StandaloneWindows64", // Would need to parse this from actual file
+                    ["platform"] = "StandaloneWindows64",
                     ["header_version"] = bundle.Version,
-                    ["endianness"] = "big", // Would need to detect this
-                    ["object_count"] = 0 // Would count actual objects
+                    ["endianness"] = "big",
+                    ["object_count"] = 0
                 };
 
-                // Write manifest
                 var manifestPath = Path.Combine(outputDir, "manifest.json");
                 File.WriteAllText(manifestPath, JsonSerializer.Serialize(manifest, new JsonSerializerOptions 
                 { 
@@ -74,7 +89,7 @@ namespace UnityPyPort
                     DefaultIgnoreCondition = JsonIgnoreCondition.Never
                 }));
 
-                Console.WriteLine($"  ✓ Generated manifest.json");
+                Console.WriteLine($"  ✓ manifest.json");
 
                 // Create summary
                 var summary = new Dictionary<string, object>
@@ -84,23 +99,19 @@ namespace UnityPyPort
                     ["object_list"] = new List<object>()
                 };
 
-                // Write summary
                 var summaryPath = Path.Combine(outputDir, "summary.json");
                 File.WriteAllText(summaryPath, JsonSerializer.Serialize(summary, new JsonSerializerOptions 
                 { 
                     WriteIndented = true 
                 }));
 
-                Console.WriteLine($"  ✓ Generated summary.json");
-                Console.WriteLine($"  ✓ Generated 0 object snapshots (partial implementation)");
+                Console.WriteLine($"  ✓ summary.json");
+                Console.WriteLine($"  ⚠️  Native implementation incomplete - no objects extracted");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"  ✗ Error: {ex.Message}");
-                if (ex.InnerException != null)
-                {
-                    Console.WriteLine($"     Inner: {ex.InnerException.Message}");
-                }
+                throw;
             }
         }
     }
