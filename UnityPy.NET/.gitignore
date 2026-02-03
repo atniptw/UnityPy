@@ -1,0 +1,22 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# IDE files
+.vs/
+.vscode/
+.idea/
+*.swp
+
+# NuGet packages (optional - keep or remove depending on strategy)
+*.nupkg
+*.snupkg
+
+# Test results
+TestResults/
+*.trx
