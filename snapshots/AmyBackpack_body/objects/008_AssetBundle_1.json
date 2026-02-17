@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "path_id": "1",
+    "class_id": 142,
+    "type": "AssetBundle",
+    "byte_start": 148312,
+    "byte_size": 300
+  },
+  "data": {
+    "m_Name": "amybackpack_body",
+    "m_PreloadTable": [
+      {
+        "m_FileID": 1,
+        "m_PathID": "6"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-9135392002866439389"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-7479886170387608535"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-6993390729261063401"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5531673174848137642"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5025027947436586441"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-4850512016903265157"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-3750516120206838163"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-898907462038277324"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "559572228632704274"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "3953076149058189449"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "4713954743944022118"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "6439606791312674682"
+      }
+    ],
+    "m_Container": [
+      [
+        "assets/amybackpack.prefab",
+        {
+          "preloadIndex": 0,
+          "preloadSize": 13,
+          "asset": {
+            "m_FileID": 0,
+            "m_PathID": "-3750516120206838163"
+          }
+        }
+      ]
+    ],
+    "m_MainAsset": {
+      "preloadIndex": 0,
+      "preloadSize": 0,
+      "asset": {
+        "m_FileID": 0,
+        "m_PathID": "0"
+      }
+    },
+    "m_RuntimeCompatibility": 1,
+    "m_AssetBundleName": "amybackpack_body",
+    "m_Dependencies": [],
+    "m_IsStreamedSceneAssetBundle": 0,
+    "m_ExplicitDataLayout": 0,
+    "m_PathFlags": 7,
+    "m_SceneHashes": []
+  }
+}

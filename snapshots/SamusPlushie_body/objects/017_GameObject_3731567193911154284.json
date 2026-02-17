@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "3731567193911154284",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 680632,
+    "byte_size": 35
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "931698863719161109"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "Samus",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

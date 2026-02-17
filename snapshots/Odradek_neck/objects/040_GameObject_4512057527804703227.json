@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "path_id": "4512057527804703227",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 487224,
+    "byte_size": 51
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "2132095105201657910"
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "7300337483850135494"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "Spot Light",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

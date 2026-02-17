@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "-7340819595955062277",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 172728,
+    "byte_size": 47
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "7924662346937357174"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "eyeLidUp_02_r_end",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

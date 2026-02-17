@@ -1,0 +1,27 @@
+{
+  "name": "unitypy",
+  "version": "1.0.0",
+  "description": "[![Discord server invite](https://discordapp.com/api/guilds/603359898507673630/embed.png)](https://discord.gg/C6txv7M) [![PyPI supported Python versions](https://img.shields.io/pypi/pyversions/UnityPy.svg)](https://pypi.python.org/pypi/UnityPy) [![Win/Mac/Linux](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-informational)]() [![MIT](https://img.shields.io/github/license/K0lb3/UnityPy)](https://github.com/K0lb3/UnityPy/blob/master/LICENSE) ![Test](https://github.com/K0lb3/UnityPy/workflows/Test/badge.svg)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atniptw/UnityPy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/atniptw/UnityPy/issues"
+  },
+  "homepage": "https://github.com/atniptw/UnityPy#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.1"
+  }
+}

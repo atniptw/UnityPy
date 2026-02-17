@@ -1,0 +1,109 @@
+{
+  "total_objects": 13,
+  "objects_by_type": {
+    "MeshFilter": 1,
+    "Animator": 1,
+    "GameObject": 2,
+    "Shader": 1,
+    "Mesh": 1,
+    "AnimatorController": 1,
+    "MeshRenderer": 1,
+    "AssetBundle": 1,
+    "Material": 1,
+    "Transform": 2,
+    "AnimationClip": 1
+  },
+  "object_list": [
+    {
+      "path_id": "-8403107082501273168",
+      "class_id": 33,
+      "type": "MeshFilter",
+      "byte_start": 121376,
+      "byte_size": 24
+    },
+    {
+      "path_id": "-8194234979324779347",
+      "class_id": 95,
+      "type": "Animator",
+      "byte_start": 121400,
+      "byte_size": 56
+    },
+    {
+      "path_id": "-7175832566522114417",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 121456,
+      "byte_size": 87
+    },
+    {
+      "path_id": "-4850512016903265157",
+      "class_id": 48,
+      "type": "Shader",
+      "byte_start": 121544,
+      "byte_size": 47864
+    },
+    {
+      "path_id": "-3164586831722678914",
+      "class_id": 43,
+      "type": "Mesh",
+      "byte_start": 169408,
+      "byte_size": 2452
+    },
+    {
+      "path_id": "-2634883155746090489",
+      "class_id": 91,
+      "type": "AnimatorController",
+      "byte_start": 171864,
+      "byte_size": 440
+    },
+    {
+      "path_id": "-797510951273198726",
+      "class_id": 23,
+      "type": "MeshRenderer",
+      "byte_start": 172304,
+      "byte_size": 156
+    },
+    {
+      "path_id": "1",
+      "class_id": 142,
+      "type": "AssetBundle",
+      "byte_start": 172464,
+      "byte_size": 336
+    },
+    {
+      "path_id": "547260694816892257",
+      "class_id": 21,
+      "type": "Material",
+      "byte_start": 172800,
+      "byte_size": 908
+    },
+    {
+      "path_id": "2959835936093411156",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 173712,
+      "byte_size": 68
+    },
+    {
+      "path_id": "3036998545299196508",
+      "class_id": 74,
+      "type": "AnimationClip",
+      "byte_start": 173784,
+      "byte_size": 2508
+    },
+    {
+      "path_id": "7061383004192045992",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 176296,
+      "byte_size": 80
+    },
+    {
+      "path_id": "7648173231481533602",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 176376,
+      "byte_size": 39
+    }
+  ]
+}

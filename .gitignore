@@ -3,6 +3,10 @@ test.py
 AssetStudio/
 .vscode/
 
+# Node modules and package files
+node_modules/
+npm-debug.log
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "-5600531508017938762",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 175088,
+    "byte_size": 35
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "7699621926092522715"
+        }
+      }
+    ],
+    "m_Layer": 7,
+    "m_Name": "Aku Aku",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

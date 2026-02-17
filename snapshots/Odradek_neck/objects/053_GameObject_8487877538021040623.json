@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "path_id": "8487877538021040623",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 491664,
+    "byte_size": 59
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "-6526795557185270875"
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "-7337723223410246801"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "Odradek\u5965\u5353\u5fb7\u514b",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

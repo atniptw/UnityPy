@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnityPy Snapshot Viewer - 3D Asset Inspector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: #e0e0e0;
+            overflow: hidden;
+        }
+
+        #canvas {
+            display: block;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .controls-panel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(30, 30, 30, 0.95);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            max-width: 350px;
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #00d4ff;
+        }
+
+        .section {
+            margin-bottom: 15px;
+        }
+
+        .section-header {
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            background: #2d2d2d;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        select:hover, button:hover {
+            background: #3d3d3d;
+            border-color: #00d4ff;
+        }
+
+        button {
+            background: #0066cc;
+            border-color: #0088ff;
+            color: #fff;
+        }
+
+        button:active {
+            background: #004499;
+        }
+
+        .object-list {
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 4px;
+            max-height: 250px;
+            overflow-y: auto;
+            font-size: 12px;
+        }
+
+        .object-item {
+            padding: 6px 10px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .object-item:hover {
+            background: #333;
+        }
+
+        .object-item.selected {
+            background: #0066cc;
+            color: #fff;
+        }
+
+        .object-item-name {
+            font-weight: 500;
+        }
+
+        .object-item-type {
+            color: #888;
+            font-size: 11px;
+        }
+
+        .stats {
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: #888;
+        }
+
+        .stat-value {
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .info-message {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 3px solid #00d4ff;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            line-height: 1.4;
+            margin: 8px 0;
+        }
+
+        .viewport-info {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .viewport-info div {
+            margin: 2px 0;
+            color: #888;
+        }
+
+        .viewport-info span {
+            color: #00d4ff;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #252525;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .loading {
+            color: #ffaa00;
+        }
+
+        .error {
+            color: #ff3333;
+        }
+
+        .success {
+            color: #00dd00;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div class="controls-panel">
+        <div class="panel-title">📦 Snapshot Viewer</div>
+
+        <div class="section">
+            <div class="section-header">Bundle</div>
+            <select id="bundleSelect">
+                <option value="">-- Select Bundle --</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Objects in Bundle</div>
+            <div id="objectList" class="object-list"></div>
+        </div>
+
+        <div class="section">
+            <button id="clearBtn">Clear Scene</button>
+            <button id="fitCameraBtn">Fit to View</button>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Visualization</div>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px;">
+                <input type="checkbox" id="wireframeToggle" style="cursor: pointer; width: 16px; height: 16px;">
+                Wireframe
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px; margin-top: 8px;">
+                <input type="checkbox" id="normalsToggle" style="cursor: pointer; width: 16px; height: 16px;">
+                Show Normals
+            </label>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Texture Flip</div>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px;">
+                <input type="checkbox" id="flipTextureU" style="cursor: pointer; width: 16px; height: 16px;" checked>
+                Flip U (Horizontal)
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px; margin-top: 8px;">
+                <input type="checkbox" id="flipTextureV" style="cursor: pointer; width: 16px; height: 16px;">
+                Flip V (Vertical)
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #e0e0e0; font-size: 13px; margin-top: 8px;">
+                Rotate
+                <select id="textureRotate" style="width: auto; flex: 1;">
+                    <option value="0">0°</option>
+                    <option value="90">90°</option>
+                    <option value="180" selected>180°</option>
+                    <option value="270">270°</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Orientation</div>
+            <select id="orientationPreset">
+                <option value="none">No Rotation</option>
+                <option value="y180" selected>Y +180°</option>
+                <option value="x180">X +180°</option>
+                <option value="z180">Z +180°</option>
+                <option value="xy180">X +180° + Y +180°</option>
+                <option value="yz180">Y +180° + Z +180°</option>
+                <option value="xz180">X +180° + Z +180°</option>
+            </select>
+            <button id="resetOrientationBtn">Reset Orientation</button>
+        </div>
+
+        <div class="section" id="statsSection" style="display: none;">
+            <div class="section-header">Selected Object Stats</div>
+            <div class="stats" id="stats"></div>
+        </div>
+
+        <div class="section">
+            <div class="info-message">
+                💡 Select a bundle, then click objects to view. Use mouse to orbit/pan the camera.
+            </div>
+        </div>
+    </div>
+
+    <div class="viewport-info">
+        <div>Objects: <span id="objCount">0</span></div>
+        <div>Vertices: <span id="vertCount">0</span></div>
+        <div>Triangles: <span id="triCount">0</span></div>
+        <div>FPS: <span id="fps">--</span></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/helpers/VertexNormalsHelper.js"></script>
+
+    <script>
+        // ==================== Scene Setup ====================
+        const canvas = document.getElementById('canvas');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1a1a);
+        scene.fog = new THREE.Fog(0x1a1a1a, 100, 1000);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 1, 3);
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true;
+        renderer.outputEncoding = THREE.sRGBEncoding;
+
+        // Create basic orbit controls (fallback if CDN fails)
+        let controls;
+        if (typeof THREE.OrbitControls === 'undefined') {
+            // Simple fallback camera controller
+            controls = {
+                enableDamping: true,
+                dampingFactor: 0.05,
+                autoRotate: false,
+                target: new THREE.Vector3(0, 0, 0),
+                update: function() {
+                    const direction = new THREE.Vector3().subVectors(camera.position, this.target);
+                    direction.normalize();
+                }
+            };
+            
+            let mouseDown = false, mouseX = 0, mouseY = 0;
+            canvas.addEventListener('mousedown', (e) => { mouseDown = true; mouseX = e.clientX; mouseY = e.clientY; });
+            canvas.addEventListener('mouseup', () => { mouseDown = false; });
+            canvas.addEventListener('mousemove', (e) => {
+                if (mouseDown) {
+                    const deltaX = e.clientX - mouseX;
+                    const deltaY = e.clientY - mouseY;
+                    
+                    const distance = camera.position.distanceTo(controls.target);
+                    const theta = Math.atan2(camera.position.x - controls.target.x, camera.position.z - controls.target.z);
+                    const phi = Math.acos((camera.position.y - controls.target.y) / distance);
+                    
+                    const newTheta = theta - deltaX * 0.005;
+                    const newPhi = Math.max(0.1, Math.min(Math.PI - 0.1, phi + deltaY * 0.005));
+                    
+                    camera.position.x = controls.target.x + distance * Math.sin(newPhi) * Math.sin(newTheta);
+                    camera.position.y = controls.target.y + distance * Math.cos(newPhi);
+                    camera.position.z = controls.target.z + distance * Math.sin(newPhi) * Math.cos(newTheta);
+                    camera.lookAt(controls.target);
+                    
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                }
+            });
+            
+            canvas.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const direction = new THREE.Vector3().subVectors(camera.position, controls.target);
+                const currentDistance = direction.length();
+                const zoomSpeed = Math.max(0.1, currentDistance * 0.1);
+                const newDistance = Math.max(0.5, Math.min(500, currentDistance + e.deltaY * zoomSpeed * 0.01));
+                direction.normalize();
+                direction.multiplyScalar(newDistance);
+                camera.position.copy(controls.target).add(direction);
+                camera.lookAt(controls.target);
+            }, false);
+        } else {
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+        }
+
+        // ==================== Lighting ====================
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(10, 20, 10);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 2048;
+        directionalLight.shadow.mapSize.height = 2048;
+        scene.add(directionalLight);
+
+        // ==================== Grid ====================
+        const gridHelper = new THREE.GridHelper(50, 50, 0x444444, 0x222222);
+        scene.add(gridHelper);
+        
+        // ==================== Axes Helper ====================
+        const axesHelper = new THREE.AxesHelper(1);
+        scene.add(axesHelper);
+
+        // ==================== Model Root (Orientation) ====================
+        const modelRoot = new THREE.Group();
+        scene.add(modelRoot);
+
+        let textureFlip = { u: true, v: false, rotate: 180 };
+        
+        const modelTexturePresets = {
+            'SamusPlushie_body': { u: true, v: false, rotate: 180 },
+            'BambooCopter_head': { u: false, v: false, rotate: 0 },
+            'ClownNose_head': { u: false, v: false, rotate: 0 },
+            'FoxMask_head': { u: false, v: true, rotate: 0 },
+            'FrogHatSmile_head': { u: false, v: true, rotate: 0 },
+            'AmyBackpack_body': { u: false, v: true, rotate: 0 }
+        };
+        
+        function applyModelPreset(bundleName) {
+            const preset = modelTexturePresets[bundleName] || { u: false, v: false, rotate: 0 };
+            textureFlip = { ...preset };
+            document.getElementById('flipTextureU').checked = preset.u;
+            document.getElementById('flipTextureV').checked = preset.v;
+            document.getElementById('textureRotate').value = preset.rotate;
+            updateSceneTextureFlips();
+        }
+
+        const orientationPresets = {
+            none: { x: 0, y: 0, z: 0 },
+            y180: { x: 0, y: Math.PI, z: 0 },
+            x180: { x: Math.PI, y: 0, z: 0 },
+            z180: { x: 0, y: 0, z: Math.PI },
+            xy180: { x: Math.PI, y: Math.PI, z: 0 },
+            yz180: { x: 0, y: Math.PI, z: Math.PI },
+            xz180: { x: Math.PI, y: 0, z: Math.PI }
+        };
+
+        function applyOrientationPreset(presetKey) {
+            const preset = orientationPresets[presetKey] || orientationPresets.y180;
+            modelRoot.rotation.set(preset.x, preset.y, preset.z);
+        }
+
+        // ==================== State ====================
+        let bundles = {};
+        let currentBundle = { name: null };
+        let selectedObject = null;
+        let currentMeshes = [];
+        let materialRegistry = {};  // pathId -> material data
+        let textureRegistry = {};  // pathId -> texture file path
+        let textureLoader = new THREE.TextureLoader();
+        let meshToGameObject = {};  // meshPathId -> gameObjectPathId
+        let gameObjectToMaterials = {};  // gameObjectPathId -> [materialPathId]
+        let stats = {
+            objCount: 0,
+            vertCount: 0,
+            triCount: 0
+        };
+
+        // ==================== Load Snapshots ====================
+        async function loadBundles() {
+            try {
+                // Load bundle index with cache buster
+                const indexRes = await fetch('snapshots_index.json?t=' + Date.now());
+                const bundlesData = await indexRes.json();
+                console.log('Loaded index with bundles:', Object.keys(bundlesData));
+
+                for (const [bundleName, bundleInfo] of Object.entries(bundlesData)) {
+                    try {
+                        let manifest = null;
+                        let basePath = null;
+                        
+                        // Try new nested path first
+                        let nestedPath = `snapshots/${bundleName}/${bundleName}/manifest.json`;
+                        let flatPath = `snapshots/${bundleName}/manifest.json`;
+                        
+                        try {
+                            let manifestRes = await fetch(nestedPath);
+                            if (manifestRes.ok) {
+                                manifest = await manifestRes.json();
+                                basePath = `snapshots/${bundleName}/${bundleName}`;
+                                console.log(`✓ Loaded ${bundleName} from nested path`);
+                            }
+                        } catch (e) {
+                            // Nested path failed, try flat path
+                        }
+                        
+                        // If nested path didn't work, try flat path
+                        if (!manifest) {
+                            let manifestRes = await fetch(flatPath);
+                            if (manifestRes.ok) {
+                                manifest = await manifestRes.json();
+                                basePath = `snapshots/${bundleName}`;
+                                console.log(`✓ Loaded ${bundleName} from flat path`);
+                            } else {
+                                console.warn(`✗ Failed to load ${bundleName} from flat path: ${manifestRes.status}`);
+                            }
+                        }
+                        
+                        if (manifest && basePath) {
+                            bundles[bundleName] = { manifest, objects: {}, basePath };
+
+                            // Use objects from index
+                            for (const objFile of bundleInfo.objects) {
+                                bundles[bundleName].objects[objFile] = null;
+                            }
+                        } else {
+                            console.warn(`Failed to load bundle ${bundleName}: manifest not found`);
+                        }
+                    } catch (e) {
+                        console.warn(`Failed to load bundle ${bundleName}:`, e);
+                    }
+                }
+
+                console.log('Total bundles loaded:', Object.keys(bundles).length);
+                populateBundleSelect();
+            } catch (e) {
+                console.error('Failed to load bundles:', e);
+                showStatus('Error loading snapshots', 'error');
+            }
+        }
+
+        function populateBundleSelect() {
+            const select = document.getElementById('bundleSelect');
+            const currentOptions = select.querySelectorAll('option').length;
+            
+            console.log('populateBundleSelect called, bundles count:', Object.keys(bundles).length);
+            
+            Object.keys(bundles).sort().forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+                console.log('Added option:', name);
+            });
+            
+            console.log('Dropdown now has', select.options.length, 'options');
+        }
+
+        // ==================== UI Updates ====================
+        document.getElementById('bundleSelect').addEventListener('change', async (e) => {
+            const bundleName = e.target.value;
+            if (!bundleName) {
+                clearScene();
+                return;
+            }
+
+            clearScene();
+            currentBundle = { name: bundleName };
+            applyModelPreset(bundleName);
+            await loadAndRenderBundle(bundleName);
+        });
+
+        async function loadAndRenderBundle(bundleName) {
+            try {
+                console.log(`Loading bundle: ${bundleName}`);
+                
+                const bundle = bundles[bundleName];
+                const basePath = bundle.basePath || `snapshots/${bundleName}`;
+                
+                // Load texture index if available
+                textureRegistry = {};
+                try {
+                    const texIndexResponse = await fetch(`${basePath}/textures_index.json`);
+                    if (texIndexResponse.ok) {
+                        textureRegistry = await texIndexResponse.json();
+                        console.log(`  Loaded texture index: ${Object.keys(textureRegistry).length} textures`);
+                    }
+                } catch (e) {
+                    // No texture index, that's fine
+                }
+                
+                clearScene();
+                
+                const objectFiles = Object.keys(bundle.objects);
+                
+                // Load all objects in the bundle
+                const allObjects = {};
+                for (const objFile of objectFiles) {
+                    try {
+                        const response = await fetch(`${basePath}/objects/${objFile}`);
+                        const data = await response.json();
+                        allObjects[data.metadata.path_id] = { file: objFile, ...data };
+                    } catch (e) {
+                        console.warn(`Failed to load ${objFile}:`, e);
+                    }
+                }
+                
+                console.log(`Loaded ${Object.keys(allObjects).length} objects`);
+                
+                // Build scene from objects
+                renderBundle(allObjects, bundleName);
+                fitCameraToScene();
+                updateBundleStats(allObjects);
+                
+                // Populate object list for reference
+                populateObjectListFromData(allObjects);
+            } catch (e) {
+                console.error('Failed to load bundle:', e);
+                showStatus(`Error loading bundle ${bundleName}`, 'error');
+            }
+        }
+
+        function populateObjectListFromData(allObjects) {
+            const listDiv = document.getElementById('objectList');
+            listDiv.innerHTML = '';
+            
+            Object.values(allObjects).sort((a, b) => {
+                const aFile = a.file.split('_')[0];
+                const bFile = b.file.split('_')[0];
+                return parseInt(aFile) - parseInt(bFile);
+            }).forEach(obj => {
+                const div = document.createElement('div');
+                div.className = 'object-item';
+                
+                const file = obj.file.replace('.json', '');
+                const [index, ...parts] = file.split('_');
+                const objType = obj.metadata?.type || 'Unknown';
+                const objName = (obj.data && obj.data.m_Name) || obj.metadata?.path_id || 'Unknown';
+
+                div.innerHTML = `
+                    <div class="object-item-name">${index}. ${objType}</div>
+                    <div class="object-item-type">${objName}</div>
+                `;
+                
+                listDiv.appendChild(div);
+            });
+        }
+
+        function renderBundle(allObjects, bundleName) {
+            console.log('Rendering bundle with', Object.keys(allObjects).length, 'objects');
+            
+            // Group objects by type
+            const meshes = {};
+            const gameObjects = {};
+            const materials = {};
+            const transforms = {};
+            const meshFilters = {};
+            const meshRenderers = {};
+            
+            for (const [pathId, obj] of Object.entries(allObjects)) {
+                if (!obj || !obj.metadata) continue;
+                
+                switch (obj.metadata.type) {
+                    case 'Mesh':
+                        meshes[pathId] = obj;
+                        break;
+                    case 'GameObject':
+                        gameObjects[pathId] = obj;
+                        break;
+                    case 'Material':
+                        materials[pathId] = obj;
+                        break;
+                    case 'Transform':
+                        transforms[pathId] = obj;
+                        break;
+                    case 'MeshFilter':
+                        meshFilters[pathId] = obj;
+                        break;
+                    case 'MeshRenderer':
+                        meshRenderers[pathId] = obj;
+                        break;
+                }
+            }
+            
+            // Build material registry from loaded Material objects
+            // Key it by the actual path_ids we'll see in MeshRenderer references
+            // IMPORTANT: Use strings for path_ids to preserve precision (JS can't handle large ints)
+            materialRegistry = {};
+            for (const [pathId, matObj] of Object.entries(allObjects)) {
+                if (matObj.metadata?.type !== 'Material') continue;
+                
+                // Extract the actual path_id from the filename since metadata.path_id is 0
+                const filename = matObj.file;
+                const pathIdMatch = filename.match(/_(-?\d+)\.json$/);
+                const actualPathId = pathIdMatch ? pathIdMatch[1] : String(pathId);  // Keep as STRING
+                
+                const matData = {};
+                if (matObj._color) {
+                    matData.color = matObj._color;
+                }
+                if (matObj._colors) {
+                    matData.colors = matObj._colors;
+                }
+                if (matObj._floats) {
+                    matData.floats = matObj._floats;
+                }
+                if (matObj._textures) {
+                    if (Array.isArray(matObj._textures)) {
+                        const textures = {};
+                        for (const entry of matObj._textures) {
+                            const key = entry?.[0];
+                            const value = entry?.[1];
+                            if (key && value) {
+                                textures[key] = value;
+                            }
+                        }
+                        if (Object.keys(textures).length > 0) {
+                            matData.textures = textures;  // {_MainTex: texture_path_id}
+                        }
+                    } else if (Object.keys(matObj._textures).length > 0) {
+                        matData.textures = matObj._textures;  // {_MainTex: texture_path_id}
+                    }
+                }
+                if (matObj.data?.m_SavedProperties?.m_TexEnvs) {
+                    const texEnvs = matObj.data.m_SavedProperties.m_TexEnvs;
+                    const textures = matData.textures ? { ...matData.textures } : {};
+                    for (const entry of texEnvs) {
+                        const key = entry?.[0];
+                        const payload = entry?.[1];
+                        const texPathId = payload?.m_Texture?.m_PathID;
+                        if (key && texPathId && texPathId !== 0) {
+                            textures[key] = {
+                                path_id: texPathId,
+                                scale: payload?.m_Scale || { x: 1, y: 1 },
+                                offset: payload?.m_Offset || { x: 0, y: 0 }
+                            };
+                        }
+                    }
+                    if (Object.keys(textures).length > 0) {
+                        matData.textures = textures;
+                    }
+                }
+                if (Object.keys(matData).length > 0) {
+                    materialRegistry[actualPathId] = matData;
+                    console.log(`Material registry['${actualPathId}'] (from file ${filename}):`, matData);
+                }
+            }
+
+            // Build mesh -> gameobject mapping from MeshFilter
+            meshToGameObject = {};
+            for (const obj of Object.values(meshFilters)) {
+                const filterData = obj.data;
+                const meshRef = filterData?.m_Mesh;
+                const goRef = filterData?.m_GameObject;
+                if (meshRef?.m_PathID && goRef?.m_PathID) {
+                    const meshId = String(meshRef.m_PathID);
+                    meshToGameObject[meshId] = String(goRef.m_PathID);
+                }
+            }
+            console.log(`meshToGameObject:`, meshToGameObject);
+
+            // Apply texture transforms with default settings (Flip U + Rotate 180)
+            setTimeout(() => updateSceneTextureFlips(), 100);
+            
+            // Store current bundle name for model-specific presets
+            currentBundle.name = bundleName;
+
+            // Build gameobject -> materials mapping from MeshRenderer
+            gameObjectToMaterials = {};
+            for (const obj of Object.values(meshRenderers)) {
+                const rendererData = obj.data;
+                const goRef = rendererData?.m_GameObject;
+                const mats = rendererData?.m_Materials || [];
+                if (goRef?.m_PathID && mats.length > 0) {
+                    const matIds = mats
+                        .map((mat) => {
+                            const id = mat?.m_PathID;
+                            return (id !== undefined && id !== null && id !== 0) ? String(id) : null;
+                        })
+                        .filter((id) => id !== null);
+                    if (matIds.length > 0) {
+                        gameObjectToMaterials[String(goRef.m_PathID)] = matIds;
+                    }
+                }
+            }
+            console.log(`gameObjectToMaterials:`, gameObjectToMaterials);
+            
+            // Build GameObject -> Transform mapping and Transform lookup by path_id
+            const gameObjectToTransform = {};
+            const transformsByPathId = {};
+            for (const [pathId, transformObj] of Object.entries(transforms)) {
+                const actualPathId = transformObj.metadata?.path_id || pathId;
+                transformsByPathId[actualPathId] = transformObj;
+                
+                const goRef = transformObj.data?.m_GameObject;
+                if (goRef?.m_PathID) {
+                    gameObjectToTransform[goRef.m_PathID] = transformObj;
+                }
+            }
+            
+            // Function to compute world transform matrix by traversing parent hierarchy
+            function getWorldTransform(transformObj, transformsByPathId) {
+                const matrix = new THREE.Matrix4();
+                const transforms = [];
+                
+                // Collect transform chain from child to root
+                let current = transformObj;
+                while (current) {
+                    transforms.unshift(current);
+                    const fatherRef = current.data?.m_Father;
+                    if (fatherRef && fatherRef.m_PathID && fatherRef.m_PathID !== 0) {
+                        const fatherPathId = String(fatherRef.m_PathID);
+                        current = transformsByPathId[fatherPathId];
+                        if (!current) break;
+                    } else {
+                        break;
+                    }
+                }
+                
+                // Apply transforms from root to child
+                for (const t of transforms) {
+                    const data = t.data;
+                    const pos = data.m_LocalPosition || { x: 0, y: 0, z: 0 };
+                    const rot = data.m_LocalRotation || { x: 0, y: 0, z: 0, w: 1 };
+                    const scale = data.m_LocalScale || { x: 1, y: 1, z: 1 };
+                    
+                    const localMatrix = new THREE.Matrix4();
+                    localMatrix.compose(
+                        new THREE.Vector3(pos.x, pos.y, pos.z),
+                        new THREE.Quaternion(rot.x, rot.y, rot.z, rot.w),
+                        new THREE.Vector3(scale.x, scale.y, scale.z)
+                    );
+                    matrix.multiply(localMatrix);
+                }
+                
+                return matrix;
+            }
+            
+            console.log(`Found: ${Object.keys(meshes).length} meshes, ${Object.keys(gameObjects).length} gameobjects, ${Object.keys(materialRegistry).length} materials, ${Object.keys(transforms).length} transforms`);
+            
+            // Render all meshes (from all MeshFilters)
+            const renderedMeshes = new Set();
+            for (const mf of Object.values(meshFilters)) {
+                const meshRef = mf.data?.m_Mesh;
+                const meshRefId = meshRef?.m_PathID !== undefined && meshRef?.m_PathID !== null
+                    ? String(meshRef.m_PathID)
+                    : null;
+                if (meshRefId && meshes[meshRefId] && !renderedMeshes.has(meshRefId)) {
+                    try {
+                        renderMesh(meshes[meshRefId], allObjects, gameObjectToTransform, transformsByPathId, getWorldTransform);
+                        renderedMeshes.add(meshRefId);
+                    } catch (e) {
+                        console.warn(`Failed to render mesh ${meshRefId}:`, e);
+                    }
+                }
+            }
+            
+            // Render any remaining meshes not referenced by MeshFilter
+            for (const [pathId, meshData] of Object.entries(meshes)) {
+                const meshId = String(pathId);
+                if (!renderedMeshes.has(meshId)) {
+                    try {
+                        renderMesh(meshData, allObjects, gameObjectToTransform, transformsByPathId, getWorldTransform);
+                        renderedMeshes.add(meshId);
+                    } catch (e) {
+                        console.warn(`Failed to render mesh ${meshId}:`, e);
+                    }
+                }
+            }
+            
+            // If no meshes, render gameobjects
+            if (renderedMeshes.size === 0) {
+                for (const [pathId, goData] of Object.entries(gameObjects)) {
+                    try {
+                        renderGameObject(goData);
+                    } catch (e) {
+                        console.warn(`Failed to render gameobject ${pathId}:`, e);
+                    }
+                }
+            }
+            
+            stats.objCount = currentMeshes.length;
+            updateStatsDisplay();
+        }
+
+        // ==================== Rendering ====================
+
+        
+
+        function applyTextureTransform(texture, texEntry) {
+            if (!texture.userData) {
+                texture.userData = {};
+            }
+            const scale = texEntry?.scale || { x: 1, y: 1 };
+            const offset = texEntry?.offset || { x: 0, y: 0 };
+
+            texture.userData.baseScale = { x: scale.x ?? 1, y: scale.y ?? 1 };
+            texture.userData.baseOffset = { x: offset.x ?? 0, y: offset.y ?? 0 };
+
+            let repX = texture.userData.baseScale.x;
+            let repY = texture.userData.baseScale.y;
+            let offX = texture.userData.baseOffset.x;
+            let offY = texture.userData.baseOffset.y;
+
+            if (textureFlip.u) {
+                repX = -repX;
+                offX = 1 - offX;
+            }
+            if (textureFlip.v) {
+                repY = -repY;
+                offY = 1 - offY;
+            }
+
+            texture.repeat.set(repX, repY);
+            texture.offset.set(offX, offY);
+            texture.center.set(0.5, 0.5);
+            texture.rotation = (textureFlip.rotate || 0) * Math.PI / 180;
+            texture.needsUpdate = true;
+        }
+
+        function buildMaterialOptions(materialData, hasVertexColors) {
+            // Create material with color from asset or fallback to random
+            let color;
+            if (materialData && materialData.colors && materialData.colors._BaseColor) {
+                const bc = materialData.colors._BaseColor;
+                color = new THREE.Color(bc.r, bc.g, bc.b);
+            } else if (materialData && materialData.color) {
+                color = new THREE.Color(materialData.color.r, materialData.color.g, materialData.color.b);
+            } else {
+                color = new THREE.Color().setHSL(Math.random(), 0.7, 0.5);
+            }
+
+            const materialOptions = {
+                color: color,
+                emissive: new THREE.Color(color).multiplyScalar(0.2),
+                side: THREE.DoubleSide,
+                wireframe: false,
+                flatShading: false
+                // vertexColors disabled - causes red override
+            };
+
+            if (materialData) {
+                const floats = materialData.floats || {};
+                const colors = materialData.colors || {};
+
+                if (floats._Metallic !== undefined) {
+                    materialOptions.metalness = Math.max(0, Math.min(1, floats._Metallic));
+                }
+                const smoothness = floats._Smoothness !== undefined
+                    ? floats._Smoothness
+                    : (floats._Glossiness !== undefined ? floats._Glossiness : undefined);
+                if (smoothness !== undefined) {
+                    materialOptions.roughness = Math.max(0, Math.min(1, 1 - smoothness));
+                }
+
+                if (colors._EmissionColor) {
+                    const ec = colors._EmissionColor;
+                    materialOptions.emissive = new THREE.Color(ec.r, ec.g, ec.b);
+                }
+
+                const mode = floats._Mode;
+                const surface = floats._Surface;
+                const alphaClip = floats._AlphaClip;
+                const cutoff = floats._Cutoff !== undefined ? floats._Cutoff : 0.5;
+                if (mode !== undefined) {
+                    if (mode === 1) {
+                        materialOptions.alphaTest = cutoff;
+                    } else if (mode === 2 || mode === 3) {
+                        materialOptions.transparent = true;
+                    }
+                } else if (surface !== undefined) {
+                    if (surface === 1) {
+                        materialOptions.transparent = true;
+                    }
+                } else if (alphaClip !== undefined && alphaClip > 0.5) {
+                    materialOptions.alphaTest = cutoff;
+                }
+
+                if (materialOptions.transparent) {
+                    if (colors._Color) {
+                        materialOptions.opacity = colors._Color.a;
+                    } else if (colors._BaseColor) {
+                        materialOptions.opacity = colors._BaseColor.a;
+                    }
+                }
+
+                if (floats._ZWrite !== undefined) {
+                    materialOptions.depthWrite = floats._ZWrite > 0.5;
+                }
+            }
+
+            // Try to load textures if available (support multiple common slots)
+            const textureSlots = [
+                { key: '_MainTex', prop: 'map' },
+                { key: '_BaseMap', prop: 'map' },
+                { key: '_BaseColorMap', prop: 'map' },
+                { key: '_BumpMap', prop: 'normalMap' },
+                { key: '_NormalMap', prop: 'normalMap' },
+                { key: '_MetallicGlossMap', prop: 'metalnessMap' },
+                { key: '_MetallicMap', prop: 'metalnessMap' },
+                { key: '_SpecGlossMap', prop: 'specularMap' },
+                { key: '_OcclusionMap', prop: 'aoMap' },
+                { key: '_EmissionMap', prop: 'emissiveMap' }
+            ];
+
+            if (materialData && materialData.textures) {
+                const textureKeys = Object.keys(materialData.textures);
+                if (textureKeys.length > 0) {
+                    console.log('  Material textures:', textureKeys);
+                }
+                for (const slot of textureSlots) {
+                    const texEntry = materialData.textures[slot.key];
+                    let texPathId = null;
+                    if (texEntry && typeof texEntry === 'object') {
+                        texPathId = texEntry.path_id ?? texEntry.m_PathID ?? texEntry.m_Texture?.m_PathID ?? null;
+                    } else {
+                        texPathId = texEntry;
+                    }
+                    const texKey = (texPathId !== undefined && texPathId !== null) ? String(texPathId) : null;
+                    if (texKey && textureRegistry[texKey]) {
+                        const basePath = bundles[currentBundle.name]?.basePath || `snapshots/${currentBundle.name}`;
+                        // textureRegistry already includes 'textures/' prefix, so just concatenate
+                        const texturePath = basePath + '/' + textureRegistry[texKey];
+                        console.log(`  Loading texture (${slot.key}): ${texturePath}`);
+                        const texture = textureLoader.load(texturePath,
+                            () => console.log(`    ✓ Texture loaded (${slot.key})`),
+                            undefined,
+                            (err) => console.warn(`    ✗ Texture failed (${slot.key}):`, err)
+                        );
+
+                        if (slot.prop === 'map' || slot.prop === 'emissiveMap') {
+                            texture.encoding = THREE.sRGBEncoding;
+                        } else {
+                            texture.encoding = THREE.LinearEncoding;
+                        }
+                        texture.flipY = false;
+                        texture.wrapS = THREE.RepeatWrapping;
+                        texture.wrapT = THREE.RepeatWrapping;
+
+                        applyTextureTransform(texture, texEntry);
+
+                        materialOptions[slot.prop] = texture;
+                        if (slot.prop === 'aoMap') {
+                            materialOptions.aoMapIntensity = 1.0;
+                        }
+                        if (slot.prop === 'emissiveMap' && !materialOptions.emissive) {
+                            materialOptions.emissive = new THREE.Color(0xffffff);
+                        }
+                        if (slot.prop === 'normalMap' && materialData?.floats?._BumpScale !== undefined) {
+                            materialOptions.normalScale = new THREE.Vector2(materialData.floats._BumpScale, materialData.floats._BumpScale);
+                        }
+                    }
+                }
+            }
+
+            return materialOptions;
+        }
+
+        function renderMesh(meshData, allObjects, gameObjectToTransform = {}, transformsByPathId = {}, getWorldTransform = null) {
+            // Try to use decompressed mesh data first
+            const meshGeometry = meshData._mesh_data;
+            
+            if (!meshGeometry || !meshGeometry.vertices || meshGeometry.vertices.length === 0) {
+                console.warn('No decompressed mesh data available for:', meshData.metadata.path_id);
+                return;
+            }
+
+            const vertices = meshGeometry.vertices;  // Array of [x, y, z] coords
+            const indices = meshGeometry.indices;     // Array of triangle indices
+            
+            console.log(`Rendering mesh: ${meshData.data.m_Name}, vertices=${meshGeometry.vertex_count}, indices=${meshGeometry.index_count}`);
+
+            try {
+                // Create THREE.js geometry from decompressed data
+                const geometry = new THREE.BufferGeometry();
+                
+                // Flatten vertex array for three.js - NO SCALING, keep original data
+                const vertexArray = [];
+                for (const v of vertices) {
+                    let x, y, z;
+                    if (Array.isArray(v)) {
+                        [x, y, z] = v;
+                    } else if (typeof v === 'object' && v.x !== undefined) {
+                        x = v.x; y = v.y; z = v.z;
+                    } else {
+                        continue;
+                    }
+                    vertexArray.push(x, y, z);
+                }
+                
+                geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(vertexArray), 3));
+                
+                // Add UV coordinates if available
+                if (meshGeometry.uv0 && meshGeometry.uv0.length > 0) {
+                    const uvArray = [];
+                    for (const uv of meshGeometry.uv0) {
+                        if (Array.isArray(uv)) {
+                            uvArray.push(uv[0], uv[1]);
+                        } else if (typeof uv === 'object' && uv.x !== undefined) {
+                            uvArray.push(uv.x, uv.y);
+                        }
+                    }
+                    if (uvArray.length > 0) {
+                        geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(uvArray), 2));
+                        console.log(`  ✓ Added ${uvArray.length / 2} UV coordinates`);
+                    }
+                }
+
+                // Add UV2 for lightmaps/ao if available
+                if (meshGeometry.uv1 && meshGeometry.uv1.length > 0) {
+                    const uv2Array = [];
+                    for (const uv of meshGeometry.uv1) {
+                        if (Array.isArray(uv)) {
+                            uv2Array.push(uv[0], uv[1]);
+                        } else if (typeof uv === 'object' && uv.x !== undefined) {
+                            uv2Array.push(uv.x, uv.y);
+                        }
+                    }
+                    if (uv2Array.length > 0) {
+                        geometry.setAttribute('uv2', new THREE.BufferAttribute(new Float32Array(uv2Array), 2));
+                    }
+                }
+
+                // Add vertex colors if available (disabled by default - can cause issues)
+                let hasVertexColors = false;
+                if (meshGeometry.colors && meshGeometry.colors.length > 0) {
+                    const colorArray = [];
+                    for (const color of meshGeometry.colors) {
+                        let r, g, b, a;
+                        if (Array.isArray(color)) {
+                            [r, g, b, a] = color;
+                        } else if (typeof color === 'object' && color.r !== undefined) {
+                            r = color.r;
+                            g = color.g;
+                            b = color.b;
+                            a = color.a !== undefined ? color.a : 1.0;
+                        } else {
+                            continue;
+                        }
+                        colorArray.push(r, g, b);
+                    }
+                    if (colorArray.length > 0) {
+                        geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colorArray), 3));
+                        hasVertexColors = false;  // Keep disabled for now - enable only if needed
+                        console.log(`  ✓ Added ${colorArray.length / 3} vertex colors (disabled for rendering)`);
+                    }
+                }
+                
+                // Set indices
+                if (indices && indices.length > 0) {
+                    geometry.setIndex(new THREE.BufferAttribute(new Uint32Array(indices), 1));
+                }
+                
+                // CRITICAL: Compute bounding box so camera fit works correctly
+                geometry.computeBoundingBox();
+                
+                // Compute normals for better lighting
+                geometry.computeVertexNormals();
+                
+                // Determine materials via MeshFilter -> GameObject -> MeshRenderer chain
+                const meshPathId = meshData.metadata.path_id;
+                const gameObjectPathId = meshToGameObject[meshPathId];
+                const matPathIds = (gameObjectPathId && gameObjectToMaterials[gameObjectPathId])
+                    ? gameObjectToMaterials[gameObjectPathId]
+                    : [];
+                
+                // Convert material path IDs to strings to avoid precision loss
+                const matPathIdsStr = matPathIds.map(id => String(id));
+                
+                console.log(`Rendering mesh ${meshPathId} (GO=${gameObjectPathId}): ${matPathIdsStr.length} materials`);
+                console.log(`  Material path IDs:`, matPathIdsStr);
+                console.log(`  Material registry keys:`, Object.keys(materialRegistry));
+
+                const materialsForMesh = matPathIdsStr.map((matPathId) => {
+                    const materialData = materialRegistry[matPathId] || null;
+                    if (materialData) {
+                        console.log(`  Found material ('${matPathId}'):`, materialData);
+                    } else {
+                        console.warn(`  Material NOT found: '${matPathId}'`);
+                    }
+                    const options = buildMaterialOptions(materialData, hasVertexColors);
+                    return new THREE.MeshStandardMaterial(options);
+                });
+
+                // Fallback to a single random material if none found
+                if (materialsForMesh.length === 0) {
+                    console.log(`  No materials found for mesh, using fallback`);
+                    const fallbackOptions = buildMaterialOptions(null, hasVertexColors);
+                    materialsForMesh.push(new THREE.MeshStandardMaterial(fallbackOptions));
+                }
+
+                // Add submesh groups to map materials
+                const subMeshes = meshData.data.m_SubMeshes || [];
+                geometry.clearGroups();
+                if (subMeshes.length > 0) {
+                    let indexOffset = 0;
+                    subMeshes.forEach((sm, idx) => {
+                        const count = sm.indexCount || 0;
+                        if (count > 0) {
+                            geometry.addGroup(indexOffset, count, Math.min(idx, materialsForMesh.length - 1));
+                            indexOffset += count;
+                        }
+                    });
+                } else {
+                    geometry.addGroup(0, indices.length, 0);
+                }
+
+                const material = materialsForMesh.length === 1 ? materialsForMesh[0] : materialsForMesh;
+                
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                
+                // Add an edge geometry to highlight mesh structure
+                const edges = new THREE.EdgesGeometry(geometry);
+                const lineSegments = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x333333, linewidth: 0.5 }));
+                mesh.add(lineSegments);
+                
+                mesh.userData = {
+                    name: meshData.data.m_Name || `Mesh_${meshData.metadata.path_id}`,
+                    vertexCount: meshGeometry.vertex_count,
+                    indexCount: meshGeometry.index_count,
+                    triangleCount: Math.floor(meshGeometry.index_count / 3),
+                    hasUVs: !!(meshGeometry.uv0 && meshGeometry.uv0.length > 0),
+                    hasNormals: meshGeometry.has_normals,
+                    type: 'Mesh'
+                };
+                
+                console.log(`  ✓ Mesh created: ${mesh.userData.name}`);
+                console.log(`    Geometry: ${geometry.attributes.position.count} positions, ${geometry.index ? geometry.index.count : 0} indices`);
+                console.log(`    UVs: ${mesh.userData.hasUVs ? 'Yes' : 'No'}, Normals: ${mesh.userData.hasNormals ? 'Yes' : 'No'}`);
+                console.log(`    Material color: ${material.color.getHexString()}`);
+                
+                // Apply world transform from GameObject hierarchy
+                const goId = meshToGameObject[meshPathId];
+                if (goId && gameObjectToTransform[goId]) {
+                    const transformObj = gameObjectToTransform[goId];
+                    
+                    if (getWorldTransform && transformsByPathId) {
+                        // Compute and apply world transform matrix
+                        const worldMatrix = getWorldTransform(transformObj, transformsByPathId);
+                        mesh.matrixAutoUpdate = false;
+                        mesh.matrix.copy(worldMatrix);
+                        mesh.matrixWorldNeedsUpdate = true;
+                        console.log(`    Applied hierarchical transform for GO ${goId}`);
+                    } else {
+                        // Fallback to local transform only
+                        const transformData = transformObj.data;
+                        if (transformData) {
+                            const pos = transformData.m_LocalPosition;
+                            if (pos) {
+                                mesh.position.set(pos.x || 0, pos.y || 0, pos.z || 0);
+                            }
+                            
+                            const rot = transformData.m_LocalRotation;
+                            if (rot) {
+                                mesh.quaternion.set(rot.x || 0, rot.y || 0, rot.z || 0, rot.w || 1);
+                            }
+                            
+                            const scale = transformData.m_LocalScale;
+                            if (scale) {
+                                mesh.scale.set(scale.x || 1, scale.y || 1, scale.z || 1);
+                            }
+                            
+                            console.log(`    Transform: pos=(${pos?.x?.toFixed(2)},${pos?.y?.toFixed(2)},${pos?.z?.toFixed(2)}), rot=(${rot?.x?.toFixed(2)},${rot?.y?.toFixed(2)},${rot?.z?.toFixed(2)},${rot?.w?.toFixed(2)}), scale=(${scale?.x?.toFixed(2)},${scale?.y?.toFixed(2)},${scale?.z?.toFixed(2)})`);
+                        }
+                    }
+                }
+                
+                modelRoot.add(mesh);
+                currentMeshes.push(mesh);
+                
+                console.log(`  ✓ Added to scene. Scene now has ${scene.children.length} children`);
+                console.log(`    currentMeshes array: ${currentMeshes.length} items`);
+                
+            } catch (e) {
+                console.error(`Failed to create geometry for ${meshData.data.m_Name}:`, e);
+                
+                // Fallback to bounding box visualization
+                const data = meshData.data;
+                const sm = data.m_SubMeshes ? data.m_SubMeshes[0] : {};
+                const bounds = sm.localAABB || {};
+                const center = bounds.m_Center || { x: 0, y: 0, z: 0 };
+                let extent = bounds.m_Extent || { x: 0.01, y: 0.01, z: 0.01 };
+                
+                const boxGeom = new THREE.BoxGeometry(
+                    Math.max(0.01, Math.abs(extent.x || 0) * 2),
+                    Math.max(0.01, Math.abs(extent.y || 0) * 2),
+                    Math.max(0.01, Math.abs(extent.z || 0) * 2)
+                );
+                
+                const hue = Math.random();
+                const boxMat = new THREE.MeshPhongMaterial({
+                    color: new THREE.Color().setHSL(hue, 0.7, 0.5),
+                    wireframe: true
+                });
+                
+                const fallbackMesh = new THREE.Mesh(boxGeom, boxMat);
+                fallbackMesh.position.set(center.x || 0, center.y || 0, center.z || 0);
+                modelRoot.add(fallbackMesh);
+                currentMeshes.push(fallbackMesh);
+            }
+        }
+
+        function renderGameObject(objData) {
+            const data = objData.data;
+            const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+            const material = new THREE.MeshPhongMaterial({ 
+                color: 0xff8800,
+                emissive: 0xaa4400
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            modelRoot.add(mesh);
+            currentMeshes.push(mesh);
+            console.log(`Rendered GameObject: ${data.m_Name || objData.metadata.path_id}`);
+        }
+
+        function renderTransform(objData) {
+            const data = objData.data;
+            const pos = data.m_LocalPosition || { x: 0, y: 0, z: 0 };
+            
+            const geometry = new THREE.SphereGeometry(0.1, 8, 8);
+            const material = new THREE.MeshPhongMaterial({ color: 0x00ffff });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(pos.x, pos.y, pos.z);
+            modelRoot.add(mesh);
+            currentMeshes.push(mesh);
+        }
+
+        function clearScene() {
+            currentMeshes.forEach(mesh => modelRoot.remove(mesh));
+            currentMeshes = [];
+            stats = { objCount: 0, vertCount: 0, triCount: 0 };
+            updateStatsDisplay();
+        }
+
+        function updateSceneTextureFlips() {
+            for (const mesh of currentMeshes) {
+                const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+                for (const mat of mats) {
+                    if (!mat) continue;
+                    const textureProps = ['map', 'normalMap', 'metalnessMap', 'specularMap', 'aoMap', 'emissiveMap'];
+                    for (const prop of textureProps) {
+                        const tex = mat[prop];
+                        if (tex) {
+                            const baseScale = tex.userData?.baseScale;
+                            const baseOffset = tex.userData?.baseOffset;
+                            applyTextureTransform(tex, {
+                                scale: baseScale || { x: 1, y: 1 },
+                                offset: baseOffset || { x: 0, y: 0 }
+                            });
+                        }
+                    }
+                    mat.needsUpdate = true;
+                }
+            }
+        }
+
+        function fitCameraToScene() {
+            if (currentMeshes.length === 0) {
+                // Default view
+                camera.position.set(0, 2, 5);
+                camera.near = 0.01;
+                camera.far = 1000;
+                camera.updateProjectionMatrix();
+                controls.target.set(0, 0, 0);
+                controls.update?.();
+                return;
+            }
+
+            const box = new THREE.Box3();
+            let meshCount = 0;
+            
+            for (const mesh of currentMeshes) {
+                // Ensure bounding box is computed
+                if (mesh.geometry) {
+                    if (!mesh.geometry.boundingBox) {
+                        mesh.geometry.computeBoundingBox();
+                    }
+                    box.expandByObject(mesh);
+                    meshCount++;
+                }
+            }
+
+            // If no valid meshes, use default view
+            if (meshCount === 0 || !box.min.x) {
+                console.log("No valid meshes found, using default camera");
+                camera.position.set(0, 2, 5);
+                camera.near = 0.01;
+                camera.far = 1000;
+                camera.updateProjectionMatrix();
+                controls.target.set(0, 0, 0);
+                controls.update?.();
+                return;
+            }
+
+            const size = box.getSize(new THREE.Vector3());
+            const center = box.getCenter(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            
+            // Use proper Three.js camera framing formula from the docs:
+            // Instead of scaling vertices, just adjust camera position and near/far planes
+            const halfFovY = THREE.MathUtils.degToRad(camera.fov * 0.5);
+            const distance = (maxDim / 2) / Math.tan(halfFovY);
+            
+            // Position camera with some extra padding
+            camera.position.set(
+                center.x,
+                center.y + maxDim * 0.3,
+                center.z + distance * 1.5  // 1.5x padding
+            );
+
+            // Set near/far planes proportionally to the bounding box size
+            // This allows viewing tiny objects without clipping them
+            camera.near = maxDim / 100;   // 1/100th of bounding box
+            camera.far = maxDim * 100;    // 100x the bounding box
+            
+            camera.lookAt(center);
+            camera.updateProjectionMatrix();
+            
+            controls.target = new THREE.Vector3().copy(center);
+            if (controls.update) controls.update();
+            if (controls.autoRotate !== undefined) controls.autoRotate = false;
+            
+            console.log(`Camera fit: meshes=${meshCount}, size=${maxDim.toFixed(6)}, near=${camera.near.toFixed(6)}, far=${camera.far.toFixed(2)}, cameraZ=${camera.position.z.toFixed(4)}`);
+        }
+
+        function updateStats(objData) {
+            const type = objData.metadata.type;
+            const data = objData.data;
+
+            stats.objCount = currentMeshes.length;
+
+            if (type === 'Mesh' && data.m_SubMeshes && data.m_SubMeshes.length > 0) {
+                const sm = data.m_SubMeshes[0];
+                stats.vertCount = sm.vertexCount || 0;
+                stats.triCount = Math.floor((sm.indexCount || 0) / 3);
+            }
+
+            updateStatsDisplay();
+        }
+
+        function updateBundleStats(allObjects) {
+            let totalVerts = 0;
+            let totalTris = 0;
+            let meshCount = 0;
+            
+            for (const obj of Object.values(allObjects)) {
+                if (obj.metadata.type === 'Mesh' && obj.data.m_SubMeshes) {
+                    meshCount++;
+                    for (const sm of obj.data.m_SubMeshes) {
+                        totalVerts += sm.vertexCount || 0;
+                        totalTris += Math.floor((sm.indexCount || 0) / 3);
+                    }
+                }
+            }
+            
+            stats.vertCount = totalVerts;
+            stats.triCount = totalTris;
+            updateStatsDisplay();
+            
+            // Show bundle summary
+            const statsDiv = document.getElementById('stats');
+            statsDiv.innerHTML = `
+                <div class="stat-row">
+                    <span class="stat-label">Total Objects:</span>
+                    <span class="stat-value">${Object.keys(allObjects).length}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Meshes:</span>
+                    <span class="stat-value">${meshCount}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Total Vertices:</span>
+                    <span class="stat-value">${totalVerts.toLocaleString()}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Total Triangles:</span>
+                    <span class="stat-value">${totalTris.toLocaleString()}</span>
+                </div>
+                <div style="border-top: 1px solid #444; margin-top: 8px; padding-top: 8px; margin-bottom: 0; color: #888; font-size: 11px;">
+                    💡 Meshes centered at origin. Semi-transparent to show overlap.
+                </div>
+            `;
+            
+            document.getElementById('statsSection').style.display = 'block';
+        }
+
+        function updateStatsDisplay() {
+            // Calculate live statistics from the scene
+            let objCount = 0;
+            let vertCount = 0;
+            let triCount = 0;
+            
+            currentMeshes.forEach(mesh => {
+                objCount++;
+                if (mesh.geometry && mesh.geometry.attributes.position) {
+                    vertCount += mesh.geometry.attributes.position.count;
+                }
+                if (mesh.geometry && mesh.geometry.index) {
+                    triCount += mesh.geometry.index.count / 3;
+                }
+            });
+            
+            stats.objCount = objCount;
+            stats.vertCount = vertCount;
+            stats.triCount = triCount;
+            
+            document.getElementById('objCount').textContent = stats.objCount;
+            document.getElementById('vertCount').textContent = stats.vertCount.toLocaleString();
+            document.getElementById('triCount').textContent = stats.triCount.toLocaleString();
+        }
+
+        // ==================== UI Events ====================
+        document.getElementById('clearBtn').addEventListener('click', clearScene);
+        document.getElementById('fitCameraBtn').addEventListener('click', fitCameraToScene);
+        const orientationSelect = document.getElementById('orientationPreset');
+        const resetOrientationBtn = document.getElementById('resetOrientationBtn');
+        applyOrientationPreset(orientationSelect.value);
+        orientationSelect.addEventListener('change', (e) => applyOrientationPreset(e.target.value));
+        resetOrientationBtn.addEventListener('click', () => {
+            orientationSelect.value = 'y180';
+            applyOrientationPreset('y180');
+        });
+        const flipTextureU = document.getElementById('flipTextureU');
+        const flipTextureV = document.getElementById('flipTextureV');
+        const textureRotate = document.getElementById('textureRotate');
+        flipTextureU.addEventListener('change', (e) => {
+            textureFlip.u = e.target.checked;
+            updateSceneTextureFlips();
+        });
+        flipTextureV.addEventListener('change', (e) => {
+            textureFlip.v = e.target.checked;
+            updateSceneTextureFlips();
+        });
+        textureRotate.addEventListener('change', (e) => {
+            textureFlip.rotate = Number(e.target.value) || 0;
+            updateSceneTextureFlips();
+        });
+        
+        // Wireframe toggle
+        document.getElementById('wireframeToggle').addEventListener('change', (e) => {
+            const wireframe = e.target.checked;
+            currentMeshes.forEach(mesh => {
+                if (mesh.material && typeof mesh.material.wireframe !== 'undefined') {
+                    mesh.material.wireframe = wireframe;
+                }
+            });
+            console.log(`Wireframe: ${wireframe}`);
+        });
+        
+        // Normals visualization toggle
+        document.getElementById('normalsToggle').addEventListener('change', (e) => {
+            const showNormals = e.target.checked;
+            currentMeshes.forEach(mesh => {
+                if (showNormals && mesh.geometry) {
+                    // Remove existing normal helper if present
+                    if (mesh.userData.normalHelper) {
+                        scene.remove(mesh.userData.normalHelper);
+                    }
+                    
+                    // Create normal visualization
+                    const normalsHelper = new THREE.VertexNormalsHelper(mesh, 0.02);
+                    scene.add(normalsHelper);
+                    mesh.userData.normalHelper = normalsHelper;
+                } else if (mesh.userData.normalHelper) {
+                    // Remove normal helper
+                    scene.remove(mesh.userData.normalHelper);
+                    mesh.userData.normalHelper = null;
+                }
+            });
+            console.log(`Show normals: ${showNormals}`);
+        });
+
+        // ==================== Animation Loop ====================
+        let frameCount = 0;
+        let lastTime = Date.now();
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            controls.update();
+            
+            // Debug: log scene state occasionally
+            if (frameCount % 60 === 0) {
+                console.log(`[Render] Scene has ${scene.children.length} objects, camera at [${camera.position.x.toFixed(2)},${camera.position.y.toFixed(2)},${camera.position.z.toFixed(2)}]`);
+            }
+            
+            renderer.render(scene, camera);
+
+            // FPS counter
+            frameCount++;
+            const now = Date.now();
+            if (now - lastTime > 1000) {
+                document.getElementById('fps').textContent = frameCount;
+                frameCount = 0;
+                lastTime = now;
+            }
+        }
+
+        // ==================== Window Events ====================
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ==================== Helper Functions ====================
+        function showStatus(msg, type) {
+            console.log(`[${type}] ${msg}`);
+        }
+
+        // ==================== Initialization ====================
+        async function initializeApp() {
+            console.log('Starting initialization...');
+            try {
+                await loadBundles();
+                console.log('Bundles loaded successfully');
+            } catch (e) {
+                console.error('Failed to load bundles:', e);
+            }
+        }
+
+        // Ensure DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('DOM loaded, initializing...');
+                initializeApp();
+            });
+        } else {
+            console.log('DOM already ready, initializing...');
+            initializeApp();
+        }
+
+        animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "-7240225645040081687",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 172776,
+    "byte_size": 35
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "626918148380695674"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "beard_02",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}
