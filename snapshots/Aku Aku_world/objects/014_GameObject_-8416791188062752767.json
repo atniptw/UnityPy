@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "-8416791188062752767",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 171840,
+    "byte_size": 43
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "250667592253641685"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "eyeLidDown_03_r",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

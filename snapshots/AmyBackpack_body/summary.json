@@ -1,0 +1,107 @@
+{
+  "total_objects": 13,
+  "objects_by_type": {
+    "Transform": 3,
+    "Texture2D": 1,
+    "MeshFilter": 1,
+    "Shader": 1,
+    "GameObject": 3,
+    "AssetBundle": 1,
+    "MeshRenderer": 1,
+    "Mesh": 1,
+    "Material": 1
+  },
+  "object_list": [
+    {
+      "path_id": "-9135392002866439389",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 98384,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-7479886170387608535",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 98464,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-6993390729261063401",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 98544,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-5531673174848137642",
+      "class_id": 28,
+      "type": "Texture2D",
+      "byte_start": 98616,
+      "byte_size": 220
+    },
+    {
+      "path_id": "-5025027947436586441",
+      "class_id": 33,
+      "type": "MeshFilter",
+      "byte_start": 98840,
+      "byte_size": 24
+    },
+    {
+      "path_id": "-4850512016903265157",
+      "class_id": 48,
+      "type": "Shader",
+      "byte_start": 98864,
+      "byte_size": 49372
+    },
+    {
+      "path_id": "-3750516120206838163",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 148240,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-898907462038277324",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 148280,
+      "byte_size": 31
+    },
+    {
+      "path_id": "1",
+      "class_id": 142,
+      "type": "AssetBundle",
+      "byte_start": 148312,
+      "byte_size": 300
+    },
+    {
+      "path_id": "559572228632704274",
+      "class_id": 23,
+      "type": "MeshRenderer",
+      "byte_start": 148616,
+      "byte_size": 156
+    },
+    {
+      "path_id": "3953076149058189449",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 148776,
+      "byte_size": 59
+    },
+    {
+      "path_id": "4713954743944022118",
+      "class_id": 43,
+      "type": "Mesh",
+      "byte_start": 148840,
+      "byte_size": 16216
+    },
+    {
+      "path_id": "6439606791312674682",
+      "class_id": 21,
+      "type": "Material",
+      "byte_start": 165056,
+      "byte_size": 940
+    }
+  ]
+}

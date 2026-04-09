@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "-847775755128478537",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 229136,
+    "byte_size": 39
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "-9020293346513934392"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "MaskAkuAku",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

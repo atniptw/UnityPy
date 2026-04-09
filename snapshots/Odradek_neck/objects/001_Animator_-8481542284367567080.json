@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "path_id": "-8481542284367567080",
+    "class_id": 95,
+    "type": "Animator",
+    "byte_start": 132952,
+    "byte_size": 56
+  },
+  "data": {
+    "m_GameObject": {
+      "m_FileID": 0,
+      "m_PathID": "-5928899089776323388"
+    },
+    "m_Enabled": 1,
+    "m_Avatar": {
+      "m_FileID": 0,
+      "m_PathID": "0"
+    },
+    "m_Controller": {
+      "m_FileID": 0,
+      "m_PathID": "3196245409335344098"
+    },
+    "m_CullingMode": 0,
+    "m_UpdateMode": 0,
+    "m_ApplyRootMotion": 0,
+    "m_LinearVelocityBlending": 0,
+    "m_StabilizeFeet": 0,
+    "m_HasTransformHierarchy": 1,
+    "m_AllowConstantClipSamplingOptimization": 1,
+    "m_KeepAnimatorStateOnDisable": 0,
+    "m_WriteDefaultValuesOnDisable": 0
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "6197976032999417473",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 290168,
+    "byte_size": 39
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "2556690385631039829"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "leaf_d_05",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

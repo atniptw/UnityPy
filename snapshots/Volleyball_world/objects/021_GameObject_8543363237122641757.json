@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "path_id": "8543363237122641757",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 265440,
+    "byte_size": 51
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "5956336097773130719"
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "-9048541845831609975"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "volleyball",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

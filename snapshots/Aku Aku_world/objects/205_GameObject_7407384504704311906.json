@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "7407384504704311906",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 290592,
+    "byte_size": 39
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "-1401714754842482900"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "nostril_l",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

@@ -1,0 +1,1613 @@
+{
+  "total_objects": 228,
+  "objects_by_type": {
+    "GameObject": 110,
+    "Transform": 110,
+    "AnimationClip": 1,
+    "Material": 1,
+    "Shader": 1,
+    "SkinnedMeshRenderer": 1,
+    "Texture2D": 1,
+    "AssetBundle": 1,
+    "Animation": 1,
+    "Mesh": 1
+  },
+  "object_list": [
+    {
+      "path_id": "-9145229898951773271",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 123600,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-9129234003563326656",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 123640,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-9077369985471527375",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 123712,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-9034437811333287466",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 123792,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-9020293346513934392",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 123872,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-8961264687389699518",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 123952,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-8946911985066464691",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 124000,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-8859553626947797825",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 124040,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-8726934737886249248",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 124080,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-8688506495191503763",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 124152,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-8630194427917015448",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 124232,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-8597693703838938543",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 124312,
+      "byte_size": 47
+    },
+    {
+      "path_id": "-8587997801553261125",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 124360,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-8458209403546219954",
+      "class_id": 74,
+      "type": "AnimationClip",
+      "byte_start": 124440,
+      "byte_size": 47400
+    },
+    {
+      "path_id": "-8416791188062752767",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 171840,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-8411121275222434064",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 171888,
+      "byte_size": 164
+    },
+    {
+      "path_id": "-8368746049191423905",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172056,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-8105959190990917058",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 172096,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-8104667459168635862",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172168,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-8097987296952169566",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 172208,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-8044067355349018661",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 172288,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-8029707815217325084",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172360,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-7992980617323267855",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172408,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-7831703321256997607",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172448,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-7554622599426520353",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 172488,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-7527527500082284178",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 172568,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-7475897405087571145",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172648,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-7472979240542223705",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172688,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-7340819595955062277",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172728,
+      "byte_size": 47
+    },
+    {
+      "path_id": "-7240225645040081687",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172776,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-7213623353036973562",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 172816,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-7187769223255363416",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 172896,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-7089060604670151113",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 172944,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-6843588662687176903",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 173024,
+      "byte_size": 47
+    },
+    {
+      "path_id": "-6836831131804274315",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 173072,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-6750422615463857258",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 173112,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-6550270985619649640",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 173160,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-6402678046277406189",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 173232,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-6337348643832148953",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 173272,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-6209318376535763921",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 173320,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-6159960119383059083",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 173392,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-6123865734784395539",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 173432,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-6112680897815762990",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 173512,
+      "byte_size": 31
+    },
+    {
+      "path_id": "-6074427029815050732",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 173544,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-5811040674451003671",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 173624,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-5791556562481516060",
+      "class_id": 21,
+      "type": "Material",
+      "byte_start": 173704,
+      "byte_size": 916
+    },
+    {
+      "path_id": "-5785349753256128775",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 174624,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-5738454506280476273",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 174704,
+      "byte_size": 260
+    },
+    {
+      "path_id": "-5720112320041686436",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 174968,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-5669280637803312001",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 175048,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-5600531508017938762",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 175088,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-5316997932631577086",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 175128,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-5260864918634105625",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 175176,
+      "byte_size": 152
+    },
+    {
+      "path_id": "-5226562394431119478",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 175328,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-5174089173686717668",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 175408,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-5087778941530231371",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 175488,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-5059749634536952908",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 175528,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-5034268738963300755",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 175568,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-5023410006015589221",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 175648,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-4850512016903265157",
+      "class_id": 48,
+      "type": "Shader",
+      "byte_start": 175696,
+      "byte_size": 49372
+    },
+    {
+      "path_id": "-4723420989904097688",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225072,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-4652224399811915796",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225112,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-4615553431229413879",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225160,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-4612848636885775561",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225200,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-4398341221489557630",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 225240,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-4077685755430240954",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225320,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-4053520370204805292",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225368,
+      "byte_size": 47
+    },
+    {
+      "path_id": "-4018332027735863268",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225416,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-4016274477710174002",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225456,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-3986728893177426155",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225496,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-3973666274978504289",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225536,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-3746694964286594375",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225584,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-3728974650109727034",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 225624,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-3696573191284723428",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 225672,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-3608211005510950387",
+      "class_id": 137,
+      "type": "SkinnedMeshRenderer",
+      "byte_start": 225744,
+      "byte_size": 980
+    },
+    {
+      "path_id": "-3593579800323717571",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 226728,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-3536081416302919430",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 226808,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-3249670019513532699",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 226880,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-3240577782034407939",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 226920,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-3212509109398040781",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227000,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-3171620165467435176",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227040,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-3077975268840379017",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227080,
+      "byte_size": 47
+    },
+    {
+      "path_id": "-3065118702714193798",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 227128,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-2857610015268346176",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 227200,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-2735259116458407348",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227272,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-2728375767675400981",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 227312,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-2696640990761144231",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 227392,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-2678305526884633368",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227464,
+      "byte_size": 31
+    },
+    {
+      "path_id": "-2673259020682020988",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227496,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-2655978537451413810",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227544,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-2597196381625137696",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 227592,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-2450345807899956314",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227664,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-2404025348384375703",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 227704,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-2347173922591373132",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 227784,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-2254234114621261292",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227864,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-2241587350088321723",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 227912,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-2217758749343338629",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 227952,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-2155031126642290633",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 228024,
+      "byte_size": 35
+    },
+    {
+      "path_id": "-2039222135000837592",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 228064,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-1953846806955100528",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 228144,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-1819836935404548140",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 228184,
+      "byte_size": 47
+    },
+    {
+      "path_id": "-1609829196732231838",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 228232,
+      "byte_size": 47
+    },
+    {
+      "path_id": "-1547575041079766308",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 228280,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-1401714754842482900",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 228360,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-1374711844040274247",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 228440,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-1221648922701385165",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 228520,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-1198313727306999730",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 228560,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-1193019235734557109",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 228608,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-1177546957722574880",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 228688,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-1170427804541121705",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 228728,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-1097820114507046390",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 228808,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-1081234557867793187",
+      "class_id": 28,
+      "type": "Texture2D",
+      "byte_start": 228856,
+      "byte_size": 228
+    },
+    {
+      "path_id": "-1074666591674510984",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 229088,
+      "byte_size": 43
+    },
+    {
+      "path_id": "-847775755128478537",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 229136,
+      "byte_size": 39
+    },
+    {
+      "path_id": "-826385233056319764",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 229176,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-705805443611444161",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 229248,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-677799969639124341",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 229328,
+      "byte_size": 68
+    },
+    {
+      "path_id": "-566784869629632799",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 229400,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-487970825225694552",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 229480,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-355934053034925072",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 229560,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-274700641418146728",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 229640,
+      "byte_size": 80
+    },
+    {
+      "path_id": "-177876456226452533",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 229720,
+      "byte_size": 39
+    },
+    {
+      "path_id": "1",
+      "class_id": 142,
+      "type": "AssetBundle",
+      "byte_start": 229760,
+      "byte_size": 2876
+    },
+    {
+      "path_id": "17179582021327854",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 232640,
+      "byte_size": 80
+    },
+    {
+      "path_id": "218567520563622666",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 232720,
+      "byte_size": 68
+    },
+    {
+      "path_id": "250667592253641685",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 232792,
+      "byte_size": 80
+    },
+    {
+      "path_id": "432013802284749626",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 232872,
+      "byte_size": 39
+    },
+    {
+      "path_id": "543820706722083420",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 232912,
+      "byte_size": 35
+    },
+    {
+      "path_id": "594683705505632480",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 232952,
+      "byte_size": 80
+    },
+    {
+      "path_id": "626918148380695674",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 233032,
+      "byte_size": 80
+    },
+    {
+      "path_id": "652844961416850656",
+      "class_id": 111,
+      "type": "Animation",
+      "byte_start": 233112,
+      "byte_size": 56
+    },
+    {
+      "path_id": "678822951811074257",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 233168,
+      "byte_size": 68
+    },
+    {
+      "path_id": "687776969701891277",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 233240,
+      "byte_size": 35
+    },
+    {
+      "path_id": "695057602105402820",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 233280,
+      "byte_size": 35
+    },
+    {
+      "path_id": "758402023930774861",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 233320,
+      "byte_size": 39
+    },
+    {
+      "path_id": "910672819328799456",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 233360,
+      "byte_size": 80
+    },
+    {
+      "path_id": "914011256765665134",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 233440,
+      "byte_size": 39
+    },
+    {
+      "path_id": "922435458306260204",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 233480,
+      "byte_size": 80
+    },
+    {
+      "path_id": "939089735612046863",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 233560,
+      "byte_size": 80
+    },
+    {
+      "path_id": "1246415581883939772",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 233640,
+      "byte_size": 68
+    },
+    {
+      "path_id": "1312037113753268325",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 233712,
+      "byte_size": 47
+    },
+    {
+      "path_id": "1355927620297135420",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 233760,
+      "byte_size": 35
+    },
+    {
+      "path_id": "1362261393128564881",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 233800,
+      "byte_size": 80
+    },
+    {
+      "path_id": "1409877093329824205",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 233880,
+      "byte_size": 63
+    },
+    {
+      "path_id": "1434218293670803794",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 233944,
+      "byte_size": 39
+    },
+    {
+      "path_id": "1546282055605666969",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 233984,
+      "byte_size": 39
+    },
+    {
+      "path_id": "1558124150811685409",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 234024,
+      "byte_size": 68
+    },
+    {
+      "path_id": "1707645105010508838",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 234096,
+      "byte_size": 68
+    },
+    {
+      "path_id": "1738960133167487774",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 234168,
+      "byte_size": 152
+    },
+    {
+      "path_id": "1756999145719014318",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 234320,
+      "byte_size": 39
+    },
+    {
+      "path_id": "1795868097093386907",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 234360,
+      "byte_size": 68
+    },
+    {
+      "path_id": "1900999758170277662",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 234432,
+      "byte_size": 39
+    },
+    {
+      "path_id": "1916764514132413194",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 234472,
+      "byte_size": 35
+    },
+    {
+      "path_id": "1924613468991538274",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 234512,
+      "byte_size": 39
+    },
+    {
+      "path_id": "1928923928262816373",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 234552,
+      "byte_size": 68
+    },
+    {
+      "path_id": "1937373309269925449",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 234624,
+      "byte_size": 68
+    },
+    {
+      "path_id": "1988108045534107690",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 234696,
+      "byte_size": 68
+    },
+    {
+      "path_id": "2058820616752538692",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 234768,
+      "byte_size": 80
+    },
+    {
+      "path_id": "2119956761053889449",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 234848,
+      "byte_size": 35
+    },
+    {
+      "path_id": "2246675195581118960",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 234888,
+      "byte_size": 80
+    },
+    {
+      "path_id": "2339837014249100171",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 234968,
+      "byte_size": 39
+    },
+    {
+      "path_id": "2461214950307931371",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 235008,
+      "byte_size": 43
+    },
+    {
+      "path_id": "2481562107702272663",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 235056,
+      "byte_size": 47
+    },
+    {
+      "path_id": "2540186280162433558",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 235104,
+      "byte_size": 80
+    },
+    {
+      "path_id": "2556690385631039829",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 235184,
+      "byte_size": 80
+    },
+    {
+      "path_id": "2629380803064438602",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 235264,
+      "byte_size": 80
+    },
+    {
+      "path_id": "2713591278296190240",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 235344,
+      "byte_size": 80
+    },
+    {
+      "path_id": "2792255297697757009",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 235424,
+      "byte_size": 80
+    },
+    {
+      "path_id": "3023619865644832935",
+      "class_id": 43,
+      "type": "Mesh",
+      "byte_start": 235504,
+      "byte_size": 52972
+    },
+    {
+      "path_id": "3024403149498733769",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 288480,
+      "byte_size": 43
+    },
+    {
+      "path_id": "3035204869636998530",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 288528,
+      "byte_size": 39
+    },
+    {
+      "path_id": "3078648579740068100",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 288568,
+      "byte_size": 68
+    },
+    {
+      "path_id": "3082275140491359089",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 288640,
+      "byte_size": 80
+    },
+    {
+      "path_id": "3103650140177968564",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 288720,
+      "byte_size": 43
+    },
+    {
+      "path_id": "3162022594802168072",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 288768,
+      "byte_size": 80
+    },
+    {
+      "path_id": "3423868652351251073",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 288848,
+      "byte_size": 31
+    },
+    {
+      "path_id": "3839739853745164869",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 288880,
+      "byte_size": 43
+    },
+    {
+      "path_id": "3896871386827958118",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 288928,
+      "byte_size": 43
+    },
+    {
+      "path_id": "4016770679190642575",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 288976,
+      "byte_size": 68
+    },
+    {
+      "path_id": "4068926360744407118",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 289048,
+      "byte_size": 68
+    },
+    {
+      "path_id": "4210736514986277570",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 289120,
+      "byte_size": 39
+    },
+    {
+      "path_id": "4236922302619257884",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 289160,
+      "byte_size": 39
+    },
+    {
+      "path_id": "4439725652569478191",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 289200,
+      "byte_size": 68
+    },
+    {
+      "path_id": "4500501136820548126",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 289272,
+      "byte_size": 39
+    },
+    {
+      "path_id": "4573536505045562282",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 289312,
+      "byte_size": 68
+    },
+    {
+      "path_id": "5002079683610210417",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 289384,
+      "byte_size": 80
+    },
+    {
+      "path_id": "5098334576965876254",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 289464,
+      "byte_size": 68
+    },
+    {
+      "path_id": "5100679759177079308",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 289536,
+      "byte_size": 47
+    },
+    {
+      "path_id": "5342255475928211696",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 289584,
+      "byte_size": 80
+    },
+    {
+      "path_id": "5358128003196395996",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 289664,
+      "byte_size": 68
+    },
+    {
+      "path_id": "5450347123184594512",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 289736,
+      "byte_size": 35
+    },
+    {
+      "path_id": "5605115682044812995",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 289776,
+      "byte_size": 43
+    },
+    {
+      "path_id": "5671549643445563722",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 289824,
+      "byte_size": 68
+    },
+    {
+      "path_id": "5683070526220582726",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 289896,
+      "byte_size": 39
+    },
+    {
+      "path_id": "5804567481393273514",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 289936,
+      "byte_size": 43
+    },
+    {
+      "path_id": "5862032822502252878",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 289984,
+      "byte_size": 68
+    },
+    {
+      "path_id": "6037818125698893618",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290056,
+      "byte_size": 39
+    },
+    {
+      "path_id": "6040212188504659339",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 290096,
+      "byte_size": 68
+    },
+    {
+      "path_id": "6197976032999417473",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290168,
+      "byte_size": 39
+    },
+    {
+      "path_id": "6605061765307854046",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290208,
+      "byte_size": 47
+    },
+    {
+      "path_id": "6738307723393170926",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 290256,
+      "byte_size": 68
+    },
+    {
+      "path_id": "6795709366784560031",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290328,
+      "byte_size": 39
+    },
+    {
+      "path_id": "7055200404947853232",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 290368,
+      "byte_size": 152
+    },
+    {
+      "path_id": "7144806951640180286",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290520,
+      "byte_size": 31
+    },
+    {
+      "path_id": "7254376313083060787",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290552,
+      "byte_size": 39
+    },
+    {
+      "path_id": "7407384504704311906",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290592,
+      "byte_size": 39
+    },
+    {
+      "path_id": "7428110078755023418",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290632,
+      "byte_size": 35
+    },
+    {
+      "path_id": "7474237099040051871",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290672,
+      "byte_size": 43
+    },
+    {
+      "path_id": "7549337048640120352",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 290720,
+      "byte_size": 68
+    },
+    {
+      "path_id": "7561688610762989247",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290792,
+      "byte_size": 39
+    },
+    {
+      "path_id": "7699621926092522715",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 290832,
+      "byte_size": 80
+    },
+    {
+      "path_id": "7720608070330554699",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 290912,
+      "byte_size": 68
+    },
+    {
+      "path_id": "7781841959968276110",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 290984,
+      "byte_size": 47
+    },
+    {
+      "path_id": "7853349817295822709",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291032,
+      "byte_size": 80
+    },
+    {
+      "path_id": "7924662346937357174",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291112,
+      "byte_size": 68
+    },
+    {
+      "path_id": "8103714763924092301",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291184,
+      "byte_size": 80
+    },
+    {
+      "path_id": "8212812070850475536",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291264,
+      "byte_size": 80
+    },
+    {
+      "path_id": "8240838040069019245",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291344,
+      "byte_size": 80
+    },
+    {
+      "path_id": "8370765689251876618",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 291424,
+      "byte_size": 39
+    },
+    {
+      "path_id": "8449436372253735551",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291464,
+      "byte_size": 80
+    },
+    {
+      "path_id": "8462124790140829286",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291544,
+      "byte_size": 80
+    },
+    {
+      "path_id": "8559739176680988171",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291624,
+      "byte_size": 92
+    },
+    {
+      "path_id": "8601989241177678588",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291720,
+      "byte_size": 68
+    },
+    {
+      "path_id": "8733745235035854927",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291792,
+      "byte_size": 68
+    },
+    {
+      "path_id": "8986215158978277811",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291864,
+      "byte_size": 68
+    },
+    {
+      "path_id": "9077677127824152166",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 291936,
+      "byte_size": 47
+    },
+    {
+      "path_id": "9091663782870219990",
+      "class_id": 4,
+      "type": "Transform",
+      "byte_start": 291984,
+      "byte_size": 68
+    },
+    {
+      "path_id": "9127458531628794610",
+      "class_id": 1,
+      "type": "GameObject",
+      "byte_start": 292056,
+      "byte_size": 39
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "7648173231481533602",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 176376,
+    "byte_size": 39
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "7061383004192045992"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "BambooCopter",
+    "m_Tag": 0,
+    "m_IsActive": 0
+  }
+}

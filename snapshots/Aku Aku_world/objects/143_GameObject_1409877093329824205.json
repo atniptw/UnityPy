@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "path_id": "1409877093329824205",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 233880,
+    "byte_size": 63
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "-2857610015268346176"
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "-3608211005510950387"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "SK_CN3803_MaskAkuAku.mo",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

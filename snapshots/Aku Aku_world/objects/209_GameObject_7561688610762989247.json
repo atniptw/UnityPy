@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "path_id": "7561688610762989247",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 290792,
+    "byte_size": 39
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "1362261393128564881"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "brow_01_l",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "path_id": "673506148854230287",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 289096,
+    "byte_size": 59
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "2208493091909205671"
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "6646797874605830890"
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "6899310923290839771"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "\u672c\u4f53",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

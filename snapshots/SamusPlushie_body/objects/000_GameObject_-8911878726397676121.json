@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "path_id": "-8911878726397676121",
+    "class_id": 1,
+    "type": "GameObject",
+    "byte_start": 98672,
+    "byte_size": 59
+  },
+  "data": {
+    "m_Component": [
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "6034696777502009410"
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "-3438676119596319185"
+        }
+      },
+      {
+        "component": {
+          "m_FileID": 0,
+          "m_PathID": "4528494630641327741"
+        }
+      }
+    ],
+    "m_Layer": 0,
+    "m_Name": "Cube.027",
+    "m_Tag": 0,
+    "m_IsActive": 1
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "path_id": "1",
+    "class_id": 142,
+    "type": "AssetBundle",
+    "byte_start": 288752,
+    "byte_size": 340
+  },
+  "data": {
+    "m_Name": "cigar_neck",
+    "m_PreloadTable": [
+      {
+        "m_FileID": 1,
+        "m_PathID": "6"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5336330473934095272"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5058973919022195266"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-4850512016903265157"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-3876313651872223835"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-485849750995343602"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "673506148854230287"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "2030470580032934200"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "2208493091909205671"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "3472461429971101586"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "3809002687882517104"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "4326092090928775552"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "4602561411803575503"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "5826309719414673988"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "6646797874605830890"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "6899310923290839771"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "8013472977279897671"
+      }
+    ],
+    "m_Container": [
+      [
+        "assets/moxing/cigar.prefab",
+        {
+          "preloadIndex": 0,
+          "preloadSize": 17,
+          "asset": {
+            "m_FileID": 0,
+            "m_PathID": "2030470580032934200"
+          }
+        }
+      ]
+    ],
+    "m_MainAsset": {
+      "preloadIndex": 0,
+      "preloadSize": 0,
+      "asset": {
+        "m_FileID": 0,
+        "m_PathID": "0"
+      }
+    },
+    "m_RuntimeCompatibility": 1,
+    "m_AssetBundleName": "cigar_neck",
+    "m_Dependencies": [],
+    "m_IsStreamedSceneAssetBundle": 0,
+    "m_ExplicitDataLayout": 0,
+    "m_PathFlags": 7,
+    "m_SceneHashes": []
+  }
+}

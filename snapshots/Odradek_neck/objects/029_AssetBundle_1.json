@@ -1,0 +1,266 @@
+{
+  "metadata": {
+    "path_id": "1",
+    "class_id": 142,
+    "type": "AssetBundle",
+    "byte_start": 483656,
+    "byte_size": 808
+  },
+  "data": {
+    "m_Name": "odradek_neck",
+    "m_PreloadTable": [
+      {
+        "m_FileID": 1,
+        "m_PathID": "6"
+      },
+      {
+        "m_FileID": 1,
+        "m_PathID": "7"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-8878704187144797799"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-8481542284367567080"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-8426289338992512197"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-8397857388900692081"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-7694345884013171638"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-7370924743570527503"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-7337723223410246801"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-6951517372778390706"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-6788178190033425160"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-6701434577197591233"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-6637434033074530822"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-6534343519222795046"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-6526795557185270875"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5928899089776323388"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5827765390554059132"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5822747858060837241"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5758228918495055383"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5692170257247299426"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-5228097375728379307"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-4957487522472407142"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-4850512016903265157"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-4289337362181000609"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-4001495822655977089"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-2593214583119097095"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-2159479854443666722"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-2121783625666557306"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-1860329576933939317"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-1198172229853287976"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "-191669984807106306"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "332411670145680450"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "422893268198537793"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "1099141598466320485"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "1545832405996232514"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "1595558325443399979"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "2132095105201657910"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "3196245409335344098"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "4203813358617426749"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "4343360948825383063"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "4410081236099641429"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "4512057527804703227"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "5283570110976499210"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "5661406634512594565"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "5777479721121412012"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "6345805600229047015"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "6932934871147137647"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "7203688626751280804"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "7231818956851743093"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "7300337483850135494"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "7825722971734022356"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "8128184293014355749"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "8264953447791587720"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "8313885482579342518"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "8487877538021040623"
+      },
+      {
+        "m_FileID": 0,
+        "m_PathID": "8864226488438227868"
+      }
+    ],
+    "m_Container": [
+      [
+        "assets/moxing/odradek.prefab",
+        {
+          "preloadIndex": 0,
+          "preloadSize": 56,
+          "asset": {
+            "m_FileID": 0,
+            "m_PathID": "8313885482579342518"
+          }
+        }
+      ]
+    ],
+    "m_MainAsset": {
+      "preloadIndex": 0,
+      "preloadSize": 0,
+      "asset": {
+        "m_FileID": 0,
+        "m_PathID": "0"
+      }
+    },
+    "m_RuntimeCompatibility": 1,
+    "m_AssetBundleName": "odradek_neck",
+    "m_Dependencies": [],
+    "m_IsStreamedSceneAssetBundle": 0,
+    "m_ExplicitDataLayout": 0,
+    "m_PathFlags": 7,
+    "m_SceneHashes": []
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "path_id": "-5025027947436586441",
+    "class_id": 33,
+    "type": "MeshFilter",
+    "byte_start": 98840,
+    "byte_size": 24
+  },
+  "data": {
+    "m_GameObject": {
+      "m_FileID": 0,
+      "m_PathID": "3953076149058189449"
+    },
+    "m_Mesh": {
+      "m_FileID": 0,
+      "m_PathID": "4713954743944022118"
+    }
+  }
+}
